@@ -1,0 +1,11 @@
+{
+  "frontY": [118, 138, 165, 194, 216, 258, 270],
+  "sideY": [118, 136, 162, 190, 213, 255, 267],
+  "depthWarpY": [118, 140, 165, 194, 216, 245, 270],
+  "sidePixelOffset": [0, 2, 7, 8, 4, 0, 0],
+  "crossSectionExponent": 1.65,
+  "blendStart": 0.68,
+  "blendEnd": 0.985,
+  "pyramidRadii": [0, 1.5, 5, 16],
+  "description": "Align eye line, nose, mouth and chin before blending. Side source is warped toward the cheek/ear correspondence. Fine detail uses a sharper ownership mask; low-frequency skin tone is blended broadly."
+}

@@ -1,0 +1,86 @@
+
+> amberwatch-character-lab@1.0.0 serve
+> python3 tools/pipeline.py serve
+
+RUN /opt/homebrew/opt/python@3.14/bin/python3.14 -m http.server 8770 --bind 127.0.0.1
+127.0.0.1 - - [25/Sep/2026 12:22:02] code 501, message Unsupported method ('POST')
+127.0.0.1 - - [25/Sep/2026 12:22:02] "POST /mcp HTTP/1.1" 501 -
+127.0.0.1 - - [25/Sep/2026 12:22:07] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [25/Sep/2026 12:22:07] "GET /src/style.css HTTP/1.1" 304 -
+127.0.0.1 - - [25/Sep/2026 12:22:07] "GET /src/viewer.js HTTP/1.1" 304 -
+127.0.0.1 - - [25/Sep/2026 12:22:07] "GET /references/knight-turnaround.png HTTP/1.1" 200 -
+127.0.0.1 - - [25/Sep/2026 12:22:07] "GET /node_modules/three/build/three.module.js HTTP/1.1" 200 -
+127.0.0.1 - - [25/Sep/2026 12:22:07] "GET /node_modules/three/examples/jsm/controls/OrbitControls.js HTTP/1.1" 200 -
+127.0.0.1 - - [25/Sep/2026 12:22:07] "GET /node_modules/three/examples/jsm/loaders/GLTFLoader.js HTTP/1.1" 200 -
+127.0.0.1 - - [25/Sep/2026 12:22:07] "GET /node_modules/three/examples/jsm/utils/BufferGeometryUtils.js HTTP/1.1" 200 -
+127.0.0.1 - - [25/Sep/2026 12:22:07] "GET /node_modules/three/build/three.core.js HTTP/1.1" 200 -
+127.0.0.1 - - [25/Sep/2026 12:22:07] "GET /assets/knight-animated.glb HTTP/1.1" 200 -
+127.0.0.1 - - [25/Sep/2026 12:22:07] "GET /animations/catalog.json HTTP/1.1" 200 -
+127.0.0.1 - - [25/Sep/2026 12:22:37] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [25/Sep/2026 12:29:22] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [25/Sep/2026 12:29:22] "GET /src/style.css HTTP/1.1" 200 -
+127.0.0.1 - - [25/Sep/2026 12:29:22] "GET /references/knight-turnaround.png HTTP/1.1" 200 -
+127.0.0.1 - - [25/Sep/2026 12:29:22] "GET /src/viewer.js HTTP/1.1" 200 -
+127.0.0.1 - - [25/Sep/2026 12:29:22] "GET /node_modules/three/build/three.module.js HTTP/1.1" 304 -
+127.0.0.1 - - [25/Sep/2026 12:29:22] "GET /node_modules/three/examples/jsm/loaders/GLTFLoader.js HTTP/1.1" 304 -
+127.0.0.1 - - [25/Sep/2026 12:29:22] "GET /node_modules/three/examples/jsm/controls/OrbitControls.js HTTP/1.1" 304 -
+127.0.0.1 - - [25/Sep/2026 12:29:22] "GET /node_modules/three/examples/jsm/utils/BufferGeometryUtils.js HTTP/1.1" 304 -
+127.0.0.1 - - [25/Sep/2026 12:29:22] "GET /node_modules/three/build/three.core.js HTTP/1.1" 304 -
+127.0.0.1 - - [25/Sep/2026 12:29:22] "GET /assets/knight-animated.glb HTTP/1.1" 200 -
+127.0.0.1 - - [25/Sep/2026 12:29:23] "GET /animations/catalog.json HTTP/1.1" 200 -
+127.0.0.1 - - [25/Sep/2026 12:31:19] "GET /assets/knight-before-projection.glb HTTP/1.1" 200 -
+127.0.0.1 - - [25/Sep/2026 12:43:32] "GET /assets/ranger-animated.glb HTTP/1.1" 200 -
+127.0.0.1 - - [25/Sep/2026 12:43:32] "GET /references/ranger/turnaround.png HTTP/1.1" 200 -
+127.0.0.1 - - [25/Sep/2026 12:43:32] "GET /animations/catalog.json HTTP/1.1" 200 -
+127.0.0.1 - - [25/Sep/2026 12:48:04] "GET /references/ranger/turnaround.png HTTP/1.1" 304 -
+127.0.0.1 - - [25/Sep/2026 12:48:15] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [25/Sep/2026 13:21:22] "GET /animations/catalog.json HTTP/1.1" 304 -
+127.0.0.1 - - [25/Sep/2026 13:21:40] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [25/Sep/2026 13:22:45] "GET / HTTP/1.1" 304 -
+127.0.0.1 - - [25/Sep/2026 13:22:45] "GET /src/style.css HTTP/1.1" 304 -
+127.0.0.1 - - [25/Sep/2026 13:22:45] "GET /references/knight-turnaround.png HTTP/1.1" 200 -
+127.0.0.1 - - [25/Sep/2026 13:22:45] "GET /src/viewer.js HTTP/1.1" 200 -
+127.0.0.1 - - [25/Sep/2026 13:22:45] "GET /node_modules/three/examples/jsm/controls/OrbitControls.js HTTP/1.1" 304 -
+127.0.0.1 - - [25/Sep/2026 13:22:45] "GET /node_modules/three/examples/jsm/loaders/GLTFLoader.js HTTP/1.1" 304 -
+127.0.0.1 - - [25/Sep/2026 13:22:45] "GET /node_modules/three/build/three.module.js HTTP/1.1" 304 -
+127.0.0.1 - - [25/Sep/2026 13:22:45] "GET /node_modules/three/examples/jsm/utils/BufferGeometryUtils.js HTTP/1.1" 304 -
+127.0.0.1 - - [25/Sep/2026 13:22:45] "GET /node_modules/three/build/three.core.js HTTP/1.1" 304 -
+127.0.0.1 - - [25/Sep/2026 13:22:45] "GET /assets/knight-animated.glb HTTP/1.1" 200 -
+127.0.0.1 - - [25/Sep/2026 13:23:58] "GET /assets/ranger-animated.glb HTTP/1.1" 200 -
+127.0.0.1 - - [25/Sep/2026 13:23:58] "GET /references/ranger/turnaround.png HTTP/1.1" 304 -
+127.0.0.1 - - [25/Sep/2026 13:23:58] "GET /animations/ranger/catalog.json HTTP/1.1" 200 -
+127.0.0.1 - - [25/Sep/2026 13:30:42] "GET / HTTP/1.1" 304 -
+127.0.0.1 - - [25/Sep/2026 13:30:42] "GET /src/style.css HTTP/1.1" 304 -
+127.0.0.1 - - [25/Sep/2026 13:30:42] "GET /src/viewer.js HTTP/1.1" 304 -
+127.0.0.1 - - [25/Sep/2026 13:30:42] "GET /references/knight-turnaround.png HTTP/1.1" 304 -
+127.0.0.1 - - [25/Sep/2026 13:30:42] "GET /node_modules/three/build/three.module.js HTTP/1.1" 304 -
+127.0.0.1 - - [25/Sep/2026 13:30:42] "GET /node_modules/three/examples/jsm/loaders/GLTFLoader.js HTTP/1.1" 304 -
+127.0.0.1 - - [25/Sep/2026 13:30:42] "GET /node_modules/three/examples/jsm/controls/OrbitControls.js HTTP/1.1" 304 -
+127.0.0.1 - - [25/Sep/2026 13:30:42] "GET /node_modules/three/examples/jsm/utils/BufferGeometryUtils.js HTTP/1.1" 304 -
+127.0.0.1 - - [25/Sep/2026 13:30:42] "GET /node_modules/three/build/three.core.js HTTP/1.1" 304 -
+127.0.0.1 - - [25/Sep/2026 13:30:42] "GET /assets/knight-animated.glb HTTP/1.1" 200 -
+127.0.0.1 - - [25/Sep/2026 13:30:42] "GET /animations/catalog.json HTTP/1.1" 200 -
+127.0.0.1 - - [25/Sep/2026 13:30:54] "GET /assets/knight-before-projection.glb HTTP/1.1" 304 -
+127.0.0.1 - - [25/Sep/2026 13:31:00] "GET /assets/knight-before-face.glb HTTP/1.1" 200 -
+127.0.0.1 - - [25/Sep/2026 13:31:21] "GET /assets/ranger-animated.glb HTTP/1.1" 200 -
+127.0.0.1 - - [25/Sep/2026 13:31:21] "GET /references/ranger/turnaround.png HTTP/1.1" 304 -
+127.0.0.1 - - [25/Sep/2026 13:31:21] "GET /animations/ranger/catalog.json HTTP/1.1" 200 -
+127.0.0.1 - - [25/Sep/2026 13:32:00] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [25/Sep/2026 13:32:00] "GET /src/viewer.js HTTP/1.1" 200 -
+127.0.0.1 - - [25/Sep/2026 13:32:00] "GET /src/style.css HTTP/1.1" 200 -
+127.0.0.1 - - [25/Sep/2026 13:32:00] "GET /references/knight-turnaround.png HTTP/1.1" 200 -
+127.0.0.1 - - [25/Sep/2026 13:32:00] "GET /src/style.css HTTP/1.1" 200 -
+127.0.0.1 - - [25/Sep/2026 13:32:00] "GET /node_modules/three/examples/jsm/loaders/GLTFLoader.js HTTP/1.1" 200 -
+127.0.0.1 - - [25/Sep/2026 13:32:00] "GET /node_modules/three/examples/jsm/controls/OrbitControls.js HTTP/1.1" 200 -
+127.0.0.1 - - [25/Sep/2026 13:32:00] "GET /node_modules/three/build/three.module.js HTTP/1.1" 200 -
+127.0.0.1 - - [25/Sep/2026 13:32:00] "GET /node_modules/three/examples/jsm/utils/BufferGeometryUtils.js HTTP/1.1" 200 -
+127.0.0.1 - - [25/Sep/2026 13:32:00] "GET /node_modules/three/build/three.core.js HTTP/1.1" 200 -
+127.0.0.1 - - [25/Sep/2026 13:32:00] "GET /assets/knight-animated.glb HTTP/1.1" 200 -
+127.0.0.1 - - [25/Sep/2026 13:32:01] "GET /animations/catalog.json HTTP/1.1" 304 -
+127.0.0.1 - - [25/Sep/2026 13:33:45] "GET /assets/ranger-animated.glb HTTP/1.1" 304 -
+127.0.0.1 - - [25/Sep/2026 13:33:45] "GET /animations/ranger/catalog.json HTTP/1.1" 304 -
+127.0.0.1 - - [25/Sep/2026 13:33:47] "GET /assets/knight-animated.glb HTTP/1.1" 304 -
+127.0.0.1 - - [25/Sep/2026 13:33:47] "GET /references/knight-turnaround.png HTTP/1.1" 304 -
+127.0.0.1 - - [25/Sep/2026 13:33:48] "GET /animations/catalog.json HTTP/1.1" 304 -
+127.0.0.1 - - [25/Sep/2026 13:39:12] code 501, message Unsupported method ('POST')
+127.0.0.1 - - [25/Sep/2026 13:39:12] "POST /mcp HTTP/1.1" 501 -

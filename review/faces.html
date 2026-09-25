@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="cs"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Character Lab — kontrola projekce</title>
+<style>
+:root{color-scheme:light}*{box-sizing:border-box}body{background:#ece8df;color:#243738;font:15px system-ui;margin:36px auto;max-width:1240px;padding:0 24px}h1{font:42px Georgia;margin-bottom:14px}a{color:inherit}p{line-height:1.7;max-width:850px}section>div{display:grid;grid-template-columns:1fr 1fr;gap:18px}figure{margin:0}img{width:100%;border-radius:8px;background:#253e40}figcaption{padding:10px 0;color:#4c5c58}h2{font:28px Georgia;margin-top:40px}select{font:inherit;padding:10px;border:1px solid #9aa59a;background:#f8f6ef;border-radius:5px}nav{display:flex;gap:24px;flex-wrap:wrap}.note{padding:16px 20px;background:#dfdcd0;border-radius:6px}footer{margin:38px 0}label{display:block;margin:28px 0 8px} @media(max-width:620px){body{padding:0 12px;margin:20px auto}h1{font-size:32px}section>div{gap:8px}figcaption{font-size:12px}}
+</style></head><body>
+<nav><a href="../">← Zpět k modelům a animacím</a><a href="../docs/FACE.md">Měření a postup ↗</a></nav>
+<h1>Obličej, uši a boční projekce.</h1>
+<p>Stejné kamery, světlo a exportní cesta. Aktuální oprava brání tomu, aby se ucho promítalo na nárameník a zbroj na čelist. Modelování vychází z uložených předloh; srovnávací obrázky jsou skutečné rendery GLB.</p>
+<label for="baseline">S čím porovnávat aktuální model</label>
+<select id="baseline"><option value="baseline">Před opravou uší a čelisti</option><option value="before">Historická tvář před zarovnáním rysů</option></select>
+<section><h2>Tři čtvrtiny</h2><div><figure><img data-angle="3q" src="face-baseline-3q.png" alt="Předchozí model ze tří čtvrtin"><figcaption>Před opravou</figcaption></figure><figure><img src="face-after-3q.png" alt="Aktuální model ze tří čtvrtin"><figcaption>Aktuální projekce</figcaption></figure></div></section>
+<section><h2>Profil</h2><div><figure><img data-angle="side" src="face-baseline-side.png" alt="Předchozí profil"><figcaption>Před opravou</figcaption></figure><figure><img src="face-after-side.png" alt="Aktuální profil"><figcaption>Aktuální projekce</figcaption></figure></div></section>
+<section><h2>Zepředu</h2><div><figure><img data-angle="front" src="face-baseline-front.png" alt="Předchozí model zepředu"><figcaption>Před opravou</figcaption></figure><figure><img src="face-after-front.png" alt="Aktuální model zepředu"><figcaption>Aktuální projekce</figcaption></figure></div></section>
+<p class="note">U strážce zůstává ucho součástí projekční textury. Nová hraničářka testuje samostatnou geometrii uší a nově naměřené proporce. Oba modely lze prohlédnout z více stran v <a href="../">interaktivním vieweru</a>.</p>
+<footer><a href="../docs/VALIDATION.md">Co je ověřené a jaká omezení zůstávají ↗</a></footer>
+<script>document.querySelector('#baseline').addEventListener('change',event=>{for(const image of document.querySelectorAll('[data-angle]')){image.src=`face-${event.target.value}-${image.dataset.angle}.png`;image.nextElementSibling.textContent=event.target.selectedOptions[0].textContent;}});</script>
+</body></html>

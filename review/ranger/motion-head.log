@@ -1,0 +1,29 @@
+RUN node /Users/larsdittinger/dev/modelovani_test_codex/character-lab/tools/ranger_motion.mjs retarget
+RETARGETED KayKit Rig_Medium_CombatMelee.glb
+RETARGETED KayKit Rig_Medium_CombatRanged.glb
+RETARGETED KayKit Rig_Medium_General.glb
+RETARGETED KayKit Rig_Medium_MovementAdvanced.glb
+RETARGETED KayKit Rig_Medium_MovementBasic.glb
+RETARGETED KayKit Rig_Medium_Simulation.glb
+RETARGETED KayKit Rig_Medium_Special.glb
+RETARGETED KayKit Rig_Medium_Tools.glb
+RETARGETED Quaternius 1 UAL1_Standard.glb
+RETARGETED Quaternius 2 UAL2_Standard.glb
+RETARGET COMPLETE { maxIKError: 0.000009865978109270369, clips: 214 } GLB 10685708
+RUN node /Users/larsdittinger/dev/modelovani_test_codex/character-lab/tools/ranger_motion.mjs clips
+Exported 214 motion-only GLBs
+RUN /Applications/Blender.app/Contents/MacOS/Blender -b -t 4 --python-exit-code 1 --python /Users/larsdittinger/dev/modelovani_test_codex/character-lab/tools/ranger_blender.py -- actions
+BlenderMCP: cannot start server in background mode (blender -b) - commands would never execute
+BlenderMCP: run Blender with a GUI, or use a virtual display: xvfb-run -a blender
+BlenderMCP addon registered
+14:02:44 | INFO: Data are loaded, start creating Blender stuff
+14:02:44 | INFO: Blender create Mesh node Torso fitted leather cuirass
+14:02:45 | INFO: glTF import finished in 0.62s
+Info: No new files have been packed
+Info: Saved as "ranger-animated.blend"
+ANIMATED BLENDER 214 actions
+BlenderMCP server stopped
+BlenderMCP addon unregistered
+Blender 5.2.1 LTS (hash 9e2066aef7ef built 2026-08-25 01:35:57)
+
+Blender quit

@@ -1,0 +1,20 @@
+RUN node /Users/larsdittinger/dev/modelovani_test_codex/character-lab/tools/ranger_motion.mjs validate
+{
+  "passed": true,
+  "character": "ranger",
+  "clips": 214,
+  "motionOnlyFiles": 214,
+  "blenderActions": 214,
+  "embeddedImages": 1,
+  "bones": 27,
+  "vertices": 29477,
+  "triangles": 57584,
+  "idleClips": 32,
+  "runClips": 8,
+  "sampledPoses": 1284,
+  "maxPoseSpan": 2.936498811033701,
+  "maxWeightError": 2.9802322387695312e-8,
+  "maxQuaternionError": 4.698854838558475e-8,
+  "maxIKError": 0.000009865978109270369,
+  "scope": "Numeric geometry/skin/animation and matching motion-only file checks; per-pose size is checked separately from root travel. Not a proof of absence of collisions or sliding."
+}

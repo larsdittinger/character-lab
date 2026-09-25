@@ -1,0 +1,10 @@
+{
+  "parts": 29,
+  "vertices": 110257,
+  "atlasSize": [
+    2640,
+    4704
+  ],
+  "construction": "individually traced front silhouettes, profile-calibrated depth, closed loft meshes",
+  "texture": "front/profile projection with supplementary Gemini back view, baked into one UV atlas"
+}

@@ -1,0 +1,140 @@
+RUN /Users/larsdittinger/dev/modelovani_test_codex/character-lab/.venv/bin/python /Users/larsdittinger/dev/modelovani_test_codex/character-lab/tools/prepare.py
+Prepared two-view reference (1882, 1696)
+RUN /Users/larsdittinger/dev/modelovani_test_codex/character-lab/.venv/bin/python /Users/larsdittinger/dev/modelovani_test_codex/character-lab/tools/validate_inputs.py
+{
+  "passed": true,
+  "scope": "Input validity and source identity; visual correctness requires renders.",
+  "profileTypes": 17,
+  "measuredSections": 120,
+  "referenceSize": [
+    1907,
+    1280
+  ],
+  "sha256": {
+    "references/gemini-original.png": "451c950ff33876394de5c3086d78e02afbd5829fa5439e31c905ec8735ba88fe",
+    "references/knight-back.png": "dff878716b6a499ed7a78582c18d07e1867a9cb8068ea4230e4a62ac76977587",
+    "config/profiles.json": "a2681d4215b0a3f1187a5877c866f97d114bf7ed9eb5bae19f4ed81f7ead6437",
+    "config/face.json": "e3570a0e7349545600688cebb3fafd1d33fc8212711141899b25e3645e26a4a5",
+    "config/rig.json": "ff034bd887e360ed9838beeda35fb9aaf6f37e27bddded95927f7c2683426bd6",
+    "config/projection.json": "563b97a34822e95e33e1f6bdf9eaccd1f3500939765790b8bab1edd1c939800b"
+  }
+}
+RUN /Users/larsdittinger/dev/modelovani_test_codex/character-lab/.venv/bin/python /Users/larsdittinger/dev/modelovani_test_codex/character-lab/tools/model.py
+{'parts': 29, 'vertices': 110257, 'atlasSize': (2640, 4704), 'construction': 'individually traced front silhouettes, profile-calibrated depth, closed loft meshes', 'texture': 'front/profile projection with supplementary Gemini back view, baked into one UV atlas'}
+RUN /Applications/Blender.app/Contents/MacOS/Blender -b -t 4 --python-exit-code 1 --python /Users/larsdittinger/dev/modelovani_test_codex/character-lab/tools/build_blender.py
+/Users/larsdittinger/dev/modelovani_test_codex/character-lab/tools/build_blender.py:8: DeprecationWarning: 'Material.use_nodes' is expected to be removed in Blender 6.0
+  mat=bpy.data.materials.new('Paint projected from Gemini reference');mat.use_nodes=True
+BlenderMCP: cannot start server in background mode (blender -b) - commands would never execute
+BlenderMCP: run Blender with a GUI, or use a virtual display: xvfb-run -a blender
+BlenderMCP addon registered
+Info: Removed 65 vertices
+Info: Removed 65 vertices
+Info: Removed 100 vertices
+Info: Removed 42 vertices
+Info: Removed 65 vertices
+Info: Removed 70 vertices
+Info: Removed 65 vertices
+Info: Removed 65 vertices
+Info: Removed 65 vertices
+Info: Removed 24 vertices
+Info: Removed 65 vertices
+Info: Removed 65 vertices
+Info: Removed 65 vertices
+Info: Removed 65 vertices
+Info: Removed 65 vertices
+Info: Removed 70 vertices
+Info: Removed 65 vertices
+Info: Removed 65 vertices
+Info: Removed 65 vertices
+Info: Removed 24 vertices
+Info: Removed 65 vertices
+Info: Removed 65 vertices
+Info: Removed 65 vertices
+Info: Removed 65 vertices
+Info: Removed 65 vertices
+Info: Removed 65 vertices
+Info: Removed 65 vertices
+Info: Removed 0 vertices
+Info: Removed 0 vertices
+Info: Saved as "knight.blend"
+INFO Draco is available, use library at /Applications/Blender.app/Contents/Resources/5.2/scripts/addons_core/io_scene_gltf2/libbf_intern_draco_bridge.dylib
+INFO MeshOptimizer is available, use library at /Applications/Blender.app/Contents/Resources/5.2/scripts/addons_core/io_scene_gltf2/libbf_intern_meshopt_bridge.dylib
+13:22:37 | INFO: Starting glTF 2.0 export
+13:22:37 | INFO: Extracting primitive: Torso · shaped breastplate
+13:22:38 | INFO: Primitives created: 1
+13:22:38 | INFO: Finished glTF 2.0 export in 0.1817948818206787 s
+
+REFERENCE_BUILD {'triangles': 54288, 'vertices': 27202, 'materials': 1, 'namedPartsInBlend': 29, 'animations': 0, 'glbBytes': 9694512}
+BlenderMCP server stopped
+BlenderMCP addon unregistered
+Blender 5.2.1 LTS (hash 9e2066aef7ef built 2026-08-25 01:35:57)
+
+Blender quit
+RUN /Applications/Blender.app/Contents/MacOS/Blender -b -t 4 --python-exit-code 1 --python /Users/larsdittinger/dev/modelovani_test_codex/character-lab/tools/rig_character.py
+00:00.359  blend            | Read blend: "/Users/larsdittinger/dev/modelovani_test_codex/character-lab/assets/knight.blend"
+BlenderMCP: cannot start server in background mode (blender -b) - commands would never execute
+BlenderMCP: run Blender with a GUI, or use a virtual display: xvfb-run -a blender
+BlenderMCP addon registered
+Info: Saved as "knight-rigged.blend"
+INFO Draco is available, use library at /Applications/Blender.app/Contents/Resources/5.2/scripts/addons_core/io_scene_gltf2/libbf_intern_draco_bridge.dylib
+INFO MeshOptimizer is available, use library at /Applications/Blender.app/Contents/Resources/5.2/scripts/addons_core/io_scene_gltf2/libbf_intern_meshopt_bridge.dylib
+13:22:39 | INFO: Starting glTF 2.0 export
+13:22:39 | INFO: Extracting primitive: Torso · shaped breastplate
+13:22:39 | INFO: Primitives created: 1
+13:22:39 | INFO: Finished glTF 2.0 export in 0.24015188217163086 s
+
+RIGGED 27 bones
+BlenderMCP server stopped
+BlenderMCP addon unregistered
+Blender 5.2.1 LTS (hash 9e2066aef7ef built 2026-08-25 01:35:57)
+
+Blender quit
+RUN node /Users/larsdittinger/dev/modelovani_test_codex/character-lab/tools/retarget.mjs
+RETARGETED KayKit Rig_Medium_CombatMelee.glb
+RETARGETED KayKit Rig_Medium_CombatRanged.glb
+RETARGETED KayKit Rig_Medium_General.glb
+RETARGETED KayKit Rig_Medium_MovementAdvanced.glb
+RETARGETED KayKit Rig_Medium_MovementBasic.glb
+RETARGETED KayKit Rig_Medium_Simulation.glb
+RETARGETED KayKit Rig_Medium_Special.glb
+RETARGETED KayKit Rig_Medium_Tools.glb
+RETARGETED Quaternius 1 UAL1_Standard.glb
+RETARGETED Quaternius 2 UAL2_Standard.glb
+RETARGET COMPLETE { maxIKError: 0.000009885036377251198, clips: 214 } GLB 16660992
+RUN node /Users/larsdittinger/dev/modelovani_test_codex/character-lab/tools/export_clips.mjs
+Exported 214 motion-only GLBs
+RUN /Applications/Blender.app/Contents/MacOS/Blender -b -t 4 --python-exit-code 1 --python /Users/larsdittinger/dev/modelovani_test_codex/character-lab/tools/save_animated.py
+BlenderMCP: cannot start server in background mode (blender -b) - commands would never execute
+BlenderMCP: run Blender with a GUI, or use a virtual display: xvfb-run -a blender
+BlenderMCP addon registered
+13:22:48 | INFO: Data are loaded, start creating Blender stuff
+13:22:48 | INFO: Blender create Mesh node Torso · shaped breastplate
+13:22:48 | INFO: glTF import finished in 0.72s
+Info: No new files have been packed
+Info: Saved as "knight-animated.blend"
+ANIMATED BLENDER 214 actions
+BlenderMCP server stopped
+BlenderMCP addon unregistered
+Blender 5.2.1 LTS (hash 9e2066aef7ef built 2026-08-25 01:35:57)
+
+Blender quit
+RUN node /Users/larsdittinger/dev/modelovani_test_codex/character-lab/tools/validate.mjs
+{
+  "passed": true,
+  "character": "knight",
+  "clips": 214,
+  "motionOnlyFiles": 214,
+  "blenderActions": 214,
+  "embeddedImages": 1,
+  "bones": 27,
+  "vertices": 27704,
+  "triangles": 54288,
+  "idleClips": 32,
+  "runClips": 8,
+  "sampledPoses": 1284,
+  "maxPoseSpan": 3.126693088858036,
+  "maxWeightError": 8.940696716308594e-8,
+  "maxQuaternionError": 4.518679030951489e-8,
+  "maxIKError": 0.000009885036377251198,
+  "scope": "Numeric geometry/skin/animation and matching motion-only file checks; per-pose size is checked separately from root travel. Not a proof of absence of collisions or sliding."
+}

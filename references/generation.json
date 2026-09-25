@@ -1,0 +1,24 @@
+[
+  {
+    "at": "2026-09-25T09:05:55.792257+00:00",
+    "model": "gemini-3.1-flash-image",
+    "size": "2K",
+    "prompt": "Use case: stylized-concept. Professional orthographic character modeling reference sheet, exactly TWO full-body views of the SAME character beside one another: FRONT on left and RIGHT SIDE PROFILE facing LEFT on right. Same height, same floor baseline, absolutely orthographic, no perspective, no three-quarter view. No typography, no divider, no decorative layout, no cast shadows. Pure white background.\n\nSubject: Amberwatch human male knight, high quality hand-painted fantasy MMORPG game character, heroic stocky powerful proportions, about six heads tall. Handsome stern mature face, broad jaw, short swept-back chestnut brown hair, close trimmed brown beard, clearly visible expressive face without helmet. Very broad layered dark teal and desaturated steel-blue pauldrons with thick warm brass borders, fitted teal breastplate with a bold central golden diamond crest, sculpted breastplate volume, warm brass belt buckle, brown leather waist belt and gloves, steel-blue articulated thigh armor and knee plates, substantial steel-blue armored boots with golden trim. Short teal tabard hanging between legs from waist to mid thigh, no cape. Palette teal, warm aged gold, muted steel blue, rich brown leather. Beautiful painterly crafted highlights and material definition, broad readable shapes, restrained engraved detail. AAA stylized game concept presentation.\n\nPose: neutral relaxed A-pose, arms angled only 18 degrees outward from vertical, both hands completely visible and separate from torso, fingers together naturally, legs straight with a clear gap between legs, feet pointing straight forward. Side view shows exactly the same pose, arm resting slightly behind torso center so chest profile can be read. Anatomically consistent matching head height, shoulder level, waist, knees and feet across views. Full silhouette including hair and boot soles with 6 percent white margin on all sides. Front character centered at 30 percent canvas width, side centered at 75 percent width. Face should be exceptionally clear, frontal eyes looking straight ahead in front view. Soft neutral studio illumination, no harsh directional shadows, no weapon, no shield, no floating accessories, no environment. Image is a production reference and a source for projection painting onto a 3D mesh: clear contour and faithful front/profile consistency are paramount.\n",
+    "references": [],
+    "out": "reference-workflow/references/knight-turnaround.png",
+    "costUsd": null,
+    "costNote": "Actual invoice not available. Legacy helper estimate removed because it did not distinguish 1K and 2K."
+  },
+  {
+    "at": "2026-09-25T09:13:35.418987+00:00",
+    "model": "gemini-3.1-flash-image",
+    "size": "2K",
+    "prompt": "Create exactly ONE single full-body BACK VIEW / REAR orthographic view of the exact same male teal and gold armored knight from the attached modeling reference. Match his body width, proportions, pauldron shapes, short brown hair, bracers, gloves, thigh plates, armored boots and teal tabard precisely. Full body head to sole, no crop, no perspective, looking directly at his back. Pose must match the FRONT view: arms approximately 25 degrees away from vertical, hands at mid-thigh height, straight legs separated by a clear gap. No cape. The back of the head has short sculpted swept brown hair; no face is visible. Back armor is crafted teal overlapping plates with thick golden borders, leather belt with simple straps on the back, articulated leg armor with leather straps behind the knees, substantial steel-blue boots. Hands show backs of brown leather gauntlets with stitched panels. Rear tabard hangs from belt to just above knees, teal fabric with gold edging. Keep same beautiful painted fantasy game texture style, palette, highlights and line work. Pure white background, no shadows, no text, no other view, no duplicate figure, symmetrical neutral posture. Character fills frame with 6% margin above hair and below feet. This image will be projected onto the actual back of the existing 3D knight, so matching silhouette and anatomical height landmarks is crucial.\n. IMPORTANT: match the attached reference exactly in art style, palette, brush treatment and value range; it belongs to the same set",
+    "references": [
+      "/Users/larsdittinger/dev/modelovani_test_codex/reference-workflow/references/knight-turnaround.png"
+    ],
+    "out": "reference-workflow/references/knight-back.png",
+    "costUsd": null,
+    "costNote": "Actual invoice not available. Legacy helper estimate removed because it did not distinguish 1K and 2K."
+  }
+]

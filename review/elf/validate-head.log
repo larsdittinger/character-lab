@@ -1,0 +1,20 @@
+RUN node /Users/larsdittinger/dev/modelovani_test_codex/character-lab/tools/elf_motion.mjs validate
+{
+  "passed": true,
+  "character": "elf",
+  "clips": 214,
+  "motionOnlyFiles": 214,
+  "blenderActions": 214,
+  "embeddedImages": 1,
+  "bones": 27,
+  "vertices": 31242,
+  "triangles": 61188,
+  "idleClips": 32,
+  "runClips": 8,
+  "sampledPoses": 1284,
+  "maxPoseSpan": 3.1302555604263187,
+  "maxWeightError": 6.705522537231445e-8,
+  "maxQuaternionError": 4.405028275478173e-8,
+  "maxIKError": 0.00000986330347065016,
+  "scope": "Numeric geometry/skin/animation and matching motion-only file checks; per-pose size is checked separately from root travel. Not a proof of absence of collisions or sliding."
+}

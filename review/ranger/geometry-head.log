@@ -1,0 +1,51 @@
+RUN /Users/larsdittinger/dev/modelovani_test_codex/character-lab/.venv/bin/python /Users/larsdittinger/dev/modelovani_test_codex/character-lab/tools/ranger_model.py
+{'parts': 29, 'vertices': 91448, 'atlasSize': (2000, 3168), 'scale': 0.002653927813163482, 'frontCenter': 317, 'sideOrigin': 773, 'backCenter': 1220, 'source': 'Independent new generated reference; individual silhouette measurements in config/ranger-profiles.json', 'limitations': 'Manually authored unseen surfaces; image-projected skin/hair; no facial deformation.'}
+RUN /Applications/Blender.app/Contents/MacOS/Blender -b -t 4 --python-exit-code 1 --python /Users/larsdittinger/dev/modelovani_test_codex/character-lab/tools/ranger_blender.py -- build
+/Users/larsdittinger/dev/modelovani_test_codex/character-lab/tools/ranger_blender.py:24: DeprecationWarning: 'Material.use_nodes' is expected to be removed in Blender 6.0
+  clear();spec=json.loads((R/'assets/ranger-model.json').read_text());mat=bpy.data.materials.new('Copper ranger / measured image projection');mat.use_nodes=True;nt=mat.node_tree;bs=nt.nodes.get('Principled BSDF');bs.inputs['Roughness'].default_value=.86;bs.inputs['Specular IOR Level'].default_value=.17
+BlenderMCP: cannot start server in background mode (blender -b) - commands would never execute
+BlenderMCP: run Blender with a GUI, or use a virtual display: xvfb-run -a blender
+BlenderMCP addon registered
+Info: Removed 48 vertices
+Info: Removed 48 vertices
+Info: Removed 110 vertices
+Info: Removed 24 vertices
+Info: Removed 24 vertices
+Info: Removed 48 vertices
+Info: Removed 48 vertices
+Info: Removed 48 vertices
+Info: Removed 48 vertices
+Info: Removed 48 vertices
+Info: Removed 48 vertices
+Info: Removed 48 vertices
+Info: Removed 48 vertices
+Info: Removed 48 vertices
+Info: Removed 48 vertices
+Info: Removed 48 vertices
+Info: Removed 48 vertices
+Info: Removed 48 vertices
+Info: Removed 48 vertices
+Info: Removed 48 vertices
+Info: Removed 48 vertices
+Info: Removed 48 vertices
+Info: Removed 48 vertices
+Info: Removed 48 vertices
+Info: Removed 48 vertices
+Info: Removed 48 vertices
+Info: Removed 48 vertices
+Info: Removed 48 vertices
+Info: Removed 48 vertices
+Info: Saved as "ranger-static.blend"
+INFO Draco is available, use library at /Applications/Blender.app/Contents/Resources/5.2/scripts/addons_core/io_scene_gltf2/libbf_intern_draco_bridge.dylib
+INFO MeshOptimizer is available, use library at /Applications/Blender.app/Contents/Resources/5.2/scripts/addons_core/io_scene_gltf2/libbf_intern_meshopt_bridge.dylib
+14:00:32 | INFO: Starting glTF 2.0 export
+14:00:32 | INFO: Extracting primitive: Torso fitted leather cuirass
+14:00:32 | INFO: Primitives created: 1
+14:00:32 | INFO: Finished glTF 2.0 export in 0.09265804290771484 s
+
+RANGER BUILD {'triangles': 57584, 'vertices': 28850, 'parts': 29, 'source': 'references/ranger/turnaround.png'}
+BlenderMCP server stopped
+BlenderMCP addon unregistered
+Blender 5.2.1 LTS (hash 9e2066aef7ef built 2026-08-25 01:35:57)
+
+Blender quit

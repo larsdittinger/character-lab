@@ -1,0 +1,134 @@
+{
+  "passed": true,
+  "sourceSha256": "ba6c208a20b445a078848d59c1bd35a4dab38fb5fdc365dafecb2c2206c32eab",
+  "semanticSourceGuards": [
+    {
+      "label": "front ear",
+      "xy": [
+        365,
+        50
+      ],
+      "rgb": [
+        141,
+        118,
+        145
+      ],
+      "expected": "material",
+      "passed": true
+    },
+    {
+      "label": "front ear fringe",
+      "xy": [
+        373,
+        50
+      ],
+      "rgb": [
+        199,
+        200,
+        201
+      ],
+      "expected": "background",
+      "passed": true
+    },
+    {
+      "label": "profile ear",
+      "xy": [
+        840,
+        40
+      ],
+      "rgb": [
+        127,
+        109,
+        132
+      ],
+      "expected": "material",
+      "passed": true
+    },
+    {
+      "label": "profile ear fringe",
+      "xy": [
+        845,
+        40
+      ],
+      "rgb": [
+        200,
+        201,
+        200
+      ],
+      "expected": "background",
+      "passed": true
+    },
+    {
+      "label": "face",
+      "xy": [
+        281,
+        100
+      ],
+      "rgb": [
+        101,
+        84,
+        114
+      ],
+      "expected": "material",
+      "passed": true
+    },
+    {
+      "label": "silver crown",
+      "xy": [
+        281,
+        30
+      ],
+      "rgb": [
+        190,
+        189,
+        202
+      ],
+      "expected": "material",
+      "passed": true
+    },
+    {
+      "label": "rear cloak",
+      "xy": [
+        1253,
+        500
+      ],
+      "rgb": [
+        42,
+        45,
+        66
+      ],
+      "expected": "material",
+      "passed": true
+    },
+    {
+      "label": "front cuirass",
+      "xy": [
+        300,
+        300
+      ],
+      "rgb": [
+        62,
+        77,
+        84
+      ],
+      "expected": "material",
+      "passed": true
+    },
+    {
+      "label": "studio background",
+      "xy": [
+        550,
+        300
+      ],
+      "rgb": [
+        199,
+        199,
+        199
+      ],
+      "expected": "background",
+      "passed": true
+    }
+  ],
+  "guardCount": 9,
+  "scope": "Checks authored source pixels at known part boundaries. The rendered front, profile, three-quarter and back views remain the visual quality test."
+}

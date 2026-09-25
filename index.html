@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Character Lab — obraz, kostra, pohyb</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="src/style.css">
+  <script type="importmap">{"imports":{"three":"./node_modules/three/build/three.module.js","three/addons/":"./node_modules/three/examples/jsm/"}}</script>
+</head>
+<body>
+<header>
+  <div class="mark">✧</div>
+  <div><small>AMBERWATCH / CHARACTER LAB</small><h1>Obraz. Kostra. Pohyb.</h1></div>
+  <div class="header-right"><span id="summary">Načítám model…</span><a href="docs/WORKFLOW.md" target="_blank">Postup ↗</a><a href="AGENTS.md" target="_blank">AGENTS.md ↗</a></div>
+</header>
+<main>
+  <aside>
+    <label class="model-label" for="character">Testovaná postava</label>
+    <select id="character"><option value="knight">01 / Strážce jantarové stezky</option><option value="ranger">02 / Lesní průzkumnice</option><option value="elf">03 / Noční elf</option></select>
+    <div class="side-title"><h2>Knihovna pohybů</h2><span id="count"></span></div>
+    <p class="muted" id="library-note">Původní animace Quaternius a KayKit<br>Přenos na vybranou kostru · CC0</p>
+    <input id="search" type="search" placeholder="Najít animaci…" aria-label="Hledat animaci" disabled>
+    <select id="category" aria-label="Kategorie" disabled><option value="all">Všechny kategorie</option><option>Idle</option><option>Běh</option><option>Skok a pohyb</option><option>Chůze</option><option>Boj</option><option>Zásah a smrt</option><option>Práce</option><option>Gesta a ostatní</option></select>
+    <div id="clips" aria-label="Animace"></div>
+    <div class="aside-bottom" id="animation-links"><a id="catalog-link" href="animations/catalog.json" target="_blank">Úplný seznam ↗</a><a href="animations/sources.json" target="_blank">Původ a licence ↗</a></div>
+  </aside>
+  <section class="workbench">
+    <div class="stage" id="stage">
+      <canvas aria-label="3D postava"></canvas>
+      <div class="stage-title"><small>REFERENCE → TVAR → KOSTRA → POHYB</small><h2 id="model-title">Strážce jantarové stezky</h2><p id="clip-title">Načítání…</p></div>
+      <div id="loading" role="status">Načítám postavu a pohyby…</div>
+      <div class="reference-card"><img id="reference-image" src="references/knight-turnaround.png" alt="Čelní a boční reference postavy"><a id="reference-link" href="references/knight-turnaround.png" target="_blank">Výchozí reference ↗</a></div>
+      <div class="stage-stats"><span><b id="tris">—</b>trojúhelníků</span><span><b id="bones">—</b>kostí</span><span><b id="duration">—</b>délka klipu</span><span id="rig-note">Pohyb z knihovny / upravené proporce</span></div>
+    </div>
+    <footer>
+      <div class="playback">
+        <button id="play" disabled class="active" aria-label="Pozastavit">Ⅱ</button>
+        <button id="restart" disabled aria-label="Přehrát od začátku">↺</button>
+        <input id="timeline" disabled type="range" min="0" max="1" step="0.001" value="0" aria-label="Čas animace">
+        <span id="time">0.00 s</span>
+        <select id="speed" aria-label="Rychlost" disabled><option value="0.25">¼×</option><option value="0.5">½×</option><option value="1" selected>1×</option><option value="1.5">1½×</option></select>
+        <label class="loop"><input id="loop" type="checkbox" checked disabled>Smyčka</label>
+      </div>
+      <div class="toolbar">
+        <select id="camera" disabled aria-label="Pohled"><option value="3q">Perspektiva ¾</option><option value="front">Zepředu</option><option value="side">Z boku</option><option value="back">Zezadu</option><option value="face">Detail obličeje ¾</option><option value="face-front">Obličej zepředu</option><option value="face-side">Obličej z boku</option></select>
+        <button id="skeleton" disabled>Kostra</button><button id="clay" disabled>Čistý tvar</button><button id="bind" disabled>Klidová póza</button>
+        <select id="comparison" aria-label="Srovnání projekce" disabled><option value="current">Aktuální model</option><option value="projection">Před opravou projekce</option><option value="face">Původní obličej</option></select>
+        <span class="spacer"></span>
+        <a id="download-glb" href="assets/knight-animated.glb" download class="download">Animovaný GLB ↓</a><a id="download-blend" href="assets/knight-animated.blend" download class="download">Blender ↓</a>
+      </div>
+      <div class="subline"><span id="status" role="status">Tažením otáčej · kolečkem přibližuj</span><a id="face-review" href="review/faces.html" target="_blank">Obličej před / po ↗</a><a href="docs/PRICING.md" target="_blank">Gemini: ceny a volba modelu ↗</a><a href="docs/VALIDATION.md" target="_blank">Kontroly a limity ↗</a></div>
+    </footer>
+  </section>
+</main>
+<script type="module" src="src/viewer.js"></script>
+</body>
+</html>

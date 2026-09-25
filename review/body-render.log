@@ -1,0 +1,20 @@
+BlenderMCP: cannot start server in background mode (blender -b) - commands would never execute
+BlenderMCP: run Blender with a GUI, or use a virtual display: xvfb-run -a blender
+BlenderMCP addon registered
+12:41:54 | INFO: Data are loaded, start creating Blender stuff
+12:41:54 | INFO: Blender create Mesh node Torso · shaped breastplate
+12:41:54 | INFO: glTF import finished in 0.04s
+/Users/larsdittinger/dev/modelovani_test_codex/character-lab/tools/render_review.py:13: DeprecationWarning: 'World.use_nodes' is expected to be removed in Blender 6.0
+  world=bpy.data.worlds.new('Neutral studio');scene.world=world;world.use_nodes=True;world.node_tree.nodes['Background'].inputs[0].default_value=(.08,.13,.14,1);world.node_tree.nodes['Background'].inputs[1].default_value=.7
+00:03.152  render           | Saved: '/Users/larsdittinger/dev/modelovani_test_codex/character-lab/review/3q.png'
+00:05.945  render           | Saved: '/Users/larsdittinger/dev/modelovani_test_codex/character-lab/review/front.png'
+00:08.163  render           | Saved: '/Users/larsdittinger/dev/modelovani_test_codex/character-lab/review/side.png'
+00:10.773  render           | Saved: '/Users/larsdittinger/dev/modelovani_test_codex/character-lab/review/back.png'
+00:12.855  render           | Saved: '/Users/larsdittinger/dev/modelovani_test_codex/character-lab/review/top.png'
+00:15.016  render           | Saved: '/Users/larsdittinger/dev/modelovani_test_codex/character-lab/review/bottom.png'
+ROUNDTRIP_RENDERED 6 views from exported GLB
+BlenderMCP server stopped
+BlenderMCP addon unregistered
+Blender 5.2.1 LTS (hash 9e2066aef7ef built 2026-08-25 01:35:57)
+
+Blender quit

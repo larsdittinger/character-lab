@@ -1,0 +1,15 @@
+{
+  "utc": "2026-09-25T10:32:40.179218+00:00",
+  "generator": "built-in image_gen",
+  "returnedImages": 1,
+  "outputImages": 1,
+  "views": 3,
+  "prompt": "Use case: stylized-concept. Create exactly ONE coherent three-view character turnaround sheet for accurate 3D reconstruction, landscape 3:2, front view at left, exact 90-degree left-facing profile at center, rear view at right. All three are the SAME full-body adult human female copper-haired ranger/armored adventurer, equal vertical scale, feet on one baseline, neutral A pose with arms 20 degrees from body and relaxed closed glove hands, straight legs slightly separated. Stylized polished handpainted game character, clearly readable proportions, athletic medium build, slightly enlarged expressive head, short neat copper-red hair ending ABOVE the neck, both small natural ears exposed, friendly determined face with dark eyebrows. Burgundy-red leather breastplate, small low shoulder caps positioned WELL BELOW the ears with exposed neck, cream long-sleeved under-shirt, dark burgundy short split front tabard over charcoal fitted trousers, brown leather bracers and gloves, brown knee-high boots with simple golden knee plates. One small round gold brooch at upper chest, simple belt buckle. Avoid clutter, weapons, bags, capes, antlers, jewelry near ears. Matte materials and evenly illuminated diffuse albedo-like colors, subtle ambient shading, NO dramatic cast shadows, no glossy specular highlights. Blank light neutral gray studio background. Accurate silhouette in each orthographic view, profile arm offset slightly to expose torso silhouette; head perfectly in profile with only one eye and one ear visible. Complete body including crown and boots, spacious padding, no cropping, NO labels or letters. Distinct calm elegant shape language, crisp face details. Three figures only, equal heights.\n",
+  "dimensions": [
+    1536,
+    1024
+  ],
+  "sha256": "ff557ff4e50b3c9186107dc3d021d82145bb756cb4ec49e15fed3ddbbae219b6",
+  "actualBilledUsd": null,
+  "reference": "Independent generated copper ranger; no identity reference images supplied"
+}

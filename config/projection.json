@@ -1,0 +1,67 @@
+{
+  "description": "Measured source visibility, independent of mesh depth profiles. Coordinates are in references/calibration.png (1907 x 1280). A silhouette is not a visibility mask: an ear, beard or sleeve can occlude a different part in the same source image. Re-measure these regions for a new character.",
+  "expectedCalibrationSize": [1907,1280],
+  "sourceImage": "references/gemini-original.png",
+  "sourceSha256": "451c950ff33876394de5c3086d78e02afbd5829fa5439e31c905ec8735ba88fe",
+  "rearReferenceSha256": "dff878716b6a499ed7a78582c18d07e1867a9cb8068ea4230e4a62ac76977587",
+  "insetPixels": 2,
+  "featherPixels": 3,
+  "frontBackgroundGuard": {
+    "description": "Connected neutral studio backdrop only. Extend the nearest visible source pixel within the measured front interval for this same part and row; do not blur the texture or substitute a flat-colored rectangle.",
+    "minimumChannel": 0.85,
+    "maximumChannelDifference": 0.08,
+    "fringePixels": 2
+  },
+  "front": {
+    "Pauldron": {
+      "mode": "clamp-valid-source",
+      "description": "Additional contour measurements around the concave gold-to-steel shoulder corner. Geometry interpolation crossed the white backdrop between sparse silhouette rows; source coordinates stay inside the visible armor.",
+      "rows": [[182,362,375],[202,353,383],[213,347,386],[218,335,388],[220,330,389],[224,323,390],[225,320,390],[227,312,391],[230,301,392],[231,294,392],[235,285,393],[245,263,395],[261,249,395],[299,225,401],[329,211,406],[342,190,398],[355,194,380],[376,240,357],[402,322,329]]
+    }
+  },
+  "side": {
+    "Face · nose cheek and jaw relief": {
+      "mode": "clamp-valid-source",
+      "description": "The shoulder hides the lower cheek/neck in profile. Continue the nearest visible beard/skin at that occlusion boundary, preserving facial landmarks in the visible region. Coordinates use the warped side image Y, not front Y.",
+      "rows": [[118,1124,1257],[138,1112,1258],[159,1110,1257],[178,1097,1252],[182,1096,1234],[186,1095,1217],[190,1098,1205],[194,1102,1198],[202,1108,1184],[213,1112,1173],[224,1112,1163],[231,1107,1156],[238,1108,1150],[245,1108,1145],[250,1110,1142],[254,1115,1133]]
+    },
+    "Pauldron": {
+      "mode": "front-fallback",
+      "description": "Only the visible shoulder armor owns these source pixels. The upper front overlaps the ear/beard; the lower central opening exposes the upper arm.",
+      "rows": [[182,1242,1276],[186,1225,1288],[190,1213,1302],[194,1208,1308],[202,1188,1320],[213,1178,1332],[224,1169,1341],[231,1160,1347],[245,1151,1356],[261,1140,1365],[280,1135,1374],[299,1133,1378],[329,1133,1385],[342,1135,1385],[355,1138,1385],[376,1146,1383],[390,1148,1379],[402,1164,1360]],
+      "excludePolygons": [[[1200,373],[1220,368],[1270,365],[1312,369],[1338,380],[1344,392],[1336,407],[1192,407]]]
+    },
+    "Bracer": {
+      "mode": "front-fallback",
+      "description": "The front-view high bracer tip has no visible side-view counterpart above the cuff. Do not sample the sleeve there or the glove below the cuff.",
+      "rows": [[465,1250,1318],[477,1226,1332],[500,1210,1336],[530,1209,1344],[552,1207,1343],[580,1207,1318],[596,1222,1314],[605,1248,1311],[617,1270,1301]]
+    },
+    "Hair at rear of skull": {
+      "mode": "clamp-valid-source",
+      "description": "The lower rear hair is hidden by the shoulder in the side reference. Extend nearby visible hair instead of projecting the golden shoulder onto the hair cap.",
+      "rows": [[117,1180,1257],[135,1180,1255],[153,1220,1254],[168,1223,1252],[176,1225,1250]]
+    }
+  },
+  "rear": {
+    "Face · nose cheek and jaw relief": {
+      "mode": "clamp-valid-source",
+      "description": "Visible rear hair owns the head. The source collar must not be projected onto lower head geometry. Rows use the resized 1280 x 1907 rear source coordinates.",
+      "rows": [[156,565,720],[190,553,726],[220,564,718],[246,570,714],[264,577,709]]
+    },
+    "Hair at rear of skull": {
+      "mode": "clamp-valid-source",
+      "rows": [[156,565,720],[190,553,726],[220,564,718],[246,570,714],[264,577,709]]
+    }
+  },
+  "guardChecks": [
+    {"part":"Face · nose cheek and jaw relief","point":[1180,231],"allowed":false,"reason":"shoulder armor must not be used on the jaw"},
+    {"part":"Face · nose cheek and jaw relief","point":[1140,231],"allowed":true,"reason":"visible beard at jaw"},
+    {"part":"Pauldron","point":[1210,182],"allowed":false,"reason":"ear must not be used on shoulder armor"},
+    {"part":"Pauldron","point":[1138,231],"allowed":false,"reason":"beard must not be used on shoulder armor"},
+    {"part":"Pauldron","point":[1250,190],"allowed":true,"reason":"visible golden shoulder"},
+    {"part":"Pauldron","point":[1260,390],"allowed":false,"reason":"upper arm visible through the lower shoulder opening"},
+    {"part":"Bracer","point":[1260,455],"allowed":false,"reason":"sleeve above bracer"},
+    {"part":"Hair at rear of skull","point":[1240,194],"allowed":false,"reason":"golden shoulder in front of hair"},
+    {"part":"Hair at rear of skull","point":[1240,170],"allowed":true,"reason":"visible hair"}
+  ]
+}

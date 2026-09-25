@@ -1,0 +1,338 @@
+{
+  "passed": true,
+  "scope": "Measured source ownership for face, pauldrons, bracers and rear hair; connected studio background padding for all front loft projections. Does not certify all pixels or visual quality.",
+  "geometryChanged": false,
+  "guards": [
+    {
+      "part": "Face \u00b7 nose cheek and jaw relief",
+      "point": [
+        1180,
+        231
+      ],
+      "allowed": false,
+      "reason": "shoulder armor must not be used on the jaw",
+      "passed": true
+    },
+    {
+      "part": "Face \u00b7 nose cheek and jaw relief",
+      "point": [
+        1140,
+        231
+      ],
+      "allowed": true,
+      "reason": "visible beard at jaw",
+      "passed": true
+    },
+    {
+      "part": "Pauldron",
+      "point": [
+        1210,
+        182
+      ],
+      "allowed": false,
+      "reason": "ear must not be used on shoulder armor",
+      "passed": true
+    },
+    {
+      "part": "Pauldron",
+      "point": [
+        1138,
+        231
+      ],
+      "allowed": false,
+      "reason": "beard must not be used on shoulder armor",
+      "passed": true
+    },
+    {
+      "part": "Pauldron",
+      "point": [
+        1250,
+        190
+      ],
+      "allowed": true,
+      "reason": "visible golden shoulder",
+      "passed": true
+    },
+    {
+      "part": "Pauldron",
+      "point": [
+        1260,
+        390
+      ],
+      "allowed": false,
+      "reason": "upper arm visible through the lower shoulder opening",
+      "passed": true
+    },
+    {
+      "part": "Bracer",
+      "point": [
+        1260,
+        455
+      ],
+      "allowed": false,
+      "reason": "sleeve above bracer",
+      "passed": true
+    },
+    {
+      "part": "Hair at rear of skull",
+      "point": [
+        1240,
+        194
+      ],
+      "allowed": false,
+      "reason": "golden shoulder in front of hair",
+      "passed": true
+    },
+    {
+      "part": "Hair at rear of skull",
+      "point": [
+        1240,
+        170
+      ],
+      "allowed": true,
+      "reason": "visible hair",
+      "passed": true
+    }
+  ],
+  "parts": [
+    {
+      "part": "Face \u00b7 nose cheek and jaw relief",
+      "mode": "clamp-valid-source",
+      "sourcePixels": 393216,
+      "rejectedOrRepairedPixels": 188170,
+      "fullyRejectedPixels": 168834,
+      "remainingForbiddenSideWeight": 0.0
+    },
+    {
+      "part": "Hair at rear of skull",
+      "mode": "clamp-valid-source",
+      "sourcePixels": 393216,
+      "rejectedOrRepairedPixels": 227676,
+      "fullyRejectedPixels": 195889,
+      "remainingForbiddenSideWeight": 0.0
+    },
+    {
+      "part": "Pauldron R",
+      "mode": "front-fallback",
+      "sourcePixels": 393216,
+      "rejectedOrRepairedPixels": 134721,
+      "fullyRejectedPixels": 119152,
+      "remainingForbiddenSideWeight": 0.0
+    },
+    {
+      "part": "Bracer R",
+      "mode": "front-fallback",
+      "sourcePixels": 393216,
+      "rejectedOrRepairedPixels": 187547,
+      "fullyRejectedPixels": 156144,
+      "remainingForbiddenSideWeight": 0.0
+    },
+    {
+      "part": "Pauldron L",
+      "mode": "front-fallback",
+      "sourcePixels": 393216,
+      "rejectedOrRepairedPixels": 134721,
+      "fullyRejectedPixels": 119152,
+      "remainingForbiddenSideWeight": 0.0
+    },
+    {
+      "part": "Bracer L",
+      "mode": "front-fallback",
+      "sourcePixels": 393216,
+      "rejectedOrRepairedPixels": 187547,
+      "fullyRejectedPixels": 156144,
+      "remainingForbiddenSideWeight": 0.0
+    }
+  ],
+  "frontBackgroundPadding": [
+    {
+      "part": "Torso \u00b7 shaped breastplate",
+      "repairedPixels": 3152,
+      "noVisibleSourcePixels": 0,
+      "remainingBackgroundPixels": 0,
+      "maximumPixelExtension": 3.0542268613457964
+    },
+    {
+      "part": "Neck inside collar",
+      "repairedPixels": 0,
+      "noVisibleSourcePixels": 0,
+      "remainingBackgroundPixels": 0,
+      "maximumPixelExtension": 0.0
+    },
+    {
+      "part": "Face \u00b7 nose cheek and jaw relief",
+      "repairedPixels": 5316,
+      "noVisibleSourcePixels": 0,
+      "remainingBackgroundPixels": 0,
+      "maximumPixelExtension": 2.991487139689866
+    },
+    {
+      "part": "Sculpted hair",
+      "repairedPixels": 96782,
+      "noVisibleSourcePixels": 7168,
+      "remainingBackgroundPixels": 0,
+      "maximumPixelExtension": 15.987368495899773
+    },
+    {
+      "part": "Hair at rear of skull",
+      "repairedPixels": 0,
+      "noVisibleSourcePixels": 0,
+      "remainingBackgroundPixels": 0,
+      "maximumPixelExtension": 0.0
+    },
+    {
+      "part": "Pauldron R",
+      "repairedPixels": 17790,
+      "noVisibleSourcePixels": 0,
+      "remainingBackgroundPixels": 0,
+      "maximumPixelExtension": 10.541069100391155
+    },
+    {
+      "part": "Upper arm R",
+      "repairedPixels": 5732,
+      "noVisibleSourcePixels": 0,
+      "remainingBackgroundPixels": 0,
+      "maximumPixelExtension": 4.4651743616663
+    },
+    {
+      "part": "Bracer R",
+      "repairedPixels": 42038,
+      "noVisibleSourcePixels": 0,
+      "remainingBackgroundPixels": 0,
+      "maximumPixelExtension": 6.02695940874456
+    },
+    {
+      "part": "Gauntlet palm R",
+      "repairedPixels": 36438,
+      "noVisibleSourcePixels": 2560,
+      "remainingBackgroundPixels": 0,
+      "maximumPixelExtension": 23.852419642497722
+    },
+    {
+      "part": "Thumb R",
+      "repairedPixels": 53432,
+      "noVisibleSourcePixels": 0,
+      "remainingBackgroundPixels": 0,
+      "maximumPixelExtension": 5.279978927002247
+    },
+    {
+      "part": "Thigh R",
+      "repairedPixels": 0,
+      "noVisibleSourcePixels": 0,
+      "remainingBackgroundPixels": 0,
+      "maximumPixelExtension": 0.0
+    },
+    {
+      "part": "Hanging hip plate R",
+      "repairedPixels": 52022,
+      "noVisibleSourcePixels": 4096,
+      "remainingBackgroundPixels": 0,
+      "maximumPixelExtension": 14.89436874588921
+    },
+    {
+      "part": "Knee armor R",
+      "repairedPixels": 0,
+      "noVisibleSourcePixels": 0,
+      "remainingBackgroundPixels": 0,
+      "maximumPixelExtension": 0.0
+    },
+    {
+      "part": "Greave R",
+      "repairedPixels": 26728,
+      "noVisibleSourcePixels": 0,
+      "remainingBackgroundPixels": 0,
+      "maximumPixelExtension": 5.285478990657339
+    },
+    {
+      "part": "Armored boot R",
+      "repairedPixels": 33954,
+      "noVisibleSourcePixels": 3584,
+      "remainingBackgroundPixels": 0,
+      "maximumPixelExtension": 40.63122897523118
+    },
+    {
+      "part": "Pauldron L",
+      "repairedPixels": 17790,
+      "noVisibleSourcePixels": 0,
+      "remainingBackgroundPixels": 0,
+      "maximumPixelExtension": 10.541069100391155
+    },
+    {
+      "part": "Upper arm L",
+      "repairedPixels": 5732,
+      "noVisibleSourcePixels": 0,
+      "remainingBackgroundPixels": 0,
+      "maximumPixelExtension": 4.4651743616663
+    },
+    {
+      "part": "Bracer L",
+      "repairedPixels": 42038,
+      "noVisibleSourcePixels": 0,
+      "remainingBackgroundPixels": 0,
+      "maximumPixelExtension": 6.02695940874456
+    },
+    {
+      "part": "Gauntlet palm L",
+      "repairedPixels": 36438,
+      "noVisibleSourcePixels": 2560,
+      "remainingBackgroundPixels": 0,
+      "maximumPixelExtension": 23.852419642497722
+    },
+    {
+      "part": "Thumb L",
+      "repairedPixels": 53432,
+      "noVisibleSourcePixels": 0,
+      "remainingBackgroundPixels": 0,
+      "maximumPixelExtension": 5.279978927002247
+    },
+    {
+      "part": "Thigh L",
+      "repairedPixels": 0,
+      "noVisibleSourcePixels": 0,
+      "remainingBackgroundPixels": 0,
+      "maximumPixelExtension": 0.0
+    },
+    {
+      "part": "Hanging hip plate L",
+      "repairedPixels": 52022,
+      "noVisibleSourcePixels": 4096,
+      "remainingBackgroundPixels": 0,
+      "maximumPixelExtension": 14.89436874588921
+    },
+    {
+      "part": "Knee armor L",
+      "repairedPixels": 0,
+      "noVisibleSourcePixels": 0,
+      "remainingBackgroundPixels": 0,
+      "maximumPixelExtension": 0.0
+    },
+    {
+      "part": "Greave L",
+      "repairedPixels": 26728,
+      "noVisibleSourcePixels": 0,
+      "remainingBackgroundPixels": 0,
+      "maximumPixelExtension": 5.285478990657339
+    },
+    {
+      "part": "Armored boot L",
+      "repairedPixels": 33954,
+      "noVisibleSourcePixels": 3584,
+      "remainingBackgroundPixels": 0,
+      "maximumPixelExtension": 40.63122897523118
+    },
+    {
+      "part": "Teal tabard",
+      "repairedPixels": 0,
+      "noVisibleSourcePixels": 0,
+      "remainingBackgroundPixels": 0,
+      "maximumPixelExtension": 0.0
+    },
+    {
+      "part": "Rear teal tabard",
+      "repairedPixels": 0,
+      "noVisibleSourcePixels": 0,
+      "remainingBackgroundPixels": 0,
+      "maximumPixelExtension": 0.0
+    }
+  ]
+}

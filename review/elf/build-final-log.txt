@@ -1,0 +1,123 @@
+RUN /Users/larsdittinger/dev/modelovani_test_codex/character-lab/.venv/bin/python /Users/larsdittinger/dev/modelovani_test_codex/character-lab/tools/validate_elf_inputs.py
+ELF INPUT PASS 18 part types 112 sections 9 source guards
+RUN /Users/larsdittinger/dev/modelovani_test_codex/character-lab/.venv/bin/python /Users/larsdittinger/dev/modelovani_test_codex/character-lab/tools/elf_model.py
+{'parts': 31, 'vertices': 100292, 'atlasSize': (2000, 3696), 'scale': 0.0026997840172786176, 'frontCenter': 281, 'sideOrigin': 756, 'backCenter': 1253, 'source': 'references/elf/turnaround.png; hand measured in config/elf-profiles.json', 'limitations': 'Authored unseen cloak and hair surfaces; projected facial detail; no facial deformation or cloth collision.'}
+RUN /Applications/Blender.app/Contents/MacOS/Blender -b -t 4 --python-exit-code 1 --python /Users/larsdittinger/dev/modelovani_test_codex/character-lab/tools/elf_blender.py -- build
+/Users/larsdittinger/dev/modelovani_test_codex/character-lab/tools/elf_blender.py:24: DeprecationWarning: 'Material.use_nodes' is expected to be removed in Blender 6.0
+  clear();spec=json.loads((R/'assets/elf-model.json').read_text());mat=bpy.data.materials.new('Night elf / measured image projection');mat.use_nodes=True;nt=mat.node_tree;bs=nt.nodes.get('Principled BSDF');bs.inputs['Roughness'].default_value=.86;bs.inputs['Specular IOR Level'].default_value=.17
+BlenderMCP: cannot start server in background mode (blender -b) - commands would never execute
+BlenderMCP: run Blender with a GUI, or use a virtual display: xvfb-run -a blender
+BlenderMCP addon registered
+Info: Removed 48 vertices
+Info: Removed 48 vertices
+Info: Removed 112 vertices
+Info: Removed 28 vertices
+Info: Removed 28 vertices
+Info: Removed 48 vertices
+Info: Removed 48 vertices
+Info: Removed 48 vertices
+Info: Removed 48 vertices
+Info: Removed 48 vertices
+Info: Removed 48 vertices
+Info: Removed 48 vertices
+Info: Removed 48 vertices
+Info: Removed 48 vertices
+Info: Removed 48 vertices
+Info: Removed 48 vertices
+Info: Removed 48 vertices
+Info: Removed 48 vertices
+Info: Removed 48 vertices
+Info: Removed 48 vertices
+Info: Removed 48 vertices
+Info: Removed 48 vertices
+Info: Removed 48 vertices
+Info: Removed 48 vertices
+Info: Removed 48 vertices
+Info: Removed 48 vertices
+Info: Removed 48 vertices
+Info: Removed 48 vertices
+Info: Removed 48 vertices
+Info: Removed 48 vertices
+Info: Removed 78 vertices
+Info: Saved as "elf-static.blend"
+INFO Draco is available, use library at /Applications/Blender.app/Contents/Resources/5.2/scripts/addons_core/io_scene_gltf2/libbf_intern_draco_bridge.dylib
+INFO MeshOptimizer is available, use library at /Applications/Blender.app/Contents/Resources/5.2/scripts/addons_core/io_scene_gltf2/libbf_intern_meshopt_bridge.dylib
+13:52:28 | INFO: Starting glTF 2.0 export
+13:52:28 | INFO: Extracting primitive: Torso layered leather armor
+13:52:28 | INFO: Primitives created: 1
+13:52:28 | INFO: Finished glTF 2.0 export in 0.09674191474914551 s
+
+ELF BUILD {'triangles': 63154, 'vertices': 31639, 'parts': 31, 'source': 'references/elf/turnaround.png'}
+BlenderMCP server stopped
+BlenderMCP addon unregistered
+Blender 5.2.1 LTS (hash 9e2066aef7ef built 2026-08-25 01:35:57)
+
+Blender quit
+RUN /Applications/Blender.app/Contents/MacOS/Blender -b -t 4 --python-exit-code 1 --python /Users/larsdittinger/dev/modelovani_test_codex/character-lab/tools/elf_blender.py -- rig
+00:00.453  blend            | Read blend: "/Users/larsdittinger/dev/modelovani_test_codex/character-lab/assets/elf-static.blend"
+BlenderMCP: cannot start server in background mode (blender -b) - commands would never execute
+BlenderMCP: run Blender with a GUI, or use a virtual display: xvfb-run -a blender
+BlenderMCP addon registered
+Info: Saved as "elf-rigged.blend"
+INFO Draco is available, use library at /Applications/Blender.app/Contents/Resources/5.2/scripts/addons_core/io_scene_gltf2/libbf_intern_draco_bridge.dylib
+INFO MeshOptimizer is available, use library at /Applications/Blender.app/Contents/Resources/5.2/scripts/addons_core/io_scene_gltf2/libbf_intern_meshopt_bridge.dylib
+13:52:29 | INFO: Starting glTF 2.0 export
+13:52:29 | INFO: Extracting primitive: Torso layered leather armor
+13:52:29 | INFO: Primitives created: 1
+13:52:29 | INFO: Finished glTF 2.0 export in 0.18635892868041992 s
+
+ELF RIG 27
+BlenderMCP server stopped
+BlenderMCP addon unregistered
+Blender 5.2.1 LTS (hash 9e2066aef7ef built 2026-08-25 01:35:57)
+
+Blender quit
+RUN node /Users/larsdittinger/dev/modelovani_test_codex/character-lab/tools/elf_motion.mjs retarget
+RETARGETED KayKit Rig_Medium_CombatMelee.glb
+RETARGETED KayKit Rig_Medium_CombatRanged.glb
+RETARGETED KayKit Rig_Medium_General.glb
+RETARGETED KayKit Rig_Medium_MovementAdvanced.glb
+RETARGETED KayKit Rig_Medium_MovementBasic.glb
+RETARGETED KayKit Rig_Medium_Simulation.glb
+RETARGETED KayKit Rig_Medium_Special.glb
+RETARGETED KayKit Rig_Medium_Tools.glb
+RETARGETED Quaternius 1 UAL1_Standard.glb
+RETARGETED Quaternius 2 UAL2_Standard.glb
+RETARGET COMPLETE { maxIKError: 0.00000986330347065016, clips: 214 } GLB 11158692
+RUN node /Users/larsdittinger/dev/modelovani_test_codex/character-lab/tools/elf_motion.mjs clips
+Exported 214 motion-only GLBs
+RUN /Applications/Blender.app/Contents/MacOS/Blender -b -t 4 --python-exit-code 1 --python /Users/larsdittinger/dev/modelovani_test_codex/character-lab/tools/elf_blender.py -- actions
+BlenderMCP: cannot start server in background mode (blender -b) - commands would never execute
+BlenderMCP: run Blender with a GUI, or use a virtual display: xvfb-run -a blender
+BlenderMCP addon registered
+13:52:37 | INFO: Data are loaded, start creating Blender stuff
+13:52:37 | INFO: Blender create Mesh node Torso layered leather armor
+13:52:38 | INFO: glTF import finished in 0.85s
+Info: No new files have been packed
+Info: Saved as "elf-animated.blend"
+ANIMATED BLENDER 214 actions
+BlenderMCP server stopped
+BlenderMCP addon unregistered
+Blender 5.2.1 LTS (hash 9e2066aef7ef built 2026-08-25 01:35:57)
+
+Blender quit
+RUN node /Users/larsdittinger/dev/modelovani_test_codex/character-lab/tools/elf_motion.mjs validate
+{
+  "passed": true,
+  "character": "elf",
+  "clips": 214,
+  "motionOnlyFiles": 214,
+  "blenderActions": 214,
+  "embeddedImages": 1,
+  "bones": 27,
+  "vertices": 32242,
+  "triangles": 63154,
+  "idleClips": 32,
+  "runClips": 8,
+  "sampledPoses": 1284,
+  "maxPoseSpan": 3.137221034464489,
+  "maxWeightError": 6.705522537231445e-8,
+  "maxQuaternionError": 4.405028275478173e-8,
+  "maxIKError": 0.00000986330347065016,
+  "scope": "Numeric geometry/skin/animation and matching motion-only file checks; per-pose size is checked separately from root travel. Not a proof of absence of collisions or sliding."
+}

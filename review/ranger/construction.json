@@ -1,0 +1,14 @@
+{
+  "parts": 29,
+  "vertices": 91448,
+  "atlasSize": [
+    2000,
+    3168
+  ],
+  "scale": 0.002653927813163482,
+  "frontCenter": 317,
+  "sideOrigin": 773,
+  "backCenter": 1220,
+  "source": "Independent new generated reference; individual silhouette measurements in config/ranger-profiles.json",
+  "limitations": "Manually authored unseen surfaces; image-projected skin/hair; no facial deformation."
+}

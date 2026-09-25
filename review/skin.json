@@ -1,0 +1,179 @@
+{
+  "bones": 27,
+  "parts": [
+    {
+      "part": "Torso \u00b7 shaped breastplate",
+      "vertices": 1042,
+      "minWeightSum": 1,
+      "maxWeightSum": 1
+    },
+    {
+      "part": "Neck inside collar",
+      "vertices": 1042,
+      "minWeightSum": 1,
+      "maxWeightSum": 1
+    },
+    {
+      "part": "Face \u00b7 nose cheek and jaw relief",
+      "vertices": 1602,
+      "minWeightSum": 1,
+      "maxWeightSum": 1
+    },
+    {
+      "part": "Sculpted hair",
+      "vertices": 674,
+      "minWeightSum": 1,
+      "maxWeightSum": 1
+    },
+    {
+      "part": "Hair at rear of skull",
+      "vertices": 1042,
+      "minWeightSum": 1,
+      "maxWeightSum": 1
+    },
+    {
+      "part": "Pauldron R",
+      "vertices": 1122,
+      "minWeightSum": 1,
+      "maxWeightSum": 1
+    },
+    {
+      "part": "Upper arm R",
+      "vertices": 1042,
+      "minWeightSum": 1,
+      "maxWeightSum": 1
+    },
+    {
+      "part": "Bracer R",
+      "vertices": 1042,
+      "minWeightSum": 1,
+      "maxWeightSum": 1
+    },
+    {
+      "part": "Gauntlet palm R",
+      "vertices": 1042,
+      "minWeightSum": 1,
+      "maxWeightSum": 1
+    },
+    {
+      "part": "Thumb R",
+      "vertices": 386,
+      "minWeightSum": 1,
+      "maxWeightSum": 1
+    },
+    {
+      "part": "Thigh R",
+      "vertices": 1042,
+      "minWeightSum": 1,
+      "maxWeightSum": 1
+    },
+    {
+      "part": "Hanging hip plate R",
+      "vertices": 1042,
+      "minWeightSum": 1,
+      "maxWeightSum": 1
+    },
+    {
+      "part": "Knee armor R",
+      "vertices": 1042,
+      "minWeightSum": 1,
+      "maxWeightSum": 1
+    },
+    {
+      "part": "Greave R",
+      "vertices": 1042,
+      "minWeightSum": 1,
+      "maxWeightSum": 1
+    },
+    {
+      "part": "Armored boot R",
+      "vertices": 1042,
+      "minWeightSum": 1,
+      "maxWeightSum": 1
+    },
+    {
+      "part": "Pauldron L",
+      "vertices": 1122,
+      "minWeightSum": 1,
+      "maxWeightSum": 1
+    },
+    {
+      "part": "Upper arm L",
+      "vertices": 1042,
+      "minWeightSum": 1,
+      "maxWeightSum": 1
+    },
+    {
+      "part": "Bracer L",
+      "vertices": 1042,
+      "minWeightSum": 1,
+      "maxWeightSum": 1
+    },
+    {
+      "part": "Gauntlet palm L",
+      "vertices": 1042,
+      "minWeightSum": 1,
+      "maxWeightSum": 1
+    },
+    {
+      "part": "Thumb L",
+      "vertices": 386,
+      "minWeightSum": 1,
+      "maxWeightSum": 1
+    },
+    {
+      "part": "Thigh L",
+      "vertices": 1042,
+      "minWeightSum": 1,
+      "maxWeightSum": 1
+    },
+    {
+      "part": "Hanging hip plate L",
+      "vertices": 1042,
+      "minWeightSum": 1,
+      "maxWeightSum": 1
+    },
+    {
+      "part": "Knee armor L",
+      "vertices": 1042,
+      "minWeightSum": 1,
+      "maxWeightSum": 1
+    },
+    {
+      "part": "Greave L",
+      "vertices": 1042,
+      "minWeightSum": 1,
+      "maxWeightSum": 1
+    },
+    {
+      "part": "Armored boot L",
+      "vertices": 1042,
+      "minWeightSum": 1,
+      "maxWeightSum": 1
+    },
+    {
+      "part": "Teal tabard",
+      "vertices": 1042,
+      "minWeightSum": 0.9999999999999999,
+      "maxWeightSum": 1
+    },
+    {
+      "part": "Rear teal tabard",
+      "vertices": 1042,
+      "minWeightSum": 0.9999999999999999,
+      "maxWeightSum": 1
+    },
+    {
+      "part": "Raised golden diamond crest",
+      "vertices": 10,
+      "minWeightSum": 1.0,
+      "maxWeightSum": 1.0
+    },
+    {
+      "part": "Raised belt buckle",
+      "vertices": 18,
+      "minWeightSum": 1,
+      "maxWeightSum": 1
+    }
+  ]
+}

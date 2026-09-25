@@ -1,0 +1,9 @@
+{
+  "source": "Built-in ImageGen, one image containing three views",
+  "generatedOn": "2026-09-25",
+  "promptFile": "config/elf-prompt.txt",
+  "image": "references/elf/turnaround.png",
+  "dimensions": [1536, 1024],
+  "sha256": "ba6c208a20b445a078848d59c1bd35a4dab38fb5fdc365dafecb2c2206c32eab",
+  "cost": "No measured bill available"
+}

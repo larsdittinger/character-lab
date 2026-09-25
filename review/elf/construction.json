@@ -1,0 +1,14 @@
+{
+  "parts": 30,
+  "vertices": 97170,
+  "atlasSize": [
+    2000,
+    3168
+  ],
+  "scale": 0.0026997840172786176,
+  "frontCenter": 281,
+  "sideOrigin": 756,
+  "backCenter": 1253,
+  "source": "references/elf/turnaround.png; hand measured in config/elf-profiles.json",
+  "limitations": "Authored unseen cloak and hair surfaces; projected facial detail; no facial deformation or cloth collision."
+}

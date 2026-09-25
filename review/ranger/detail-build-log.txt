@@ -1,0 +1,119 @@
+RUN /Users/larsdittinger/dev/modelovani_test_codex/character-lab/.venv/bin/python /Users/larsdittinger/dev/modelovani_test_codex/character-lab/tools/ranger_model.py
+{'parts': 29, 'vertices': 91448, 'atlasSize': (2000, 3168), 'scale': 0.002653927813163482, 'frontCenter': 317, 'sideOrigin': 773, 'backCenter': 1220, 'source': 'Independent new generated reference; individual silhouette measurements in config/ranger-profiles.json', 'limitations': 'Manually authored unseen surfaces; image-projected skin/hair; no facial deformation.'}
+RUN /Applications/Blender.app/Contents/MacOS/Blender -b -t 4 --python-exit-code 1 --python /Users/larsdittinger/dev/modelovani_test_codex/character-lab/tools/ranger_blender.py -- build
+/Users/larsdittinger/dev/modelovani_test_codex/character-lab/tools/ranger_blender.py:24: DeprecationWarning: 'Material.use_nodes' is expected to be removed in Blender 6.0
+  clear();spec=json.loads((R/'assets/ranger-model.json').read_text());mat=bpy.data.materials.new('Copper ranger / measured image projection');mat.use_nodes=True;nt=mat.node_tree;bs=nt.nodes.get('Principled BSDF');bs.inputs['Roughness'].default_value=.86;bs.inputs['Specular IOR Level'].default_value=.17
+BlenderMCP: cannot start server in background mode (blender -b) - commands would never execute
+BlenderMCP: run Blender with a GUI, or use a virtual display: xvfb-run -a blender
+BlenderMCP addon registered
+Info: Removed 48 vertices
+Info: Removed 48 vertices
+Info: Removed 110 vertices
+Info: Removed 24 vertices
+Info: Removed 24 vertices
+Info: Removed 48 vertices
+Info: Removed 48 vertices
+Info: Removed 48 vertices
+Info: Removed 48 vertices
+Info: Removed 48 vertices
+Info: Removed 48 vertices
+Info: Removed 48 vertices
+Info: Removed 48 vertices
+Info: Removed 48 vertices
+Info: Removed 48 vertices
+Info: Removed 48 vertices
+Info: Removed 48 vertices
+Info: Removed 48 vertices
+Info: Removed 48 vertices
+Info: Removed 48 vertices
+Info: Removed 48 vertices
+Info: Removed 48 vertices
+Info: Removed 48 vertices
+Info: Removed 48 vertices
+Info: Removed 48 vertices
+Info: Removed 48 vertices
+Info: Removed 48 vertices
+Info: Removed 48 vertices
+Info: Removed 48 vertices
+Info: Saved as "ranger-static.blend"
+INFO Draco is available, use library at /Applications/Blender.app/Contents/Resources/5.2/scripts/addons_core/io_scene_gltf2/libbf_intern_draco_bridge.dylib
+INFO MeshOptimizer is available, use library at /Applications/Blender.app/Contents/Resources/5.2/scripts/addons_core/io_scene_gltf2/libbf_intern_meshopt_bridge.dylib
+13:27:41 | INFO: Starting glTF 2.0 export
+13:27:41 | INFO: Extracting primitive: Torso fitted leather cuirass
+13:27:41 | INFO: Primitives created: 1
+13:27:41 | INFO: Finished glTF 2.0 export in 0.11515998840332031 s
+
+RANGER BUILD {'triangles': 57584, 'vertices': 28850, 'parts': 29, 'source': 'references/ranger/turnaround.png'}
+BlenderMCP server stopped
+BlenderMCP addon unregistered
+Blender 5.2.1 LTS (hash 9e2066aef7ef built 2026-08-25 01:35:57)
+
+Blender quit
+RUN /Applications/Blender.app/Contents/MacOS/Blender -b -t 4 --python-exit-code 1 --python /Users/larsdittinger/dev/modelovani_test_codex/character-lab/tools/ranger_blender.py -- rig
+00:00.284  blend            | Read blend: "/Users/larsdittinger/dev/modelovani_test_codex/character-lab/assets/ranger-static.blend"
+BlenderMCP: cannot start server in background mode (blender -b) - commands would never execute
+BlenderMCP: run Blender with a GUI, or use a virtual display: xvfb-run -a blender
+BlenderMCP addon registered
+Info: Saved as "ranger-rigged.blend"
+INFO Draco is available, use library at /Applications/Blender.app/Contents/Resources/5.2/scripts/addons_core/io_scene_gltf2/libbf_intern_draco_bridge.dylib
+INFO MeshOptimizer is available, use library at /Applications/Blender.app/Contents/Resources/5.2/scripts/addons_core/io_scene_gltf2/libbf_intern_meshopt_bridge.dylib
+13:27:42 | INFO: Starting glTF 2.0 export
+13:27:42 | INFO: Extracting primitive: Torso fitted leather cuirass
+13:27:42 | INFO: Primitives created: 1
+13:27:42 | INFO: Finished glTF 2.0 export in 0.18559479713439941 s
+
+RANGER RIG 27
+BlenderMCP server stopped
+BlenderMCP addon unregistered
+Blender 5.2.1 LTS (hash 9e2066aef7ef built 2026-08-25 01:35:57)
+
+Blender quit
+RUN node /Users/larsdittinger/dev/modelovani_test_codex/character-lab/tools/ranger_motion.mjs retarget
+RETARGETED KayKit Rig_Medium_CombatMelee.glb
+RETARGETED KayKit Rig_Medium_CombatRanged.glb
+RETARGETED KayKit Rig_Medium_General.glb
+RETARGETED KayKit Rig_Medium_MovementAdvanced.glb
+RETARGETED KayKit Rig_Medium_MovementBasic.glb
+RETARGETED KayKit Rig_Medium_Simulation.glb
+RETARGETED KayKit Rig_Medium_Special.glb
+RETARGETED KayKit Rig_Medium_Tools.glb
+RETARGETED Quaternius 1 UAL1_Standard.glb
+RETARGETED Quaternius 2 UAL2_Standard.glb
+RETARGET COMPLETE { maxIKError: 0.000009865978109270369, clips: 214 } GLB 10685708
+RUN node /Users/larsdittinger/dev/modelovani_test_codex/character-lab/tools/ranger_motion.mjs clips
+Exported 214 motion-only GLBs
+RUN /Applications/Blender.app/Contents/MacOS/Blender -b -t 4 --python-exit-code 1 --python /Users/larsdittinger/dev/modelovani_test_codex/character-lab/tools/ranger_blender.py -- actions
+BlenderMCP: cannot start server in background mode (blender -b) - commands would never execute
+BlenderMCP: run Blender with a GUI, or use a virtual display: xvfb-run -a blender
+BlenderMCP addon registered
+13:27:48 | INFO: Data are loaded, start creating Blender stuff
+13:27:48 | INFO: Blender create Mesh node Torso fitted leather cuirass
+13:27:49 | INFO: glTF import finished in 0.74s
+Info: No new files have been packed
+Info: Saved as "ranger-animated.blend"
+ANIMATED BLENDER 214 actions
+BlenderMCP server stopped
+BlenderMCP addon unregistered
+Blender 5.2.1 LTS (hash 9e2066aef7ef built 2026-08-25 01:35:57)
+
+Blender quit
+RUN node /Users/larsdittinger/dev/modelovani_test_codex/character-lab/tools/ranger_motion.mjs validate
+{
+  "passed": true,
+  "character": "ranger",
+  "clips": 214,
+  "motionOnlyFiles": 214,
+  "blenderActions": 214,
+  "embeddedImages": 1,
+  "bones": 27,
+  "vertices": 29477,
+  "triangles": 57584,
+  "idleClips": 32,
+  "runClips": 8,
+  "sampledPoses": 1284,
+  "maxPoseSpan": 2.936498811033701,
+  "maxWeightError": 2.9802322387695312e-8,
+  "maxQuaternionError": 4.698854838558475e-8,
+  "maxIKError": 0.000009865978109270369,
+  "scope": "Numeric geometry/skin/animation and matching motion-only file checks; per-pose size is checked separately from root travel. Not a proof of absence of collisions or sliding."
+}

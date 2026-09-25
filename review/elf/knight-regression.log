@@ -1,0 +1,23 @@
+
+> amberwatch-character-lab@1.0.0 validate
+> node tools/validate.mjs
+
+{
+  "passed": true,
+  "character": "knight",
+  "clips": 214,
+  "motionOnlyFiles": 214,
+  "blenderActions": 214,
+  "embeddedImages": 1,
+  "bones": 27,
+  "vertices": 27704,
+  "triangles": 54288,
+  "idleClips": 32,
+  "runClips": 8,
+  "sampledPoses": 1284,
+  "maxPoseSpan": 3.126693088858036,
+  "maxWeightError": 8.940696716308594e-8,
+  "maxQuaternionError": 4.518679030951489e-8,
+  "maxIKError": 0.000009885036377251198,
+  "scope": "Numeric geometry/skin/animation and matching motion-only file checks; per-pose size is checked separately from root travel. Not a proof of absence of collisions or sliding."
+}

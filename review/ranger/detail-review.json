@@ -1,0 +1,15 @@
+{
+  "accepted": true,
+  "comparison": "Visual inspection of actual Blender GLB renders, matched front/three-quarter/profile cameras",
+  "before": "assets/ranger-before-detail.glb",
+  "beforeRenders": "review/ranger/baseline-resume/face-*.png",
+  "afterRenders": "review/ranger/face-*.png",
+  "geometryAndUVAccessorsIdentical": true,
+  "changes": [
+    "Masked residual front/profile ear on underlying head; separate ear keeps its detail",
+    "Replaced single-column neck projection with measured 2D profile domain",
+    "Pale collar material is not rejected as background"
+  ],
+  "remaining": "Simple ear loft and residual painted shading at the attachment; low-resolution face reference, no expression rig",
+  "validation": "review/ranger/validation.json"
+}

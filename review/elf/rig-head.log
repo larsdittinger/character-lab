@@ -1,0 +1,19 @@
+RUN /Applications/Blender.app/Contents/MacOS/Blender -b -t 4 --python-exit-code 1 --python /Users/larsdittinger/dev/modelovani_test_codex/character-lab/tools/elf_blender.py -- rig
+00:00.451  blend            | Read blend: "/Users/larsdittinger/dev/modelovani_test_codex/character-lab/assets/elf-static.blend"
+BlenderMCP: cannot start server in background mode (blender -b) - commands would never execute
+BlenderMCP: run Blender with a GUI, or use a virtual display: xvfb-run -a blender
+BlenderMCP addon registered
+Info: Saved as "elf-rigged.blend"
+INFO Draco is available, use library at /Applications/Blender.app/Contents/Resources/5.2/scripts/addons_core/io_scene_gltf2/libbf_intern_draco_bridge.dylib
+INFO MeshOptimizer is available, use library at /Applications/Blender.app/Contents/Resources/5.2/scripts/addons_core/io_scene_gltf2/libbf_intern_meshopt_bridge.dylib
+14:02:38 | INFO: Starting glTF 2.0 export
+14:02:38 | INFO: Extracting primitive: Torso layered leather armor
+14:02:38 | INFO: Primitives created: 1
+14:02:38 | INFO: Finished glTF 2.0 export in 0.14352798461914062 s
+
+ELF RIG 27
+BlenderMCP server stopped
+BlenderMCP addon unregistered
+Blender 5.2.1 LTS (hash 9e2066aef7ef built 2026-08-25 01:35:57)
+
+Blender quit

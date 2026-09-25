@@ -1,0 +1,16 @@
+{
+  "name": "amberwatch-character-lab",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Reproducible reference modeling, rigging and licensed animation retargeting lab",
+  "scripts": {
+    "serve": "python3 tools/pipeline.py serve",
+    "build": ".venv/bin/python tools/pipeline.py build",
+    "validate": "node tools/validate.mjs",
+    "download:animations": "python3 tools/download_animations.py"
+  },
+  "dependencies": {
+    "three": "0.180.0"
+  }
+}
