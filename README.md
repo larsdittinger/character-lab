@@ -15,6 +15,8 @@ A standalone, reproducible character modeling experiment with three completed ch
 
 [How it works](#how-it-works) · [Run the viewer](#run-the-viewer) · [Build offline](#build-offline) · [Add a character](#add-a-character) · [Validation](docs/VALIDATION.md)
 
+**Using a local model, ChatGPT or Gemini?** Follow the [new-agent setup and provider guide](docs/AGENT_START.md). It includes first-run commands, reference import instructions and a ready-to-copy agent task. Coding agents can use your chosen model host; image references can come from any suitable image tool. The included API helper currently connects to OpenAI; Gemini and local image outputs use the documented file import workflow.
+
 ## What is included
 
 - Three independently calibrated characters with embedded textures, skinning and editable Blender actions.
@@ -25,6 +27,10 @@ A standalone, reproducible character modeling experiment with three completed ch
 - Optional **GPT Image 2.5 Sunburst** reference generation at **high** quality. Existing characters rebuild entirely offline.
 
 ## Run the viewer
+
+![Character Lab viewer playing the knight's KayKit Running A animation, with the Run filter and playback controls visible](docs/images/viewer-running.jpg)
+
+*Actual browser screenshot during playback: Amberwatch Knight, KayKit Running A, 54,288 triangles and 27 bones. The Run filter shows the eight available run clips.*
 
 Requirements: Node.js 22+, Python 3.10+, and Git LFS for the supplied binary assets.
 

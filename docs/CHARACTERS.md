@@ -2,6 +2,8 @@
 
 Every new character gets a separate workspace. The reference must still be individually measured; the scaffold does not relabel an existing knight as a new reconstruction.
 
+For local models, ChatGPT or Gemini, start with [AGENT_START.md](AGENT_START.md). It distinguishes the coding agent from the image provider and explains how to import references when using a tool other than the built-in OpenAI helper.
+
 ```sh
 .venv/bin/python tools/new_character.py mage --title "Mage"
 ```

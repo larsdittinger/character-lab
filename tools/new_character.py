@@ -22,7 +22,7 @@ def create_character(name, title, root=ROOT):
 Reference and measured calibration for `{name}` belong only in this folder.
 
 1. Edit `config/prompt.txt` to describe the new base character, without a cloak or protruding equipment.
-2. Generate ONE sheet: `.venv/bin/python tools/generate_reference.py --character {name}` from the project root (`--dry-run` previews the request).
+2. Generate ONE sheet: `.venv/bin/python tools/generate_reference.py --character {name}` from the project root (`--dry-run` previews the request), or import an original local-model/Gemini/ChatGPT image with metadata following ../../docs/AGENT_START.md. Only the OpenAI image API helper is built in. Use your chosen coding-agent host; a fresh clone contains no API keys.
 3. Independently measure silhouettes, face, projection masks and joints into `config/`. Compare head proportions with the accepted knight before rigging.
 4. Implement `tools/model.py` (measurement validation, geometry JSON, atlas, input-validation.json, projection.json), `tools/build.py` (Blender static export + topology.json) and `tools/rig.py` (Blender rig + weights). These scripts receive CHARACTER_LAB_DIR pointing here. The shared project is CHARACTER_LAB_ROOT. Do not reuse another image's pixel calibration.
 5. Geometry outputs: `assets/static.glb`, `assets/static.blend`, `textures/projection.png`; rig outputs: `assets/rigged.glb`, `assets/rigged.blend`. Shared motion tools create `assets/animated.glb`, `assets/animated.blend`, `animations/catalog.json` and `animations/retargeted/` for the standard 27-joint hierarchy.
