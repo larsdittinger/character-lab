@@ -8,6 +8,7 @@
     "serve": "python3 tools/pipeline.py serve",
     "build": ".venv/bin/python tools/pipeline.py build",
     "validate": "node tools/validate.mjs",
+    "test": ".venv/bin/python -m unittest discover -s tests -p '*_test.py' && node tests/glb_test.mjs",
     "download:animations": "python3 tools/download_animations.py"
   },
   "dependencies": {

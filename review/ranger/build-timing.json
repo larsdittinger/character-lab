@@ -1,0 +1,39 @@
+{
+  "character": "ranger",
+  "task": "build",
+  "success": true,
+  "forced": false,
+  "seconds": 6.8008,
+  "stages": [
+    {
+      "stage": "geometry",
+      "cached": false,
+      "seconds": 3.3966
+    },
+    {
+      "stage": "rig",
+      "cached": false,
+      "seconds": 0.675
+    },
+    {
+      "stage": "retarget",
+      "cached": false,
+      "seconds": 0.5962
+    },
+    {
+      "stage": "clips",
+      "cached": false,
+      "seconds": 0.1528
+    },
+    {
+      "stage": "actions",
+      "cached": false,
+      "seconds": 1.0702
+    },
+    {
+      "stage": "validate",
+      "cached": false,
+      "seconds": 0.8404
+    }
+  ]
+}

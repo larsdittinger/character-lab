@@ -1,0 +1,32 @@
+{
+  "knight": {
+    "title": "Amberwatch Knight",
+    "path": "assets/knight-animated.glb",
+    "blend": "assets/knight-animated.blend",
+    "reference": "references/knight-turnaround.png",
+    "catalog": "animations/catalog.json",
+    "face": [0, 2.28, 0.10],
+    "comparisons": {
+      "projection": {"path": "assets/knight-before-projection.glb", "title": "Before projection fix"},
+      "face": {"path": "assets/knight-before-face.glb", "title": "Original face"}
+    }
+  },
+  "ranger": {
+    "title": "Woodland Ranger",
+    "path": "assets/ranger-animated.glb",
+    "blend": "assets/ranger-animated.blend",
+    "reference": "references/ranger/turnaround.png",
+    "catalog": "animations/ranger/catalog.json",
+    "face": [0, 2.30, 0],
+    "comparisons": {}
+  },
+  "elf": {
+    "title": "Night Elf",
+    "path": "assets/elf-animated.glb",
+    "blend": "assets/elf-animated.blend",
+    "reference": "references/elf/turnaround.png",
+    "catalog": "animations/elf/catalog.json",
+    "face": [0, 2.29, 0],
+    "comparisons": {}
+  }
+}

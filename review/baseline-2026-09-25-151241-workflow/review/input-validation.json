@@ -1,0 +1,18 @@
+{
+  "passed": true,
+  "scope": "Input validity and source identity; visual correctness requires renders.",
+  "profileTypes": 17,
+  "measuredSections": 120,
+  "referenceSize": [
+    1907,
+    1280
+  ],
+  "sha256": {
+    "references/gemini-original.png": "451c950ff33876394de5c3086d78e02afbd5829fa5439e31c905ec8735ba88fe",
+    "references/knight-back.png": "dff878716b6a499ed7a78582c18d07e1867a9cb8068ea4230e4a62ac76977587",
+    "config/profiles.json": "a2681d4215b0a3f1187a5877c866f97d114bf7ed9eb5bae19f4ed81f7ead6437",
+    "config/face.json": "e3570a0e7349545600688cebb3fafd1d33fc8212711141899b25e3645e26a4a5",
+    "config/rig.json": "ff034bd887e360ed9838beeda35fb9aaf6f37e27bddded95927f7c2683426bd6",
+    "config/projection.json": "563b97a34822e95e33e1f6bdf9eaccd1f3500939765790b8bab1edd1c939800b"
+  }
+}

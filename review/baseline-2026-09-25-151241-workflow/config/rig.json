@@ -1,0 +1,23 @@
+{
+  "coordinateSystem": "Y-up, front +Z, meters",
+  "bones": {
+    "root": {"head":[0,0,0],"tail":[0,0,-0.2]},
+    "pelvis": {"head":[0,1.27,-0.035],"tail":[0,1.44,-0.015]},
+    "spine_01": {"head":[0,1.44,-0.015],"tail":[0,1.64,-0.025]},
+    "spine_02": {"head":[0,1.64,-0.025],"tail":[0,1.83,-0.025]},
+    "spine_03": {"head":[0,1.83,-0.025],"tail":[0,2.05,-0.015]},
+    "neck_01": {"head":[0,2.05,-0.015],"tail":[0,2.14,-0.01]},
+    "Head": {"head":[0,2.14,-0.01],"tail":[0,2.42,-0.01]},
+    "clavicle_l": {"head":[0.07,1.98,-0.025],"tail":[0.39,1.92,-0.015]},
+    "upperarm_l": {"head":[0.39,1.92,-0.015],"tail":[0.53,1.62,0.018]},
+    "lowerarm_l": {"head":[0.53,1.62,0.018],"tail":[0.715,1.30,0.012]},
+    "hand_l": {"head":[0.715,1.30,0.012],"tail":[0.775,1.06,0.025]},
+    "thigh_l": {"head":[0.235,1.25,-0.05],"tail":[0.23,0.70,0]},
+    "calf_l": {"head":[0.23,0.70,0],"tail":[0.25,0.21,-0.055]},
+    "foot_l": {"head":[0.25,0.21,-0.055],"tail":[0.25,0.075,0.235]},
+    "ball_l": {"head":[0.25,0.075,0.235],"tail":[0.25,0.075,0.31]}
+  },
+  "mirrorSuffixes": ["_l","_r"],
+  "clothInfluence": 0.65,
+  "notes": "Explicit anatomical pivots for the supplied knight. Mirrored right-side bones are generated. Finger motion is not supported by the mitten-like original mesh."
+}

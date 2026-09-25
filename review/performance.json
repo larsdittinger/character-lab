@@ -1,0 +1,140 @@
+{
+  "baseline": "review/baseline-2026-09-25-151241-workflow",
+  "originalBuild": {
+    "elapsedSeconds": 14.745495792012662,
+    "returncode": 0
+  },
+  "optimizedFullBuild": {
+    "character": "knight",
+    "task": "build",
+    "success": true,
+    "forced": false,
+    "seconds": 10.8966,
+    "stages": [
+      {
+        "stage": "geometry",
+        "cached": false,
+        "seconds": 7.462
+      },
+      {
+        "stage": "rig",
+        "cached": false,
+        "seconds": 0.7392
+      },
+      {
+        "stage": "retarget",
+        "cached": false,
+        "seconds": 0.5829
+      },
+      {
+        "stage": "clips",
+        "cached": false,
+        "seconds": 0.1273
+      },
+      {
+        "stage": "actions",
+        "cached": false,
+        "seconds": 1.0649
+      },
+      {
+        "stage": "validate",
+        "cached": false,
+        "seconds": 0.8539
+      }
+    ]
+  },
+  "cachedBuild": {
+    "character": "knight",
+    "task": "build",
+    "success": true,
+    "forced": false,
+    "seconds": 1.3139,
+    "stages": [
+      {
+        "stage": "geometry",
+        "cached": true,
+        "seconds": 0.0262
+      },
+      {
+        "stage": "rig",
+        "cached": true,
+        "seconds": 0.0118
+      },
+      {
+        "stage": "retarget",
+        "cached": true,
+        "seconds": 0.0934
+      },
+      {
+        "stage": "clips",
+        "cached": true,
+        "seconds": 0.0147
+      },
+      {
+        "stage": "actions",
+        "cached": true,
+        "seconds": 0.0202
+      },
+      {
+        "stage": "validate",
+        "cached": false,
+        "seconds": 1.0705
+      }
+    ]
+  },
+  "firstOptimizedMeasurements": [
+    {
+      "character": "knight",
+      "seconds": 19.21506899999804,
+      "returncode": 0
+    },
+    {
+      "character": "ranger",
+      "seconds": 13.016026583005441,
+      "returncode": 0
+    },
+    {
+      "character": "elf",
+      "seconds": 10.718092124996474,
+      "returncode": 0
+    }
+  ],
+  "outputEquivalence": {
+    "knight": {
+      "animatedGLB": {
+        "beforeSha256": "6bf6a07b41f42403444adfbee339da9547d245f47807a44f52a4f9aa7793a856",
+        "afterSha256": "6bf6a07b41f42403444adfbee339da9547d245f47807a44f52a4f9aa7793a856",
+        "identical": true
+      },
+      "atlas": {
+        "beforeSha256": "9674b3581d41ff74151b8bf10d99223066567985a50de3322096abf700caace3",
+        "afterSha256": "9674b3581d41ff74151b8bf10d99223066567985a50de3322096abf700caace3",
+        "identical": true
+      }
+    },
+    "ranger": {
+      "animatedGLB": {
+        "beforeSha256": "4ac6b9bf1f1ea199cb242877ee6a0d835dafd527f6add944b4f5f52462d60c3f",
+        "afterSha256": "4ac6b9bf1f1ea199cb242877ee6a0d835dafd527f6add944b4f5f52462d60c3f",
+        "identical": true
+      },
+      "atlas": {
+        "beforeSha256": "c07682a194498fb4756f9a9460b61ef5bc4126ca5d97c65e8c6e26d285bcba1b",
+        "afterSha256": "c07682a194498fb4756f9a9460b61ef5bc4126ca5d97c65e8c6e26d285bcba1b",
+        "identical": true
+      }
+    },
+    "elf": {
+      "animatedGLB": {
+        "beforeSha256": "ffc75ffca9b813ab7f1ad98fd8b1b776de379131432d033012f64b95a6cf5005",
+        "afterSha256": "ffc75ffca9b813ab7f1ad98fd8b1b776de379131432d033012f64b95a6cf5005",
+        "identical": true
+      },
+      "atlas": {
+        "beforeSha256": "a331d53345f5805ed226acd6f49bdcb97e4b9d96c53999c6185c4cbf0be00bfa",
+        "afterSha256": "a331d53345f5805ed226acd6f49bdcb97e4b9d96c53999c6185c4cbf0be00bfa",
+        "identical": true
+      }
+    }
+  }
+}

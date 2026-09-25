@@ -1,179 +1,159 @@
-# Technický postup
+# Technical workflow
 
-## Ověřený pracovní cyklus pro dalšího agenta
+## Proven iteration cycle for the next agent
 
-Tento postup zachycuje opravy ověřené na strážci, průzkumnici a nočním elfovi dne **25. 9. 2026**. Souřadnice patří jejich konkrétním předlohám; na další charakter se přenáší postup kontroly, nikoli slepě stejná čísla. Vstupní pravidla jsou v [AGENTS.md](../AGENTS.md), detail tváře v [FACE.md](FACE.md) a další kalibrace v [RANGER.md](RANGER.md) a [ELF.md](ELF.md).
+This cycle records fixes verified on the knight, ranger and night elf on September 25, 2026. Coordinates belong to their specific references. Reuse the review method, not arbitrary pixel values. Read [AGENTS.md](../AGENTS.md), [FACE.md](FACE.md), [VALIDATION.md](VALIDATION.md) and the relevant character document first.
 
-1. **Nejprve reprodukuj známý stav.** Přečti uvedené dokumenty a [VALIDATION.md](VALIDATION.md), použij místní závislosti a existující reference. Spusť `build` vybrané postavy a otevři skutečný animovaný GLB ve vieweru. Pokud některý krok selže, oprav jeho příčinu před dalším krokem. Nevytvářej novou předlohu kvůli chybě projekce nebo vah.
-2. **Ulož srovnatelný výchozí stav.** Před experimentem zachovej příslušný GLB, konfiguraci, upravované skripty, atlas a kontrolní rendery v novém adresáři `review/baseline-<datum>-<pokus>/`. Existující historické baseline nepřepisuj. Zaznamenej postavu, konkrétní vadu a pohled, kde je vidět. Srovnávej stejnou kameru, světlo, pózu a u animace také stejný čas klipu.
-3. **Najdi příčinu v tomto pořadí:** silueta a objem bez textury → korespondence rysů → správný zdrojový díl → přechod barev. Kontroluj čelo, ¾, profil a zadní projekci. **U nové postavy navíc porovnej šířku a výšku hlavy vůči ramenům a celému tělu se schváleným strážcem při stejné kameře a póze; prohlédni i samotnou tvář, uši a krk.** Číselná validace úzkou hlavu nepozná. Pro přesah ucha na rameno oprav masku viditelnosti; pro dvojité oko nejdřív zarovnání. Širší rozmazání ani jiná kamera nesmí vadu jen schovat.
-4. **Měň jednu příčinu v jednom pokusu.** Odděl kalibrace jednotlivých postav. Pro nový díl doplň pojmenování, recept vah a kontrolu stran. Nejprve posuď statický export ze všech kontrolních pohledů. Pokud zlepšení jednoho pohledu poškodí jiný, pokus uprav nebo vrať.
-5. **Sestav všechny závislé výstupy.** Geometrie i textura vyžadují pořadí `geometry → rig → motion → validate`, nejjednodušeji celý `build`; pouhá výměna PNG vedle GLB vloženou texturu neaktualizuje. Po úpravě projekce renderuj strážce pomocí `tools/render_faces.py`, průzkumnici pomocí `ranger_pipeline.py render` a elfa pomocí `elf_pipeline.py render`. Zkontroluj aktuální reporty, ne staré PASS z předchozího exportu.
-6. **Ověř skutečný pohyb a obraz.** Ve vieweru přepni všechny tři postavy. U upravené postavy přehraj `Idle Loop` (Quaternius 1), `Running A` (KayKit), `Jog Fwd Loop`, `Sprint Loop`, `Jump Full Short` (KayKit) a `Waving` (KayKit). Zapni kostru, zastav a posuň čas v krajních pózách. Zkontroluj ruce, kolena, ramena, pláty a plášť. Pak v klidové póze prohlédni obličej čelně, z ¾ a z profilu, celé tělo včetně zad a čistý tvar. U strážce použij obě uložená srovnání projekce; u elfa a průzkumnice také [srovnání proporcí hlavy](../review/head-width.html). Po načtení nového souboru obnov stránku, ověř zvolenou postavu/klip a konzoli.
-7. **Ponech jen prokázané zlepšení a zapiš důkazy.** Podmínkou je současně číselné PASS a viditelné zlepšení bez nalezené regrese v ostatních kontrolních pohledech/pohybech. Pokud pokus nepomohl, vrať jeho kód i konfiguraci a znovu sestav odpovídající výstupy; nenechávej smíchanou starou geometrii a nové animace. Do dokumentace zapiš příčinu, opravu, reprodukční příkaz, skutečné počty, prohlédnuté pohledy/klipy a zbývající omezení. Otevřený viewer je součást předání.
+1. **Reproduce the accepted state.** Use local dependencies and saved references. Build the selected character and open its actual animated GLB in the viewer. Fix a failing stage before continuing. Do not generate another reference to repair projection or weighting.
+2. **Save a comparable baseline.** Preserve GLB, configuration, affected scripts, atlas and review renders in a new `review/baseline-<date>-<attempt>/`. Never overwrite historical comparisons. Record the character, defect and revealing view. Keep camera, lighting, pose and animation time identical when comparing.
+3. **Find the cause in this order:** untextured silhouette/volume → landmark correspondence → source ownership → color blending. Inspect front, three-quarter, profile and rear. For a new character, compare head width and height against the accepted knight in the same whole-body view, then inspect face, ear roots and neck. Numeric skin PASS cannot detect an aesthetically narrow head.
+4. **Change one cause at a time.** Keep calibrations separate. Add naming, weighting and side guards for new parts. Review the static export first. If improving one view damages another, revise or revert the attempt.
+5. **Rebuild dependent outputs.** Geometry and embedded texture require geometry → rig → motion → validation. The shared pipeline reuses only content-verified identical stages; `--force` reproduces every step. Run knight face renders, ranger renders or elf renders after projection changes. Do not trust a stale PASS report.
+6. **Inspect actual motion and images.** Switch all three supplied characters. On the changed model, inspect Quaternius `Idle Loop`, KayKit `Running A`, Quaternius `Jog Fwd Loop` and `Sprint Loop`, KayKit `Jump Full Short` and `Waving`. Show the skeleton, pause and scrub extreme poses. Check limbs, shoulders, armor and cloth. Inspect the rest pose from front/three-quarter/profile/back and in Clay mode. Use both knight comparisons and the [head comparison](../review/head-width.html). Reload after changed assets and inspect browser errors.
+7. **Keep only a demonstrated improvement.** Require numeric PASS and visible improvement without regressions in required views/motions. Otherwise restore that attempt's code/configuration and rebuild its outputs together. Document the cause, exact changes, commands, measured counts, inspected views/clips and remaining limits. Leave the viewer open.
 
-### Rozpoznání již vyřešených chyb
+### Previously solved symptoms
 
-| Viditelný problém | Příčina a správná oprava | Kontrola po opravě |
+| Symptom | Cause and correction | Verification |
 |---|---|---|
-| Druhé oko/obočí na spánku | Neshodné rysy a objem; upravit `config/face.json`, teprve potom míchat barvu | Čelo, ¾ i profil; jeden rys na každé viditelné straně |
-| Ucho na nárameníku, zbroj na čelisti, rukáv na plátu | Hloubkový profil zahrnuje zakrývající cizí díl; vymezit platný zdroj v `config/projection.json` | Maskové kontrolní body a skutečný render celého sousedství |
-| Bílé pruhy na boku těla či okraji plátu | Do atlasu se vzorkuje pozadí; doplnit okraj pouze platným materiálem stejného dílu ve stejném řádku | Report paddingu; bok a záda včetně chybějícího zdroje |
-| Světlá „pleš“ průzkumnice zezadu | Zadní účes má jinou šířku než čelní; nově odečíst `rearHeadRegistration` | Zadní pohled a profil, bez přenosu pleti nebo pozadí do vlasů |
-| Druhé ucho nebo hnědý obdélník pod samostatným uchem | Ucho zůstalo namalované i na hlavě; maskovat skutečný obrys ve všech přispívajících zdrojích, s úzkým přechodem | Čelo, ¾ a profil proti uloženému baseline; postup v `RANGER.md` |
-| Natažený vodorovný pruh límce | Boční textura vytažená z jediného sloupce; použít dvourozměrné vzorkování uvnitř platného profilu | Šikmý lem límce musí navazovat i z boku |
-| Statická póza je dobrá, idle kříží či kroutí končetiny | Prohozené anatomické L/R při odečtu opačné poloviny obrázku; opravit názvy a znovu přiřadit váhy | Centroid L na +X, R na −X; skutečný idle a oba zdroje běhu |
-| Hlava v celé postavě působí úzce | Správné pixely reference nezaručují dobrou herní proporci; rozšířit jen geometrii hlavy, podle potřeby posunout uši a šetrně navázat krk | Stejná kamera: strážce proti nové postavě, čelo/¾/profil i celá postava; po přijetí znovu rig a klipy |
-| Validátor označí podzemní spawn za rozpad modelu | Celá dráha rootu zaměněná za velikost těla; měřit rozsah jednotlivé deformované pózy zvlášť | Zachovat zdrojový pohyb, reportovat dráhu a požadavky na scénu |
+| Second eye/eyebrow on temple | Align landmarks and face volume in `config/face.json` before blending | Front, three-quarter, profile; one feature per visible side |
+| Ear on pauldron, armor on jaw, sleeve on bracer | Depth profile includes an occluding foreign part; define valid source regions | Semantic guards and the whole neighboring region in renders |
+| White silhouette fringes | Studio background sampled into atlas; pad from the same part and image row | Padding report, side/rear, missing-source cases |
+| Pale bald patch on ranger's rear head | Rear hair width differs from front; remeasure `rearHeadRegistration` | Rear/profile, no skin or background inside hair |
+| Extra ear or brown rectangle below separate ear | Ear remains painted on head; mask its actual outline in contributing views | Front/three-quarter/profile against baseline; [RANGER.md](RANGER.md) |
+| Stretched horizontal collar band | Constant source column; restore two-dimensional sampling inside valid side profile | Diagonal collar trim continues around the side |
+| Rest pose works, idle twists/crosses limbs | Anatomical L/R names copied from the opposite reference half | L centroid +X, R −X; real idle and both run sources |
+| Narrow head in whole-body view | Image coordinates do not guarantee convincing stylized proportions | Widen head geometry, move ears and blend neck; compare matching cameras, then rebuild rig/motion |
+| Underground spawn flagged as exploded skin | Whole root trajectory mistaken for individual posed-body size | Preserve source travel and report scene requirements separately |
 
-## Co rozhoduje AI a co generují skripty
+## What the agent decides
 
-Workflow kombinuje modelářská rozhodnutí AI agenta s programovým sestavením geometrie. Agent nemodeluje myší vertex po vertexu. Prohlédne předlohy, odečte proporce, určí průřezy, polohy kloubů a korespondence rysů, zapíše je do konfigurace a upraví potřebný kód. Potom výsledek vizuálně kontroluje a opravuje. Označení „ruční kalibrace“ zde znamená toto individuální odečtení a rozhodování, nikoli automatickou detekci obrázku skriptem.
+The image model supplies a raster reference. The agent reads the reference, measures proportions, chooses sections, joint positions and facial correspondences, writes configuration and reviews the results. “Manual calibration” means individual visual measurement and modeling decisions by the agent, not vertex-by-vertex mouse editing.
 
-| Část | Kdo ji provádí |
-|---|---|
-| Vytvoření referenčních obrázků | Obrazový model; původní strážce používá Gemini, původ nové reference je zaznamenán u dané postavy |
-| Odečtení proporcí, návrh tvaru a oprav | AI agent podle obrázků a kontrolních pohledů |
-| Sestavení ploch, UV atlasu, kostry a vah | Přiložené Python/Blender skripty podle uložených hodnot |
-| Původní pohybové křivky | Stažené animace Quaternius a KayKit |
-| Přizpůsobení animací proporcím postavy | Retarget skript a IK |
-| Posouzení vzhledu a další iterace | AI agent; výsledný vzhled může posoudit uživatel ve vieweru |
+Python and Blender build meshes, UVs, skeletons and weights from saved measurements. Downloaded Quaternius/KayKit curves provide motion; retargeting and IK adapt them to the target. A weaker model can reproduce the supplied examples offline. That does not establish that it can calibrate an arbitrary new image equally well.
 
-**Existujícího strážce lze znovu sestavit automaticky bez AI a bez dalšího generování obrázku.** U nové postavy samotná výměna PNG nestačí: agent musí znovu odečíst proporce, upravit konfiguraci a ověřit výsledek. Slabší model proto může snadno zopakovat dodaný příklad; jeho schopnost vytvořit stejně kvalitní novou postavu tím ještě není prokázaná.
+## 1. Reference images
 
-## 1. Reference
+The original knight uses a saved Gemini front/profile sheet plus a supplementary rear image. The first raw output included a duplicate profile; it remains preserved. `prepare.py` makes calibrated crops. Historical generation metadata is in `references/generation.json`.
 
-Gemini vytvoří rastrovou předlohu. Nevytváří v tomto projektu mesh ani animaci. Aktuální strážce používá původní společný předek/profil a druhý doplňkový zadní obrázek. Původní první výstup měl navíc duplicitní profil; raw soubor zůstal zachován. `prepare.py` připraví kalibrované výřezy. Historický log je `references/generation.json`.
+For a new character, use front + true 90° side + back in one sheet, the same A-pose and height, neutral light and no perspective foreshortening. Shared sheets help consistency but do not guarantee matching landmarks. A separate high-resolution head turnaround is an additional paid image.
 
-Pro příští charakter doporučujeme **předek + skutečný 90° bok + záda v jednom obrázku**, stejná A-póza, stejná výška, rovnoměrné světlo, žádné perspektivní zkrácení. Všechny potřebné strany jsou pak k dispozici před modelováním. Společný obrázek pomáhá konzistenci, ale nezaručuje přesnou shodu rysů. Pro blízké záběry tváře má smysl zvláštní velký head turnaround; je to další placený obrázek.
-
-Volitelný generátor je samostatný, nemá přístup k žádným sousedním projektům:
+New base references must omit cloaks, trailing cloth, backpacks, quivers, weapons and protruding equipment. Keep fitted clothing and compact armor. Natural ears remain. Model accessories separately in `characters/<id>/accessories/` and attach them to the accepted rig. Historical supplied references, including the elf's cloak, remain unchanged.
 
 ```sh
-# Bez síťového požadavku:
-.venv/bin/python tools/generate_reference.py --dry-run
-# Nový placený výstup, klíč v GEMINI_API_KEY nebo místní .env:
-.venv/bin/python tools/generate_reference.py --name new-turnaround --size 2K
-# Zachování identity při nové referenci:
-.venv/bin/python tools/generate_reference.py --name new-views --reference references/gemini-original.png
+.venv/bin/python tools/new_character.py mage --title "Mage"
+# Edit characters/mage/config/prompt.txt first.
+.venv/bin/python tools/generate_reference.py --character mage --dry-run
+.venv/bin/python tools/generate_reference.py --character mage
+# A separately named identity-preserving edit:
+.venv/bin/python tools/generate_reference.py --character mage --name new-views --reference characters/mage/references/turnaround.png
 ```
 
-Před novou postavou uprav text `config/turnaround-prompt.txt`. Výstupy se nepřepisují; pro každý pokus zvol nový název. Vedle PNG se ukládá prompt, model, čas a usageMetadata. Pomocník nedělá automatické opakované placené pokusy. Druhá postava má vlastní reference a postup v [RANGER.md](RANGER.md); její původ se neposuzuje podle historického logu Gemini pro strážce.
+The optional helper uses OpenAI GPT Image 2.5 Sunburst, `quality=high`, one 1536×1024 PNG. It reads only `OPENAI_API_KEY` from the environment or local `.env`. It preserves original bytes, full prompt, SHA-256, model, quality and API usage. It never overwrites PNG/metadata or automatically retries a paid request. Failure leaves a `.pending` record to prevent accidental duplicate charges. See [pricing](PRICING.md) and the [folder contract](CHARACTERS.md).
 
-Nová reference průzkumnice vznikla **jedním voláním vestavěného ImageGen**, bez nového volání Gemini. Výstup je jeden obrázek 1536 × 1024 se třemi pohledy. Originál a metadata jsou v `references/ranger/turnaround.png` a `.json`, prompt v `config/ranger-prompt.txt`. Metadata neuvádějí změřenou účtovanou cenu.
+The ranger and elf each came from one built-in ImageGen call producing one 1536×1024 three-view image. Their originals, prompts and metadata remain in their own reference/config files. Neither used a new Gemini call, and no measured invoice is claimed. Offline builds reuse these images.
 
-Stejně tak reference nočního elfa vznikla jedním voláním vestavěného ImageGen: jeden obrázek 1536 × 1024 se třemi pohledy. Originál, metadata a prompt jsou v `references/elf/` a `config/elf-prompt.txt`; detaily v [ELF.md](ELF.md). Offline rebuild reference znovu negeneruje.
+## 2. Calibration
 
-## 2. Kalibrace a měření
+The knight's working image is 1907×1280. Front center X=494, side depth origin X=1230, top Y=72, ground Y=1215; authored character height 2.5 m. Scale is `2.5 / (1215 - 72)`. GLB coordinates are Y-up, forward +Z.
 
-Aktuální pracovní obrázek má 1907 × 1280 px. Střed čela je X=494, hloubkový počátek profilu X=1230, vršek Y=72, zem Y=1215. Výška charakteru je autorsky zvolených 2.5 m. Měřítko je `2.5 / (1215 - 72)`. Ve výsledném GLB je Y nahoru a +Z dopředu.
+`config/profiles.json` contains 17 profile types and 120 measured sections. Rows are `[imageY, frontLeftX, frontRightX, sideFrontX, sideBackX]`. Paired parts are mirrored. Crest and buckle have separate relief in `model.py`, yielding 29 closed pieces.
 
-`config/profiles.json` obsahuje 17 druhů průřezů a 120 odečtených řezů. Každý řádek má `[y, levýObrysZepředu, pravýObrysZepředu, předníObrysZBoku, zadníObrysZBoku]`. Párové díly se zrcadlí. Znak a přezka mají vlastní zvýšené plochy v `model.py`. Dohromady vznikne 29 uzavřených dílů.
+`validate_inputs.py` checks calibration size, finite coordinates, positive widths/depths, increasing Y, face correspondences and nonzero bones. Its report fingerprints raw sources and configuration. `model.py` verifies front and rear raw hashes against `config/projection.json`; changed sources with old masks fail.
 
-Po přípravě výřezů pipeline spustí `tools/validate_inputs.py`: ověří rozměr kalibrace, konečné souřadnice, kladnou šířku a hloubku řezů, rostoucí Y, korespondence tváře a nenulové délky kostí. Report `review/input-validation.json` ukládá také SHA-256 původních předloh a konfigurací. `model.py` navíc porovnává otisky obou raw obrázků s očekávanými hodnotami v `config/projection.json`; změna reference se starými maskami skončí chybou.
+For another image:
 
-Pro jiný obrázek:
+1. Preserve raw output and identify crops, scale and shared vertical landmarks.
+2. Set that character's crop preparation, front center, depth origin, ground, height and relief geometry.
+3. Remeasure each part's strictly increasing section rows.
+4. Remeasure rear center, scale and vertical correspondences.
+5. Align facial landmarks and depth warp separately.
+6. Define actual source visibility in all views, add allowed/forbidden regression points and bind hashes only after calibration.
+7. Inspect static geometry and head proportions before fitting joints and weights.
 
-1. Zachovej originál. Urči výřezy, měřítko a společné výškové body všech pohledů.
-2. Uprav `prepare.py`, jeho cropy a referenční souřadnice v `model.py`.
-3. Odečti profily jednotlivých částí. V Y musí být seřazené a bez duplicit.
-4. Uprav zadní projekci: její střed, měřítko a výškové korespondence v `model.py`.
-5. Pro tvář zvlášť uprav `config/face.json` a reliéf nosu/rtů.
-6. V `config/projection.json` znovu označ skutečně viditelné části každého zdroje. Odděl ucho od ramene, čelist od zbroje a plát od rukávu. Ulož nové kontrolní body a identitu zdroje až po této kalibraci.
-7. Teprve po kontrole statického modelu přesuň klouby v `config/rig.json` a dolaď váhy. Druhou dodanou postavu upravuj v jejím vlastním postupu podle [RANGER.md](RANGER.md), aby kalibrace strážce zůstala zachovaná.
+Use the new character folder rather than editing the knight's files. Unseen surfaces require authored choices; this is guided reconstruction, not automatic photogrammetry.
 
-Jde o řízenou rekonstrukci, nikoli o automatickou fotogrammetrii. Z neviděných míst nelze odvodit přesný původní povrch; jejich objem je modelářské rozhodnutí.
+## 3. Geometry and texture
 
-## 3. Geometrie a textura
+`model.py` interpolates measured sections with shape-preserving cubic Hermite interpolation. Each section has 64 radial segments, capped ends and a welded seam. Face relief and a cross-section exponent control volume; flattening a face too far pulls side landmarks forward.
 
-`model.py` interpoluje odečtené průřezy hladkou kubickou interpolací zachovávající tvar. Kolem každého průřezu rozmístí 64 segmentů, uzavře konce a doplní reliéf obličeje. Tvar průřezu lze měnit exponentem: příliš plochá tvář tahá boční rysy dopředu. Obvodový šev je geometricky svařený.
+Colors are projected from front, side and rear. A part's depth silhouette does not tell whether it is visible in the source: an ear may occlude a pauldron. Projection rules use rows `[imageY, validLeftX, validRightX]` and optional excluded polygons.
 
-Pro každý díl se barva promítá z předku a podle potřeby profilu a zad. **Hloubkový obrys dílu neříká, zda je v obrázku vidět:** stejné souřadnice mohou v profilu patřit uchu, které nárameník zakrývá. `config/projection.json` proto odděleně popisuje viditelnost pomocí řádků `[imageY, levéX, pravéX]` a případných vyloučených polygonů.
+- `front-fallback` rejects invalid side pixels and uses the same part's front projection. Used for pauldrons and bracers.
+- `clamp-valid-source` extends neighboring visible material into occluded regions. Used for jaw, hair, nape and portions of the shoulder boundary.
 
-- `front-fallback` sníží boční příspěvek na nulu tam, kde zdroj patří jiné části postavy; použije čelní projekci téhož dílu. Platí pro nárameníky a předloketní pláty.
-- `clamp-valid-source` přesune souřadnice zakryté oblasti do nejbližšího platného materiálu. Chrání čelist, vlasy, zátylek a členitou čelní hranu ramene. Je to řízené doplnění textury, nikoli rekonstrukce neviditelné anatomie.
+Rules use a 2 px inset and a 3 px feather on the valid side. Nine semantic guards and repaired sample counts are recorded in `review/projection.json`. Face vertical/depth warping happens before side masking. Sharp landmarks use narrow transitions; broad color uses wider transitions. See [FACE.md](FACE.md).
 
-Masky drží 2 px odstup od hrany a 3 px přechod na platné straně. Devět kontrol známých kolizí zdrojových souřadnic a počty upravených vzorků jsou v `review/projection.json`. Pro obličej se navíc před mícháním zarovnají výšky rysů a hloubkové korespondence. Jemné rysy dostávají užší přechod, nízkofrekvenční barva širší. Konkrétní měření a devět porovnávacích renderů popisuje [FACE.md](FACE.md).
+`frontBackgroundGuard` finds neutral studio background connected to the image boundary and expands it by 2 px. Invalid samples move to valid material in the same image row and measured interval of the same part. When no source exists in a row, an authored base color is used and counted separately. `frontBackgroundPadding` reports repaired samples, missing source and remaining background independently.
 
-Čelní projekce má navíc ochranu proti bílému studiovému pozadí v `frontBackgroundGuard`. Vybere světlou neutrální oblast spojenou s okrajem obrázku a rozšíří ji o 2 px, aby odstranila i světlý okraj siluety. Zasažené souřadnice přesune na nejbližší platný pixel **ve stejném řádku a měřeném intervalu stejného dílu**. Zachová tím kresbu materiálu na trupu, pažích a bocích bez rozmazání celé textury. Když v daném řádku není žádný platný zdroj, použije zvolenou základní barvu materiálu a zaznamená to zvlášť. Počty přesunutých vzorků, chybějícího zdroje a zbývajícího pozadí jsou v `frontBackgroundPadding` v reportu projekce.
+The knight atlas is 2640×4704 with UV island gutters. Blender imports, welds, recalculates normals, simplifies and exports a GLB with embedded texture. The editable `.blend` retains separate parts; GLB uses one mesh primitive/material. Source illumination remains painted into the texture, so rendering uses restrained material specularity.
 
-Výsledné barvy se vypálí do jednoho UV atlasu 2640 × 4704 px s okrajovou výplní ostrovů. Blender načte mesh, svaří shodné body, přepočítá normály, redukuje hustotu a exportuje GLB s vloženou texturou. Oddělené díly zůstanou v `.blend`, GLB má jednu mesh primitive a materiál. Textura obsahuje namalované světlo; proto viewer používá mírné fyzikální stínování, nikoli agresivní lesk.
+## 4. Skeleton and weights
 
-## 4. Kostra a váhy
+`rig_character.py` converts to Blender Z-up, creates 23 humanoid bones from `config/rig.json` and adds four tabard bones. Rest axes come from `config/source-rig.json`; `inspect_source_rig.py` can reproduce that source description.
 
-`rig_character.py` převede model do Blender Z-up, vytvoří 23 humanoidních kostí podle `config/rig.json` a přidá 4 kosti tabardu. Osy vycházejí z dodaného zdrojového rig popisu `config/source-rig.json`. Pro přegenerování tohoto popisu slouží `inspect_source_rig.py`.
+Weights depend on named parts and position. Head follows head, pauldrons follow clavicles, forearm plates follow forearms and gloves follow hands. Soft joints transition smoothly; cloth blends pelvis and side cloth bones. Weights are normalized. Unknown parts deliberately fail instead of receiving arbitrary automatic weights.
 
-Váhy se přiřadí podle dílu a polohy. Hlava patří hlavě, nárameník klíční kosti, předloketní plát předloktí, rukavice ruce. Měkké spoje mají hladký přechod, tabard směs pánve a dvou bočních kostí. Každý vertex má normalizované váhy. Není použito slepé automatické vážení přes celou zbroj.
+L/R are anatomical: with Y-up and +Z forward, L is +X and R is −X. Rig scripts assert paired-part centroid signs before weighting. Knight and ranger trace opposite halves of their front images; blindly copying suffixes previously weighted limbs to opposite bones. Normalized weights and finite coordinates did not reveal the error. Rebuild rig/motion and inspect real idle/running after naming changes.
 
-Názvy L/R jsou **anatomické strany**, ne strany obrázku: v pracovním systému Y-up, +Z dopředu leží L na +X a R na −X. Oba rig skripty před vážením kontrolují znaménko centroidu párového dílu. Strážce a průzkumnice mají základní profil odečtený z opačných polovin čelní reference; bez této kontroly by se váhy přiřadily protějším končetinám. Normalizace vah ani test konečných souřadnic takovou záměnu samy neodhalí. Po přejmenování dílů znovu vytvoř rig i animace a prohlédni idle a běh.
+## 5. Downloaded animation
 
-## 5. Skutečné stažené animace
-
-Zdroje jsou oficiální volné balíčky:
+Official free sources:
 
 - [Quaternius Universal Animation Library](https://quaternius.itch.io/universal-animation-library), Standard.
 - [Quaternius Universal Animation Library 2](https://quaternius.itch.io/universal-animation-library-2), Standard.
-- [KayKit Character Animations](https://kaylousberg.itch.io/kaykit-character-animations), bezplatný balík 1.1.
+- [KayKit Character Animations](https://kaylousberg.itch.io/kaykit-character-animations), free pack 1.1.
 
-Původní zipy, všechny rozbalené soubory a licence jsou v `animations/source/`. `sources.json` obsahuje odkazy, autory, velikosti a SHA-256 archivů. Jde o celé dostupné bezplatné archivy, nikoli o zakoupené Pro/Source verze. Autoři Quaternius a Gonzalo Furnier, Kay Lousberg / KayKit; příslušné license soubory zůstaly zachované. Animace mají CC0; tím automaticky neoznačujeme celý Gemini obrázek za CC0.
+Original ZIPs, extracted files and licenses are in `animations/source/`. `animations/sources.json` records source links, authors, sizes and archive SHA-256. These are complete free downloads, not the paid Pro/Source libraries. Credit Quaternius, Gonzalo Furnier and Kay Lousberg / KayKit. Their CC0 animation licenses do not automatically apply to generated reference images.
 
-Opětovné získání: `python3 tools/download_animations.py`. Existující zipy se znovu nestahují. Nástroj prochází oficiální free-download flow itch.io; pokud se web změní, skončí chybou a agent musí ověřit nový oficiální postup. Nikdy nehádá placený upload.
+`python3 tools/download_animations.py` reuses existing archives. It follows the official itch.io free-download flow; website changes must be investigated rather than guessed around with paid uploads.
 
-Pro cílový rig vybíráme UAL1/UAL2 bez `_RM` a KayKit Rig_Medium. Ostatní rigy i root-motion verze zůstávají v raw knihovně. T-pózy a experimentální rozpad/transformace nejsou přidávány jako duplicitní běžné klipy. Výsledkem je 214 pojmenovaných klipů včetně několika statických póz. Přesný seznam je `animations/catalog.json`.
+Retargeting uses UAL1/UAL2 without `_RM` and KayKit Rig_Medium. Other rigs and supplied root-motion variants remain in raw source. T-poses and the experimental transform are excluded from normal clips. The resulting 214 named clips include short pose clips, not 214 locomotion cycles. See the target's catalog.
 
-## 6. Přenos pohybu
+## 6. Motion transfer
 
-`retarget.mjs` provede pro každý klip:
+For each clip, `retarget.mjs`:
 
-1. Načte glTF transformace, hierarchii a zdrojové křivky. Vyhodnotí je ve 30 Hz včetně koncového vzorku.
-2. Zjistí změnu světové rotace každé zdrojové kosti proti klidové póze. Mapuje názvy KayKit na cílovou humanoidní hierarchii.
-3. Srovná cílovou A-pózu rukou se zdrojovou T-pózou podle vektorů mezi klouby. Tím se vyhne chybám kanonizovaných os GLB exportéru.
-4. Přenese rotace a root/pelvis posuny se škálováním podle délky nohy. Lokální rotaci cíle dopočítá z požadované světové a rotace rodiče.
-5. Analytické dvoukloubové IK přizpůsobí nohy cílovým délkám. Dráha kotníku se počítá vzhledem ke zdrojové kyčli a přenese k cílové kyčli. Zachová se zdrojový směr kolena. Není to simulace kontaktu s terénem.
-6. Kosti tabardu odvodí omezenou část pohybu stehen. Nejde o simulovanou látku.
-7. Uloží běžné glTF křivky. Quaterniony normalizuje a sjednotí znaménka mezi vzorky, aby interpolace neotáčela kost o dlouhou cestu.
+1. Reads glTF hierarchy, rest transforms and source curves; samples at 30 Hz including the endpoint.
+2. Computes source world-rotation changes from rest and maps KayKit names to the target hierarchy.
+3. Aligns target A-pose arms to source T-pose using joint-position vectors, avoiding exporter-canonicalized local axes.
+4. Transfers rotations and root/pelvis translations, scaled by leg length, then derives target local rotation from parent world rotation.
+5. Solves two-bone leg IK using hip-relative ankle trajectories and the source knee direction. A root-relative constant offset overextends KayKit legs. This is not terrain contact simulation.
+6. Derives limited cloth-bone rotation from thigh motion; no cloth simulation.
+7. Writes standard glTF curves, normalized quaternions and consistent quaternion signs between samples.
 
-Animované škálování zdrojových kostí ignorujeme: některé spawn efekty škálují na nulu, což není přenosný lidský kloubový pohyb. Takové klipy přenášejí pózu, nikoli kompletní efekt vznikání/rozpadání. Ruce mají celistvé rukavice bez jednotlivých prstů; zdrojové prstové křivky se nepřenášejí. Pose klipy dostanou minimální délku 1/30 s, aby časy byly platné a rostoucí.
+Source animated bone scaling is ignored because spawn/disassembly scaling-to-zero is not ordinary transferable humanoid joint motion. These clips retain poses rather than the complete spawn effect. Gloves have no individual finger rig. Pose clips receive at least 1/30 s to keep time samples valid.
 
-`export_clips.mjs` uloží každý klip samostatně se stejnou kostrou, ale bez opakování 10MB textury. `save_animated.py` importuje finální GLB do Blenderu a uchová všech 214 actions s fake user. V Action Editoru vyber požadovanou akci; NLA tracky jsou při otevření ztlumené a aktivní je idle.
+`export_clips.mjs` writes one motion-only GLB per clip with the same target hierarchy and no duplicated mesh/atlas. `save_animated.py` imports the final GLB into Blender, preserves all 214 actions with fake users, mutes NLA tracks and selects idle. Choose other actions in Blender's Action Editor.
 
-Všechny tři postavy používají společné skripty pro přenos, export klipů a validaci. `tools/character_paths.mjs` vybere cesty podle `CHARACTER_LAB_CHARACTER` (`knight` je výchozí; další hodnoty jsou `ranger` a `elf`). Jejich motion wrapper nastaví tuto hodnotu a importuje společný skript; neupravuje jeho zdrojový text. Stejná oprava retargetingu tak platí pro všechny tři cílové rigy.
+All targets use shared retarget/export/validation code through `character_paths.mjs`. `CHARACTER_LAB_CHARACTER` selects knight, ranger, elf or a new registered folder. Thin legacy wrappers remain compatible; they do not rewrite source code. The binary writer accumulates chunks and assembles once, preserving exact output bytes. [PERFORMANCE.md](PERFORMANCE.md) describes caching and measurements.
 
-## 7. Viewer a kontrola
+## 7. Viewer and review
 
-Three.js GLTFLoader načte vložený materiál, skin i AnimationClips. Vlevo nahoře lze přepínat strážce, průzkumnici a elfa. Kamera vychází z rozměrů načteného modelu a z cíle obličeje dané postavy; statistiky se počítají ze skutečného GLB. AnimationMixer přehrává vybraný klip, přechody mezi klipy trvají 0.18 s. Při načtení statického modelu se animační ovládání vypne.
+Three.js GLTFLoader reads embedded material, skin and clips. The English viewer automatically discovers character manifests through the local server. Counts come from actual geometry; catalogs supply provenance/category labels. Camera framing uses model bounds and optional measured face targets. AnimationMixer crossfades over 0.18 s. Static models disable animation controls.
 
-Kamera, scrubber, rychlost, kostra a čistý tvar usnadňují hodnocení. Strážce má pole „Srovnání projekce“: aktuální model, `knight-before-projection.glb` a historický `knight-before-face.glb`. Přepnutí zachová kameru a porovnává klidovou pózu. Kliknutí na animaci vrátí aktuální model. Reference i odkazy ke stažení odpovídají vybrané postavě. Žádná externí CDN není nutná; importy vedou do místního `node_modules`.
+Use playback, scrubber, speed, Skeleton and Clay controls. The knight's **Projection comparison** switches among the current model and both historical GLBs while keeping the camera and rest pose. Choosing a motion returns to the current model. Download/reference links follow the selected character. Dependencies come from local `node_modules`, not a CDN.
 
-`npm run validate` kontroluje GLB hodnoty, časy, quaterniony, váhy a topologii strážce, pak vyhodnotí všech 214 klipů a 1284 vzorkovaných póz včetně skutečného skinningu. Rozsah modelu posuzuje v každé póze zvlášť, odděleně od posunu celé postavy během klipu. Otevře také všech 214 motion-only GLB: musí být bez meshů a textur, se stejnou cílovou hierarchií, kanály, interpolací i přesnými časovými a hodnotovými křivkami jako odpovídající klipy finálního animovaného strážce. Počet actions z reportu Blender exportu musí odpovídat katalogu. Nenahrazuje to vizuální kontrolu kontaktů, kolizí ani proporcí hlavy; další dvě postavy mají vlastní reporty. Viz [VALIDATION.md](VALIDATION.md), [RANGER.md](RANGER.md) a [ELF.md](ELF.md).
+Numeric validation checks GLB values, time order, quaternion/weight normalization and topology. It opens every actual motion-only file and compares hierarchy, channels, interpolation and exact curve values to the matching final clip. Blender action count must match. It evaluates 1,284 skinned poses, measuring each posed body's extent separately from root travel. It cannot replace visual checks of head proportions, collisions or contacts. See [VALIDATION.md](VALIDATION.md).
 
-## Mapování příkazu na výstup
+## Commands
 
-| Příkaz | Výstup |
+| Command | Result |
 |---|---|
-| `pipeline.py geometry` | Kalibrace, kontrola vstupů a identity zdrojů, masky, `model.json`, atlas, static GLB/Blend |
-| `pipeline.py rig` | `knight-rigged.glb`, oddělené díly + armature v Blend |
-| `pipeline.py motion` | 214 klipů ve GLB, jednotlivé klipy a animated Blend |
-| `pipeline.py validate` | `review/validation.json` |
-| `pipeline.py build` | Všechny čtyři předchozí kroky v pořadí |
-| Blender `--python tools/render_faces.py` | 9 renderů: historický stav, baseline projekce a aktuální model, vždy čelo/¾/profil |
-
-## Druhý samostatně kalibrovaný charakter
+| `pipeline.py geometry` | Prepared images, input/source checks, masks, geometry JSON, atlas, static GLB/Blend |
+| `pipeline.py rig` | Fitted rigged GLB and separate editable Blender pieces |
+| `pipeline.py motion` | Animated GLB, individual clips and animated Blend |
+| `pipeline.py validate` | Fresh validation report |
+| `pipeline.py build` | All four stages in order; verified cache supported |
+| `pipeline.py render` | Knight's nine face comparison renders |
 
 ```sh
 .venv/bin/python tools/ranger_pipeline.py build
 .venv/bin/python tools/ranger_pipeline.py render
-```
-
-Ranger pipeline podporuje také samostatné fáze `geometry`, `rig`, `motion` a `validate`; respektuje stejnou proměnnou `BLENDER`. Používá `config/ranger-profiles.json`, `config/ranger-rig.json` a vlastní předlohu. Výstupy mají prefix `ranger-`, katalog a 214 jednotlivých klipů jsou v `animations/ranger/`, reporty a sedm kontrolních renderů v `review/ranger/`. Pohyby vycházejí ze stejných stažených archivů přes společný retarget kód s oddělenými cestami k výstupům. Všechny pipeline spouštějí Blender s `--python-exit-code 1`: výjimka v jeho Python skriptu zastaví build. Podrobná kalibrace, samostatné uši a oprava projekce vlasů jsou v [RANGER.md](RANGER.md).
-
-## Třetí samostatně kalibrovaný charakter
-
-```sh
 .venv/bin/python tools/elf_pipeline.py build
 .venv/bin/python tools/elf_pipeline.py render
 ```
 
-Elf používá `config/elf-profiles.json`, `config/elf-rig.json` a jednu vlastní uloženou třípohledovou předlohu. Výstupy mají prefix `elf-`, klipy a katalog leží v `animations/elf/` a reporty s rendery v `review/elf/`. Vstupní validace kontroluje 17 typů profilů, 106 řezů, otisk zdroje a 9 známých bodů zdrojového vlastnictví. Podrobný postup, před/po proporcí a limity jsou v [ELF.md](ELF.md).
+Both wrappers support focused stages and respect `BLENDER`. All Blender launches use `--python-exit-code 1`; Python exceptions stop the pipeline. Ranger/elf each have independent profile/rig config, references, atlas, clips and review reports. See [RANGER.md](RANGER.md), [ELF.md](ELF.md), and [CHARACTERS.md](CHARACTERS.md) for new folders.
 
-Build je deterministický vzhledem k uloženým obrázkům a konfiguraci, ale exportní pořadí a redukce se mohou mírně lišit mezi verzemi Blenderu. Nové generování reference není deterministické. Ověřené prostředí: Blender 5.2.1, Three.js 0.180.0, Python 3.14, NumPy 2.5.3, Pillow 12.3.0.
+Builds reproduce saved measurements and images. Export order/simplification can vary across Blender versions; image generation is not deterministic. Verified environment: Blender 5.2.1, Three.js 0.180.0, Python 3.14, NumPy 2.5.3, Pillow 12.3.0.

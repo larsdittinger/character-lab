@@ -57,7 +57,7 @@ for(const clip of gltf.animations){mixer.stopAllAction();const a=mixer.clipActio
  }
  bounds.push({name:clip.name,min,max});
 }
-const idle=cat.filter(c=>/Idle/.test(c.originalName)&&c.duration>.1),runs=cat.filter(c=>c.category==='Běh');assert(idle.length>=5);assert(runs.length>=5);
+const idle=cat.filter(c=>/Idle/.test(c.originalName)&&c.duration>.1),runs=cat.filter(c=>c.category==='Run');assert(idle.length>=5);assert(runs.length>=5);
 const topology=JSON.parse(fs.readFileSync(path.join(R,artifacts.review,'topology.json')));assert(topology.every(p=>p.boundaryEdges===0&&p.nonManifoldEdges===0));
 const report={passed:true,character,clips:cat.length,motionOnlyFiles:cat.length,blenderActions:actions.actions,embeddedImages:j.images.length,bones:j.skins[0].joints.length,vertices,triangles,idleClips:idle.length,runClips:runs.length,sampledPoses,maxPoseSpan,maxWeightError,maxQuaternionError,maxIKError:Math.max(...cat.map(c=>c.maxIKError)),bounds,scope:'Numeric geometry/skin/animation and matching motion-only file checks; per-pose size is checked separately from root travel. Not a proof of absence of collisions or sliding.'};
 fs.writeFileSync(reportPath,JSON.stringify(report,null,2));console.log(JSON.stringify({...report,bounds:undefined},null,2));

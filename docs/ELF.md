@@ -1,10 +1,10 @@
-# Noční elf: třetí samostatná kalibrace
+# Night Elf: independent third calibration
 
-Noční elf má fialovou pleť, stříbrné vlasy, lehkou koženou zbroj a samostatný tmavý plášť. Model nemá luk, toulec ani jinou rekvizitu. Jeho předloha, průřezy, kostra, atlas, klipy a reporty jsou oddělené od strážce i průzkumnice.
+The night elf has purple skin, silver hair, light leather armor and a separate dark cloak, without a bow, quiver or held prop. Reference, sections, rig, atlas, clips and reports are separate from the knight/ranger. This historical character predates the new rule requiring cloaks and equipment to be authored separately from the base reference.
 
-## Původ a reprodukce
+## Provenance and reproduction
 
-Vestavěný ImageGen vytvořil **jeden** obrázek 1536 × 1024 se čelem, přesným profilem a zády. Původní [turnaround.png](../references/elf/turnaround.png), [metadata včetně SHA-256](../references/elf/turnaround.json) a [prompt](../config/elf-prompt.txt) zůstávají uložené. Další sestavení běží offline, bez Gemini i bez dalšího generování:
+One built-in ImageGen call produced **one 1536×1024 sheet** with front, true side and back. The original [image](../references/elf/turnaround.png), [metadata and SHA-256](../references/elf/turnaround.json) and [prompt](../config/elf-prompt.txt) remain saved. Builds are offline and make no Gemini or other image-generation calls.
 
 ```sh
 npm ci
@@ -15,20 +15,24 @@ python3 -m venv .venv
 npm run serve
 ```
 
-Otevři `http://localhost:8770/` a vyber **03 / Noční elf**. `elf_pipeline.py` podporuje také `geometry`, `rig`, `motion`, `validate` a `render`; změna geometrie nebo projekce vyžaduje celý `build`. Blender se hledá na PATH, ve standardní macOS aplikaci nebo přes `BLENDER`. Všechny Blender fáze používají `--python-exit-code 1`.
+Select **Night Elf** at http://localhost:8770/. Focused stages: geometry, rig, motion, validate, render. Geometry/projection changes require dependent stages; `--force` disables verified caching. Blender is found on PATH, in the standard macOS application, or through `BLENDER`. All Blender phases use `--python-exit-code 1`.
 
-## Co je nově měřené
+## Independent measurements
 
-[elf-profiles.json](../config/elf-profiles.json) ukládá 17 druhů profilů a 106 seřazených řezů. Střed čela je X=281, počátek hloubky profilu X=756, střed zad X=1253, koruna Y=18 a zem Y=944; výška je autorsky 2,5 m. Ucho je samostatný špičatý objem, plášť je samostatný široký díl za trupem a používá vlastní zadní projekci. [elf-rig.json](../config/elf-rig.json) obsahuje klouby fitované na elfa. Anatomická L je +X, R je −X; rig kontroluje centroid každého párového dílu před vážením.
+[elf-profiles.json](../config/elf-profiles.json) stores 17 profile types and 106 ordered sections. Front center X=281, side origin X=756, rear center X=1253, top Y=18, ground Y=944, authored height 2.5 m. Ears are separate pointed volumes. The cloak is a wide piece behind the torso with its own rear projection. [elf-rig.json](../config/elf-rig.json) fits the joints to this character. Anatomical L is +X, R is −X; paired-part centroids are checked before weighting.
 
-Přední a boční předloha nemají ucho ve stejné výšce. Projekce proto posouvá jeho boční vzorkování o 10 px. Na hlavě zakrývá pixely ucha okolní pletí a vlasy, aby se vedle skutečné geometrie neobjevil druhý boltec. Stříbrná zadní kštice používá pouze pozorované vlasové pixely z pohledu zezadu; chybějící okrajové vzorky se doplňují uvnitř stejného vlasového řádku. Jde o autorskou výplň, ne o rekonstruovaný skrytý povrch.
+Front and side ears differ in image height; side ear sampling shifts 10 px. Head projection replaces the painted ear with surrounding skin/hair so the separate geometry does not produce a duplicate. Rear silver hair uses observed hair pixels from the back view; missing silhouette pixels extend valid hair within that row. Hidden surface color is an authored approximation.
 
-Uživatel při kontrole upozornil, že hlava elfa i průzkumnice působí proti původnímu strážci úzce. Geometrie elfa proto používá `headWidthScale: 1.45`: maximální šířka hlavního dílu tváře se změnila z **0,189 m na 0,274 m**. UV vzorkování zůstalo na odečtených pixelech předlohy, uši se posunuly jen o rozšíření tváře a krk se rozšířil o polovinu tohoto poměru. U průzkumnice je menší korekce 1,10. [Srovnání stejných kamer před/po](../review/head-width.html) ukazuje obě změny i původního strážce. Poměr je modelářské rozhodnutí podle celého těla, nikoli hodnota automaticky odvozená z fotografie.
+Whole-body comparison with the accepted knight exposed a narrow-looking head. `headWidthScale: 1.45` widens the face from **0.189 m to 0.274 m**. UV sampling stays on the same measured pixels, ears move with the widened face, and the neck receives half the correction. The ranger uses its separate 1.10 correction. [Matching camera views](../review/head-width.html) show both corrections and the knight. These are authored style decisions, not universal constants inferred automatically from an image.
 
-## Ověření a výstupy
+## Outputs and verification
 
-Finální [elf-animated.glb](../assets/elf-animated.glb) má **61 188 trojúhelníků, 31 242 GLB vertexů, 27 kostí a 214 pojmenovaných klipů**. [Blender soubor](../assets/elf-animated.blend) uchovává 214 actions a aktivní idle; `elf-rigged.blend` uchovává 30 oddělených dílů pro úpravu vah. V `animations/elf/retargeted/` je 214 motion-only GLB pro tuto přesnou hierarchii a `animations/elf/catalog.json` ukládá katalog. Vstupní [report](../review/elf/input-validation.json) a [9 kontrol zdrojových pixelů](../review/elf/projection.json) prošly; finální [validace](../review/elf/validation.json) je **PASS**. Validátor skutečně otevírá každý motion-only soubor a porovnává hierarchii a přesné křivky s finálním GLB. K dispozici je 32 idle klipů a 8 běhů; vyhodnoceno bylo 1284 deformovaných póz.
+The final [GLB](../assets/elf-animated.glb) has **61,188 triangles, 31,242 vertices, 27 joints and 214 named clips**. The [animated Blender file](../assets/elf-animated.blend) retains 214 actions and active idle; `elf-rigged.blend` retains 30 editable mesh pieces. The 214 target-specific motion files are in `animations/elf/retargeted/`, with a separate catalog.
 
-Statické rendery v `review/elf/` zahrnují celé tělo z čela, ¾, profilu a zezadu a tvář z čela, ¾ a profilu. V browseru byly zkontrolovány `Idle Loop`, KayKit `Running A`, Quaternius `Jog Fwd Loop` a `Sprint Loop`, KayKit `Jump Full Short` a `Waving`, kostra, detail obličeje a přepnutí na obě starší postavy. Konzole nevrátila chyby ani varování. Číselné PASS dokládá topologii, váhy, konečné hodnoty a přenos klipů; nenahrazuje vizuální posouzení všech animací.
+[Input validation](../review/elf/input-validation.json), [nine source-ownership guards](../review/elf/projection.json) and [final validation](../review/elf/validation.json) pass. Every actual motion file is opened and compared with the final hierarchy and exact matching curves. There are 32 idle clips, 8 runs and 1,284 evaluated skinned poses.
 
-Při blízkém profilu jsou místy patrné malované přechody stříbrných vlasů a ucha. Plášť má jednoduché odvozené váhy, ne látkovou simulaci ani kolize, takže při běhu či skoku může protínat nohy. Ruce nemají jednotlivě rigované prsty. V knihovně zůstávají i původní pohyby pojmenované pro luk, ale model žádný luk neobsahuje.
+Static review covers body front/three-quarter/profile/back and three face angles. Browser review includes idle, KayKit running, Quaternius jog/sprint, KayKit short jump/waving, skeleton, face detail and switching to both other characters. Numeric checks establish topology, skin weights, finite values and curve consistency; they do not certify every animation's visual quality.
+
+## Remaining limits
+
+Close profiles show painted transitions around silver hair and ears. The cloak uses simple derived weights without cloth simulation or collision and can intersect legs during running/jumping. Hands lack individual finger bones. Source clips named for bow use remain available even though this model has no bow. These limits survive numeric PASS.

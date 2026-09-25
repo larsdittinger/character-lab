@@ -1,0 +1,5 @@
+{
+  "passed": true,
+  "intentionalBlenderExceptionExitCode": 1,
+  "purpose": "Confirm Python script failure stops subprocess(check=True), preventing stale exports from passing a build."
+}

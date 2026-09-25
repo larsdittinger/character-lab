@@ -3,32 +3,10 @@ import {OrbitControls} from 'three/addons/controls/OrbitControls.js';
 import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
 
 const $ = selector => document.querySelector(selector);
-const characters = {
-  knight: {
-    title: 'Strážce jantarové stezky', path: 'assets/knight-animated.glb',
-    blend: 'assets/knight-animated.blend', reference: 'references/knight-turnaround.png',
-    catalog: 'animations/catalog.json',
-    face: [0, 2.28, .10],
-    comparisons: {
-      projection: {path: 'assets/knight-before-projection.glb', title: 'Před opravou projekce'},
-      face: {path: 'assets/knight-before-face.glb', title: 'Původní obličej'},
-    },
-  },
-  ranger: {
-    title: 'Lesní průzkumnice', path: 'assets/ranger-animated.glb',
-    blend: 'assets/ranger-animated.blend', reference: 'references/ranger/turnaround.png',
-    catalog: 'animations/ranger/catalog.json',
-    face: [0, 2.30, 0], comparisons: {},
-  },
-  elf: {
-    title: 'Noční elf', path: 'assets/elf-animated.glb',
-    blend: 'assets/elf-animated.blend', reference: 'references/elf/turnaround.png',
-    catalog: 'animations/elf/catalog.json',
-    face: [0, 2.29, 0], comparisons: {},
-  },
-};
+let characters = {};
+
 const scene = new T.Scene();
-scene.background = new T.Color('#172b2e');
+scene.background = new T.Color('#25282c');
 const renderer = new T.WebGLRenderer({canvas: $('canvas'), antialias: true, preserveDrawingBuffer: true});
 renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
 renderer.outputColorSpace = T.SRGBColorSpace;
@@ -47,15 +25,11 @@ scene.add(light);
 const rim = new T.DirectionalLight('#b7ded7', 1.7);
 rim.position.set(3, 4, -4);
 scene.add(rim);
-const platform = new T.Mesh(new T.CylinderGeometry(1.12, 1.16, .07, 96), new T.MeshStandardMaterial({color: '#344a4c', roughness: .9}));
+const platform = new T.Mesh(new T.CylinderGeometry(1.12, 1.16, .07, 96), new T.MeshStandardMaterial({color: '#3a3e43', roughness: .9}));
 platform.position.y = -.045;
 platform.receiveShadow = true;
 scene.add(platform);
-const ring = new T.Mesh(new T.TorusGeometry(1.13, .003, 8, 128), new T.MeshBasicMaterial({color: '#a28a5d'}));
-ring.rotation.x = Math.PI / 2;
-ring.position.y = -.008;
-scene.add(ring);
-const floor = new T.Mesh(new T.PlaneGeometry(100, 100), new T.MeshStandardMaterial({color: '#172b2e', roughness: 1}));
+const floor = new T.Mesh(new T.PlaneGeometry(100, 100), new T.MeshStandardMaterial({color: '#25282c', roughness: 1}));
 floor.rotation.x = -Math.PI / 2;
 floor.position.y = -.09;
 floor.receiveShadow = true;
@@ -93,12 +67,12 @@ function stats(root = model) {
 function visibleModel() { return comparison === 'current' ? model : beforeModels.get(comparison); }
 function updateStats() {
   const count = stats(visibleModel());
-  $('#tris').textContent = count.triangles.toLocaleString('cs');
+  $('#tris').textContent = count.triangles.toLocaleString('en-US');
   $('#bones').textContent = count.bones;
   $('#summary').textContent = count.clips
-    ? `${count.clips} klipů · ${count.bones} kostí · ${new Set(catalog.map(clip => clip.pack)).size} knihovny`
-    : `${count.triangles.toLocaleString('cs')} trojúhelníků · statický ${comparison === 'current' ? 'experiment' : 'export'}`;
-  $('#rig-note').textContent = count.clips ? 'Stažené animace / přizpůsobené proporce' : 'Kalibrovaný tvar / projekční textura';
+    ? `${count.clips} clips · ${count.bones} bones`
+    : `${count.triangles.toLocaleString('en-US')} triangles · static ${comparison === 'current' ? 'model' : 'export'}`;
+  $('#rig-note').textContent = count.clips ? 'Retargeted animation / adapted proportions' : 'Calibrated geometry / projected texture';
 }
 function updateControls() {
   const animated = ready && clips.length > 0;
@@ -107,9 +81,9 @@ function updateControls() {
   for (const id of ['search', 'category']) $('#' + id).disabled = !animated;
   for (const id of ['camera', 'clay']) $('#' + id).disabled = !ready;
   $('#skeleton').disabled = !ready || !skeleton?.bones.length || comparison !== 'current';
-  $('#comparison').disabled = !ready || !Object.keys(characters[characterId].comparisons).length;
+  $('#comparison').disabled = !ready || !Object.keys(characters[characterId]?.comparisons || {}).length;
   $('#play').textContent = paused || !playable ? '▶' : 'Ⅱ';
-  $('#play').setAttribute('aria-label', paused || !playable ? 'Přehrát' : 'Pozastavit');
+  $('#play').setAttribute('aria-label', paused || !playable ? 'Play' : 'Pause');
 }
 function framing() {
   const size = bounds.getSize(new T.Vector3());
@@ -136,7 +110,8 @@ function setCamera(next) {
   const front = view.endsWith('front'), side = view.endsWith('side');
   camera = front || side || view === 'back' ? ortho : persp;
   controls.object = camera;
-  const target = face ? new T.Vector3(...characters[characterId].face) : bounds.getCenter(new T.Vector3());
+  const center = bounds.getCenter(new T.Vector3());
+  const target = face ? (characters[characterId]?.face ? new T.Vector3(...characters[characterId].face) : new T.Vector3(center.x, bounds.max.y - headHeight * .48, center.z)) : center;
   const direction = front ? [0, 0, 1] : side ? [1, 0, 0] : view === 'back' ? [0, 0, -1] : [.80, .19, 1];
   const distance = framing() / (2 * Math.tan(T.MathUtils.degToRad(persp.fov / 2))) * (face ? 1.2 : 1.12);
   camera.position.copy(target).add(new T.Vector3(...direction).normalize().multiplyScalar(distance));
@@ -170,7 +145,7 @@ function list() {
   if (!buttons.length) {
     const empty = document.createElement('p');
     empty.className = 'library-empty';
-    empty.textContent = clips.length ? 'Tomuto hledání neodpovídá žádný klip.' : 'Statický experiment. Prohlédni si nový tvar, profil a texturu pomocí kamer a čistého tvaru.';
+    empty.textContent = clips.length ? 'No animations match this search.' : 'Static model. Use the camera presets and Clay view to inspect its shape and texture.';
     buttons.push(empty);
   }
   $('#clips').replaceChildren(...buttons);
@@ -199,7 +174,7 @@ function play(name) {
   if (old && old !== action && old.isRunning()) action.crossFadeFrom(old, .18, false);
   current = catalog.find(clip => clip.name === name);
   paused = false;
-  $('#status').textContent = 'Pohyb z knihovny / upravené proporce';
+  $('#status').textContent = 'Library motion / adapted proportions';
   $('#clip-title').textContent = current.originalName.replaceAll('_', ' ') + ' / ' + current.pack;
   $('#duration').textContent = current.duration.toFixed(2) + ' s';
   updateControls();
@@ -214,8 +189,8 @@ function rest() {
   paused = true;
   action = undefined;
   $('#bind').classList.add('active');
-  $('#clip-title').textContent = clips.length ? 'Klidová A-póza / vlastní kostra' : 'Statický experiment / nová reference';
-  $('#status').textContent = 'Tažením otáčej · kolečkem přibližuj';
+  $('#clip-title').textContent = clips.length ? 'Rest A-pose / fitted skeleton' : 'Static model / reference reconstruction';
+  $('#status').textContent = 'Drag to orbit · scroll to zoom';
   $('#duration').textContent = '—';
   $('#timeline').value = 0;
   $('#time').textContent = '0.00 s';
@@ -262,16 +237,16 @@ async function compare(key) {
   if (!ready || (key !== 'current' && !definition)) return;
   if (key === 'current') {
     currentView();
-    $('#status').textContent = 'Aktuální projekce / stejná kamera';
-    $('#clip-title').textContent = 'Klidová A-póza / aktuální model';
+    $('#status').textContent = 'Current projection / same camera';
+    $('#clip-title').textContent = 'Rest A-pose / current model';
     return;
   }
   const request = ++comparisonRequest, modelVersion = modelRequest;
   rest();
-  $('#status').textContent = 'Načítám srovnání…';
+  $('#status').textContent = 'Loading comparison…';
   try {
     if (!beforeModels.has(key)) {
-      const gltf = await loader.loadAsync(definition.path);
+      const gltf = await loader.loadAsync(definition.path + '?v=' + encodeURIComponent(characters[characterId].revision));
       if (request !== comparisonRequest || modelVersion !== modelRequest) { dispose(gltf.scene); return; }
       setup(gltf.scene);
       beforeModels.set(key, gltf.scene);
@@ -284,15 +259,15 @@ async function compare(key) {
     beforeModels.forEach((root, id) => root.visible = id === key);
     skeleton.visible = false;
     $('#skeleton').classList.remove('active');
-    $('#status').textContent = definition.title + ' / stejná kamera';
-    $('#clip-title').textContent = definition.title + ' / klidová A-póza';
+    $('#status').textContent = definition.title + ' / same camera';
+    $('#clip-title').textContent = definition.title + ' / rest A-pose';
     appearance();
     updateStats();
     updateControls();
   } catch (error) {
     if (request !== comparisonRequest || modelVersion !== modelRequest) return;
     currentView();
-    $('#status').textContent = 'Srovnání se nepodařilo načíst: ' + error.message;
+    $('#status').textContent = 'Could not load comparison: ' + error.message;
     console.error(error);
   }
 }
@@ -308,19 +283,25 @@ async function loadCharacter(id) {
   clips = catalog = [];
   $('#character').value = id;
   $('#loading').style.display = 'grid';
-  $('#loading').textContent = 'Načítám postavu…';
+  $('#loading').textContent = 'Loading character…';
   $('#clips').replaceChildren();
   $('#count').textContent = '—';
-  $('#summary').textContent = 'Načítám model…';
+  $('#summary').textContent = 'Loading model…';
   const definition = characters[id];
   $('#model-title').textContent = definition.title;
-  $('#reference-image').src = definition.reference;
-  $('#reference-image').alt = 'Referenční pohledy: ' + definition.title;
-  $('#reference-link').href = definition.reference;
+  $('.reference-card').hidden = !definition.reference;
+  if (definition.reference) $('#reference-image').src = definition.reference;
+  else $('#reference-image').removeAttribute('src');
+  $('#reference-image').alt = 'Reference views: ' + definition.title;
+  if (definition.reference) $('#reference-link').href = definition.reference;
   $('#download-glb').href = definition.path;
-  $('#download-blend').href = definition.blend;
-  $('#catalog-link').href = definition.catalog;
-  $('#comparison').replaceChildren(...[['current', 'Aktuální model'], ...Object.entries(definition.comparisons).map(([key, value]) => [key, value.title])].map(([value, title]) => new Option(title, value)));
+  $('#download-blend').hidden = !definition.blend;
+  if (definition.blend) $('#download-blend').href = definition.blend;
+  else $('#download-blend').removeAttribute('href');
+  $('#catalog-link').hidden = !definition.catalog;
+  if (definition.catalog) $('#catalog-link').href = definition.catalog;
+  else $('#catalog-link').removeAttribute('href');
+  $('#comparison').replaceChildren(...[['current', 'Current model'], ...Object.entries(definition.comparisons).map(([key, value]) => [key, value.title])].map(([value, title]) => new Option(title, value)));
   updateControls();
   mixer?.stopAllAction();
   if (mixer && model) mixer.uncacheRoot(model);
@@ -339,12 +320,12 @@ async function loadCharacter(id) {
   delete window.characterLab.error;
   let gltf;
   try {
-    gltf = await loader.loadAsync(definition.path);
+    gltf = await loader.loadAsync(definition.path + '?v=' + encodeURIComponent(definition.revision));
     if (request !== modelRequest) { dispose(gltf.scene); return; }
     let entries = [];
-    if (gltf.animations.length) {
-      const response = await fetch(definition.catalog);
-      if (!response.ok) throw new Error('Katalog animací: HTTP ' + response.status);
+    if (gltf.animations.length && definition.catalog) {
+      const response = await fetch(definition.catalog, {cache: 'no-store'});
+      if (!response.ok) throw new Error('Animation catalog: HTTP ' + response.status);
       entries = await response.json();
     }
     if (request !== modelRequest) { dispose(gltf.scene); return; }
@@ -352,7 +333,7 @@ async function loadCharacter(id) {
     clips = gltf.animations;
     catalog = clips.map(clip => {
       const entry = entries.find(item => item.name === clip.name);
-      return {...(entry || {name: clip.name, originalName: clip.name, category: 'Ostatní', pack: 'GLB'}), duration: clip.duration};
+      return {...(entry || {name: clip.name, originalName: clip.name, category: 'Other', pack: 'GLB'}), duration: clip.duration};
     });
     setup(model);
     scene.add(model);
@@ -367,12 +348,17 @@ async function loadCharacter(id) {
     scene.add(skeleton);
     mixer.addEventListener('finished', () => { paused = true; updateControls(); });
     ready = true;
+    $('#timeline').value = 0;
+    $('#time').textContent = '0.00 s';
     $('#loading').style.display = 'none';
     $('#search').value = '';
     $('#category').value = 'all';
-    $('#library-note').textContent = clips.length ? 'Původní animace Quaternius a KayKit · přenos na vybranou kostru · CC0' : 'Nová reference a samostatná kalibrace proporcí';
+    $('#library-note').textContent = clips.length ? (entries.length ? 'Animations for the selected skeleton' : 'Animations embedded in the GLB') : 'Static model without animations';
+    const categories = [...new Set(catalog.map(clip => clip.category))];
+    $('#category').replaceChildren(new Option('All categories', 'all'), ...categories.map(category => new Option(category, category)));
     $('#animation-links').hidden = !clips.length;
-    $('#download-glb').textContent = clips.length ? 'Animovaný GLB ↓' : 'Statický GLB ↓';
+    $('#sources-link').hidden = !entries.length || !entries.every(entry => ['KayKit', 'Quaternius 1', 'Quaternius 2'].includes(entry.pack));
+    $('#download-glb').textContent = clips.length ? 'Animated GLB ↓' : 'Static GLB ↓';
     $('#face-review').hidden = id !== 'knight';
     updateStats();
     appearance();
@@ -383,7 +369,7 @@ async function loadCharacter(id) {
   } catch (error) {
     if (request !== modelRequest) { if (gltf) dispose(gltf.scene); return; }
     if (gltf && model !== gltf.scene) dispose(gltf.scene);
-    $('#loading').textContent = 'Chyba načítání: ' + error.message;
+    $('#loading').textContent = 'Loading failed: ' + error.message;
     window.characterLab.error = error.message;
     console.error(error);
   }
@@ -454,4 +440,34 @@ window.characterLab = {
 updateControls();
 setCamera('3q');
 requestAnimationFrame(frame);
-await loadCharacter('knight');
+let registryRequest = false;
+async function refreshCharacters(initial = false) {
+  if (registryRequest) return;
+  registryRequest = true;
+  try {
+    const response = await fetch('/api/characters', {cache: 'no-store'});
+    if (!response.ok) throw new Error('Character list: HTTP ' + response.status);
+    const data = await response.json();
+    const previous = characters[characterId];
+    characters = data.characters;
+    const ids = Object.keys(characters);
+    const choices = ids.map(id => [id, characters[id].title]);
+    const existing = [...$('#character').options].map(option => [option.value, option.text]);
+    if (JSON.stringify(choices) !== JSON.stringify(existing)) $('#character').replaceChildren(...choices.map(([id, title]) => new Option(title, id)));
+    $('#character').value = characterId;
+    $('#character').disabled = !ids.length;
+    $('#registry-status').textContent = data.warnings.length ? data.warnings.join(' · ') : `${ids.length} characters`;
+    if (initial || !characters[characterId]) {
+      if (ids.length) await loadCharacter(characters.knight ? 'knight' : ids[0]);
+      else { ready = false; paused = true; $('#loading').style.display = 'grid'; $('#loading').textContent = 'No models available.'; updateControls(); }
+    } else if (ready && JSON.stringify(previous) !== JSON.stringify(characters[characterId])) {
+      await loadCharacter(characterId);
+    }
+  } catch (error) {
+    $('#registry-status').textContent = error.message;
+    if (initial) { $('#loading').textContent = error.message + ' — start npm run serve.'; console.error(error); }
+  } finally { registryRequest = false; }
+}
+$('#refresh-characters').onclick = () => refreshCharacters();
+await refreshCharacters(true);
+setInterval(() => { if (!document.hidden) refreshCharacters(); }, 5000);

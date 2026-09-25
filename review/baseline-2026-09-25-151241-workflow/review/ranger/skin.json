@@ -1,0 +1,179 @@
+{
+  "bones": 27,
+  "parts": [
+    {
+      "part": "Torso fitted leather cuirass",
+      "vertices": 985,
+      "minWeightSum": 1,
+      "maxWeightSum": 1
+    },
+    {
+      "part": "Neck collar",
+      "vertices": 985,
+      "minWeightSum": 1,
+      "maxWeightSum": 1
+    },
+    {
+      "part": "Face sculpted nose and jaw",
+      "vertices": 2254,
+      "minWeightSum": 1,
+      "maxWeightSum": 1
+    },
+    {
+      "part": "Ear L",
+      "vertices": 493,
+      "minWeightSum": 1,
+      "maxWeightSum": 1
+    },
+    {
+      "part": "Ear R",
+      "vertices": 493,
+      "minWeightSum": 1,
+      "maxWeightSum": 1
+    },
+    {
+      "part": "Pauldron L",
+      "vertices": 985,
+      "minWeightSum": 1,
+      "maxWeightSum": 1
+    },
+    {
+      "part": "Pauldron R",
+      "vertices": 985,
+      "minWeightSum": 1,
+      "maxWeightSum": 1
+    },
+    {
+      "part": "Upper arm cream sleeve L",
+      "vertices": 985,
+      "minWeightSum": 1,
+      "maxWeightSum": 1
+    },
+    {
+      "part": "Upper arm cream sleeve R",
+      "vertices": 985,
+      "minWeightSum": 1,
+      "maxWeightSum": 1
+    },
+    {
+      "part": "Bracer L",
+      "vertices": 985,
+      "minWeightSum": 1,
+      "maxWeightSum": 1
+    },
+    {
+      "part": "Bracer R",
+      "vertices": 985,
+      "minWeightSum": 1,
+      "maxWeightSum": 1
+    },
+    {
+      "part": "Gauntlet palm L",
+      "vertices": 985,
+      "minWeightSum": 1,
+      "maxWeightSum": 1
+    },
+    {
+      "part": "Gauntlet palm R",
+      "vertices": 985,
+      "minWeightSum": 1,
+      "maxWeightSum": 1
+    },
+    {
+      "part": "Thumb L",
+      "vertices": 985,
+      "minWeightSum": 1,
+      "maxWeightSum": 1
+    },
+    {
+      "part": "Thumb R",
+      "vertices": 985,
+      "minWeightSum": 1,
+      "maxWeightSum": 1
+    },
+    {
+      "part": "Thigh trousers L",
+      "vertices": 985,
+      "minWeightSum": 1,
+      "maxWeightSum": 1
+    },
+    {
+      "part": "Thigh trousers R",
+      "vertices": 985,
+      "minWeightSum": 1,
+      "maxWeightSum": 1
+    },
+    {
+      "part": "Knee armor L",
+      "vertices": 985,
+      "minWeightSum": 1,
+      "maxWeightSum": 1
+    },
+    {
+      "part": "Knee armor R",
+      "vertices": 985,
+      "minWeightSum": 1,
+      "maxWeightSum": 1
+    },
+    {
+      "part": "Greave leather boot L",
+      "vertices": 985,
+      "minWeightSum": 1,
+      "maxWeightSum": 1
+    },
+    {
+      "part": "Greave leather boot R",
+      "vertices": 985,
+      "minWeightSum": 1,
+      "maxWeightSum": 1
+    },
+    {
+      "part": "Armored boot L",
+      "vertices": 985,
+      "minWeightSum": 1,
+      "maxWeightSum": 1
+    },
+    {
+      "part": "Armored boot R",
+      "vertices": 985,
+      "minWeightSum": 1,
+      "maxWeightSum": 1
+    },
+    {
+      "part": "Front tabard panel L",
+      "vertices": 985,
+      "minWeightSum": 1,
+      "maxWeightSum": 1
+    },
+    {
+      "part": "Front tabard panel R",
+      "vertices": 985,
+      "minWeightSum": 1,
+      "maxWeightSum": 1
+    },
+    {
+      "part": "Rear tabard panel L",
+      "vertices": 985,
+      "minWeightSum": 1,
+      "maxWeightSum": 1
+    },
+    {
+      "part": "Rear tabard panel R",
+      "vertices": 985,
+      "minWeightSum": 1,
+      "maxWeightSum": 1
+    },
+    {
+      "part": "Hanging hip leather panel L",
+      "vertices": 985,
+      "minWeightSum": 1.0,
+      "maxWeightSum": 1.0
+    },
+    {
+      "part": "Hanging hip leather panel R",
+      "vertices": 985,
+      "minWeightSum": 1.0,
+      "maxWeightSum": 1.0
+    }
+  ]
+}

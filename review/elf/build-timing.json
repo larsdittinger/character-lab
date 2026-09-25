@@ -1,0 +1,39 @@
+{
+  "character": "elf",
+  "task": "build",
+  "success": true,
+  "forced": false,
+  "seconds": 6.5827,
+  "stages": [
+    {
+      "stage": "geometry",
+      "cached": false,
+      "seconds": 3.2361
+    },
+    {
+      "stage": "rig",
+      "cached": false,
+      "seconds": 0.6679
+    },
+    {
+      "stage": "retarget",
+      "cached": false,
+      "seconds": 0.583
+    },
+    {
+      "stage": "clips",
+      "cached": false,
+      "seconds": 0.151
+    },
+    {
+      "stage": "actions",
+      "cached": false,
+      "seconds": 1.0602
+    },
+    {
+      "stage": "validate",
+      "cached": false,
+      "seconds": 0.8225
+    }
+  ]
+}

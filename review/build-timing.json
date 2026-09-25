@@ -1,0 +1,39 @@
+{
+  "character": "knight",
+  "task": "build",
+  "success": true,
+  "forced": false,
+  "seconds": 11.3918,
+  "stages": [
+    {
+      "stage": "geometry",
+      "cached": false,
+      "seconds": 7.7906
+    },
+    {
+      "stage": "rig",
+      "cached": false,
+      "seconds": 0.7904
+    },
+    {
+      "stage": "retarget",
+      "cached": false,
+      "seconds": 0.6323
+    },
+    {
+      "stage": "clips",
+      "cached": false,
+      "seconds": 0.1609
+    },
+    {
+      "stage": "actions",
+      "cached": false,
+      "seconds": 1.0778
+    },
+    {
+      "stage": "validate",
+      "cached": false,
+      "seconds": 0.8624
+    }
+  ]
+}

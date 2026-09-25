@@ -1,14 +1,14 @@
-# Druhá kalibrace: měděnovlasá průzkumnice
+# Woodland Ranger: independent second calibration
 
-Průzkumnice je samostatný druhý test rekonstrukce. Má nový referenční obrázek, nově odečtené siluety, jiné proporce, vlastní atlas, skutečně přizpůsobenou kostru a stejných 214 stažených zdrojových pohybů. Není to textura rytíře přelepená na původní geometrii.
+The ranger has her own reference, measured silhouettes, proportions, atlas, fitted skeleton and the same 214 downloaded source motions. She is not the knight's geometry with a replacement texture.
 
-## Původ reference
+## Reference provenance
 
-Jedno volání vestavěného `image_gen` vytvořilo **jeden obrázek 1536 × 1024 obsahující tři pohledy**. Gemini se pro tento charakter nevolalo. Neuvádíme skutečnou cenu ani odhad faktury. Původní neměnný výstup je [turnaround.png](../references/ranger/turnaround.png); úplný prompt, původ a SHA-256 jsou v [turnaround.json](../references/ranger/turnaround.json) a [ranger-prompt.txt](../config/ranger-prompt.txt).
+One built-in ImageGen call produced **one 1536×1024 image with three views**. No new Gemini request was used, and no measured invoice or billed price is claimed. The immutable original is [turnaround.png](../references/ranger/turnaround.png); prompt, provenance and SHA-256 are in [metadata](../references/ranger/turnaround.json) and [the saved prompt](../config/ranger-prompt.txt).
 
-## Reprodukce offline
+## Offline reproduction
 
-Používá lokální `.venv`, `requirements.txt`, `node_modules` a stejný Blender jako rytíř. Referenci ani zdrojové archivy není třeba znovu generovat/stahovat.
+Use this project's `.venv`, requirements, `node_modules` and Blender installation. No new image generation or download is needed.
 
 ```sh
 .venv/bin/python tools/ranger_pipeline.py build
@@ -16,67 +16,67 @@ Používá lokální `.venv`, `requirements.txt`, `node_modules` a stejný Blend
 npm run serve
 ```
 
-Viewer: `http://localhost:8770/`, volba **Lesní průzkumnice**. Samostatné kroky jsou `geometry`, `rig`, `motion`, `validate`, `render`. Změna geometrie nebo projekce vyžaduje nový `build`, protože GLB obsahuje vložený atlas. Pipeline zastaví i Python chybu uvnitř Blenderu (`--python-exit-code 1`).
+Select **Woodland Ranger** at http://localhost:8770/. Focused stages: geometry, rig, motion, validate, render. Geometry/texture changes require dependent stages because the atlas is embedded. Add `--force` for a full uncached reproduction. Blender script failures propagate through `--python-exit-code 1`.
 
-| Výstup | Obsah |
+| Output | Contents |
 |---|---|
-| `assets/ranger-static.glb` / `.blend` | Statický model, v Blenderu 29 oddělených uzavřených dílů |
-| `assets/ranger-rigged.glb` / `.blend` | Nově fitovaná kostra a váhy; v Blenderu oddělené díly |
-| `assets/ranger-animated.glb` / `.blend` | 214 klipů / 214 Blender actions, při otevření aktivní idle |
-| `animations/ranger/retargeted/` | 214 malých GLB pro tuto konkrétní ranger hierarchii, bez mesh a textury |
-| `animations/ranger/catalog.json` | Zdrojový název, balík, délka a parametry každého klipu |
-| `review/ranger/validation.json` | Skutečný strojový výsledek kontrol |
+| `assets/ranger-static.glb/.blend` | Static model; 29 separate closed Blender pieces |
+| `assets/ranger-rigged.glb/.blend` | Fitted skeleton and skin weights; editable separate pieces |
+| `assets/ranger-animated.glb/.blend` | 214 clips/actions; idle active on open |
+| `animations/ranger/retargeted/` | 214 motion-only GLBs for this exact hierarchy |
+| `animations/ranger/catalog.json` | Source name, pack, duration and clip parameters |
+| `review/ranger/validation.json` | Actual numeric validation |
 
-Sdílené retarget/export/validate skripty vybírají výstup explicitně pomocí `CHARACTER_LAB_CHARACTER=knight|ranger`. Ranger wrapper nemění text ani algoritmus společných skriptů. Anatomická korekce A/T-pózy, hip-relative IK a původní zdrojové křivky zůstávají stejné; cílové klouby a délky končetin jsou nové.
+Shared retarget/export/validation uses `CHARACTER_LAB_CHARACTER=ranger`. It preserves the common A/T rest correction, hip-relative IK and downloaded curves while fitting independent target joints and limb lengths.
 
-## Co se muselo nově odečíst
+## Measured calibration
 
-Konfigurace [ranger-profiles.json](../config/ranger-profiles.json) obsahuje hlavní měřítko a profily dílů. Střed čela X=317, hloubkový počátek bočního pohledu X=773, střed zad X=1220, koruna Y=17, zem Y=959; autorská výška 2.5 m. Měřítko je `2.5 / 942`. Y je nahoře, +Z dopředu. [ranger-rig.json](../config/ranger-rig.json) ukládá nově odečtené anatomické body v metrech.
+[ranger-profiles.json](../config/ranger-profiles.json): front center X=317, side origin X=773, rear center X=1220, top Y=17, ground Y=959, authored height 2.5 m, scale `2.5 / 942`. Y is up and +Z forward. [ranger-rig.json](../config/ranger-rig.json) contains measured joints in meters.
 
-Párové díly průzkumnice jsou odečtené na pravé straně čelního obrázku, což je **anatomická levá strana, +X, suffix L**. Rytíř má výchozí odečty na opačné straně obrázku. Převzetí stejného pojmenování bez této kontroly původně přiřadilo končetiny protějším kostem: numerický skin test prošel, ale idle v browseru se viditelně deformoval. Finální model má názvy opravené a rig před přiřazením vah zastaví build, pokud centroid párového dílu L neleží na +X nebo R na −X. Výchozí silueta sama tuto chybu neodhalí; rozhodující je skutečné přehrání pohybu.
+Paired sections are traced from the right side of the front image: **anatomical L, +X**. The knight's measurements start on the opposite image half. Copying suffixes once assigned weights to opposite limbs: numeric skin validation passed, but idle visibly deformed. The final rig asserts L centroids on +X and R on −X before weighting. Real motion review is essential.
 
-Reference má konzistentní identitu, ale její tři siluety nejsou přesně shodné. Proto má hlava navíc `rearHeadRegistration`: zvláštní tabulku šířek zadního pohledu podle výšky. Pouhé zrcadlení stejného pixelového X z předku do zad promítalo šedé pozadí do horní části účesu. Boční obličej má samostatně zarovnané výšky očí, nosu, úst a brady a malou hloubkovou korekci.
+The three reference silhouettes are not perfectly consistent. `rearHeadRegistration` stores rear hair width by height; simply mirroring front pixel X into the rear painted studio background onto the crown. The side face has separate eye/nose/mouth/chin correspondences and a small depth correction.
 
-První experiment s odděleným objemem účesu vytvořil překryv na čele. Finální varianta používá jednu souvislou hlavu včetně kštice. Historické kontrolní rendery zůstávají v `review/ranger/face-first-3q.png` a `face-first-side.png`. Aktuální `face-front.png`, `face-3q.png`, `face-side.png` pocházejí z exportovaného statického GLB a shodného nastavení kamery a světel.
+An early separate hair volume overlapped the forehead. The accepted version uses one continuous head including the swept hair. Historical `face-first-3q.png` and `face-first-side.png` remain in `review/ranger/`; current front/three-quarter/profile renders use matching cameras and lighting.
 
-## Vlastnictví projekce
+## Projection ownership
 
-- Uši mají dva samostatné uzavřené objemy připojené k hlavě. Jejich přední a boční plocha vzorkuje odpovídající část reference; kůže pod uchem nevytváří další ostré ucho.
-- Ramenní díly nepoužívají boční projekci přes zakrytý krk nebo hlavu. Detail je z čela a zad; nepozorovaný bok má odvozenou barvu kůže/zbroje, nikoli obraz cizí anatomie.
-- Účes má pro hranice masku skutečných měděných vlasů. Chybějící okrajové vzorky doplňují nejbližší platné vlasové pixely; bílé/šedé pozadí ani pleť nepřebírají barvu celé kštice. Je to vycpání projekčního okraje, nikoli další generovaný obrázek.
-- Horní kalhoty jsou v předloze zakryté tunikou. Používají tedy autorskou tmavou látku, pokračují až pod pás a bok zakrývá samostatný kožený díl. Oříznutá plochá horní hrana se tím neukazuje pod pasem.
-- Atlas má 2000 × 3168 pixelů s výplní okrajů UV ostrovů.
+- Ears are separate closed volumes attached to the head. Their front/side surfaces sample the corresponding reference regions. Head texture underneath does not retain another sharp ear.
+- Shoulder pieces exclude side projection through occluding head/neck regions. Front/rear detail and authored side color fill unobserved surfaces.
+- Hair masks select actual copper hair. Missing edge samples extend nearby valid hair pixels rather than studio gray or skin. This is projection padding, not another generated image.
+- Upper trousers are hidden by the tunic in the source. Authored dark cloth extends above the belt, and a separate leather side part covers the hip, avoiding an exposed flat top edge.
+- The atlas is 2000×3168 with padded UV islands.
 
-### Cílená oprava ucha a límce, ověřená před/po
+### Targeted ear and collar correction
 
-Výchozí stav této poslední úpravy je zachován jako `assets/ranger-before-detail.glb`. Snímky čelo/¾/profil i kopie původního `ranger_model.py` a profilů jsou v `review/ranger/baseline-resume/`. [Šest srovnávacích renderů](../review/ranger/detail-comparison.html) ukazuje stejnou geometrii a stejné kamery před a po opravě.
+`assets/ranger-before-detail.glb` preserves the starting state. Matching face views, code and profiles are in `review/ranger/baseline-resume/`. The [six-view comparison](../review/ranger/detail-comparison.html) uses the same geometry and cameras before/after.
 
-Příčina zbytku druhého ucha byla konkrétní: stará obdélníková maska odstranila střed ucha z projekce hlavy, ale vynechala světlý horní oblouk. Ostrá hrana obdélníku současně vytvořila hnědý pás u kořene samostatného ušního dílu. Oprava je v `tools/ranger_model.py`, v části výběru platných zdrojových barev:
+The old rectangular mask removed the ear center but missed its bright upper arc; its hard edge also produced a brown strip below the separate ear. The accepted changes in `tools/ranger_model.py` are:
 
-1. **Čelní ucho na hlavě:** dvě měkké eliptické masky mají středy `(365,108)` a `(269,108)` px, poloměry `(13,23)` px. Normalizovaný poloměr přechází přes `smooth((radius-.85)/.28)`. Zakrytou oblast doplňuje sousední platný povrch v X=351, resp. 283 při stejné výšce. Samostatné ušní meshe nadále dostávají skutečnou texturu ucha.
-2. **Boční ucho na hlavě:** střed `(779,105)`, poloměry `(17,23)` px; maska `1-smooth((radius-.84)/.30)` zahrnuje i horní oblouk. Výplň plynule přechází mezi okolní kůží a vlasy: kůže se vzorkuje poblíž X=755, vlasy poblíž X=806 z platné vlasové oblasti. Převaha vlasů se mění podle hloubky X=774–787 a výšky Y=89–101. Nejde o rozmazání celého obličeje ani oka, ale o odstranění cizího ostrého rysu z povrchu pod skutečným uchem.
-3. **Límec:** dřívější konstantní X=790 protahovalo jediný sloupec reference kolem krku a kreslilo vodorovný pruh. Finální projekce opět vzorkuje skutečné dvourozměrné `(profileX,imageY)`. Viditelný boční obrys má řádky `[145,745,804]`, `[153,749,808]`, `[161,751,813]`, `[175,743,820]`, `[190,731,826]`, `[205,719,829]`; vzorek zůstává 3 px uvnitř intervalu. Světlý krémový lem je platný materiál, a proto se na krku nepovažuje za šedé studiové pozadí.
+1. **Front head texture:** soft elliptical ear masks centered at `(365,108)` and `(269,108)` px with radii `(13,23)`. Transition `smooth((radius-.85)/.28)`. Fill from nearby valid material at X=351 or 283 at the same height. Separate ear meshes still receive actual ear color.
+2. **Side head texture:** ellipse centered `(779,105)`, radii `(17,23)`, mask `1-smooth((radius-.84)/.30)` includes the upper arc. Fill blends neighboring skin near X=755 with valid hair near X=806. Hair influence varies over X=774–787 and Y=89–101. This removes a foreign feature beneath the real ear without blurring the eye or whole face.
+3. **Collar:** constant X=790 stretched one image column around the neck. Restore two-dimensional `(profileX,imageY)` sampling inside rows `[145,745,804]`, `[153,749,808]`, `[161,751,813]`, `[175,743,820]`, `[190,731,826]`, `[205,719,829]`, inset 3 px. Cream trim is valid material and must not be classified as gray background.
 
-Výsledek porovnání: v ¾ a profilu zmizel světlý náznak druhého ucha, napojení nemá původní tvrdý obdélníkový pás a krémový lem límce sleduje diagonální tvar z reference. Čelní oči, ústa, proporce, kostra a váhy zůstaly stejné. Tento výsledek byl zvolen po porovnání všech tří kamer; další experimenty se do dodaného stavu nepřidávaly.
+The bright extra ear arc and hard brown rectangle disappeared in three-quarter/profile views; cream trim follows the reference's diagonal shape. Front eyes/mouth, proportions, rig and weights stayed unchanged. The correction was accepted after all three views, not a front-only inspection. The geometry/UV equivalence record is `review/ranger/detail-review.json`.
 
-Pro dalšího agenta: nejprve zachovej GLB a tři staré rendery, pak oprav konkrétní vlastnictví zdrojového rysu. Nepoužívej tyto pixelové masky na nový obrázek bez nového měření. Po změně spusť celý `ranger_pipeline.py build`, potom `ranger_pipeline.py render`, porovnej čelo/¾/profil a v browseru znovu načti animovaný GLB, aby nezůstala stará vložená textura v cache. `validate` kontroluje finální model i 214 odpovídajících motion-only souborů; vzhled napojení ucha musí posoudit člověk/agent z renderů.
+For another reference, remeasure these masks. Preserve baseline views first, rebuild and render, then reload the actual animated GLB to see its updated embedded atlas. Numeric curve validation does not judge the visual ear transition.
 
-## Naměřené kontroly
+## Head-width correction
 
-Finální GLB: **57 584 trojúhelníků, 29 477 vertexů, 27 skin joints, 214 klipů**. Blender zachovává 29 dílů ve statickém/rigged souboru a 214 actions v animovaném souboru. Všech 29 dílů má 0 otevřených a 0 non-manifold hran. K dispozici zůstává 32 skutečných idle klipů a 8 běhů.
+A whole-body comparison with the accepted knight revealed a narrow-looking ranger head. GLB, profiles, script, atlas and prior renders were saved in `review/ranger/baseline-2026-09-25-head-width/`. `headWidthScale: 1.10` widens face geometry, moves the separate ears by the corresponding distance and applies half the correction to the neck. Source landmark coordinates and texture sampling remain unchanged.
 
-Validator vyhodnotil 1284 póz se skutečným skinningem, ověřil normalizované váhy a quaterniony, konečné hodnoty, rostoucí časy a shodu všech 214 samostatných motion souborů s kompletním GLB. Maximální odchylka součtu vah je přibližně `2.98e-8`, quaternionu `4.70e-8`, IK kotníku `9.87e-6 m`. Největší prostorový rozsah jedné vyhodnocené pózy je přibližně 2.94 m.
+Maximum face width changed from **0.311 m to 0.342 m**. The [matching-camera comparison](../review/head-width.html) includes front/three-quarter/profile and whole-body views beside the knight. Geometry, rig, all clips and validation were rebuilt, followed by idle, KayKit running, Quaternius jogging/sprinting, jumping and waving in the viewer. No browser console errors were found. A future character needs this comparison before transferring 214 clips; one numeric ratio cannot replace judgment about style.
 
-Druhý model odhalil chybu staré kontroly: součet rozsahu **celé trajektorie** zaměňovala za rozpad mesh. Zdrojový KayKit skeleton spawn přichází z hloubky pod zemí a pro delší nohy průzkumnice překračuje 12 m celkového cestování. Opravená společná kontrola měří velikost skutečně deformované postavy **v každé póze** a zvlášť reportuje trajektorii. Zdrojový pohyb nebyl vystřižen ani nahrazen domácí animací.
+## Measured validation
 
-## Vizuální výsledek a limity
+Final GLB: **57,584 triangles, 29,477 vertices, 27 joints, 214 clips**. Blender retains 29 pieces in static/rigged files and 214 actions in the animated file. All 29 pieces have zero boundary and non-manifold edges. There are 32 real idle clips and 8 runs.
 
-### Korekce proporce hlavy po srovnání se strážcem
+The validator evaluates 1,284 skinned poses and compares all 214 real motion files against the final hierarchy and exact curves. Maximum weight-sum error is about `2.98e-8`, quaternion error `4.70e-8`, ankle IK error `9.87e-6 m`, and individual posed-body span about 2.94 m.
 
-Při společné kontrole nového elfa a průzkumnice upozornil uživatel, že obě hlavy v celotělovém pohledu působí úzce. Před změnou byly GLB, profil, skript, atlas a všechny dosavadní kontrolní rendery uložené do `review/ranger/baseline-2026-09-25-head-width/`. V [ranger-profiles.json](../config/ranger-profiles.json) je nyní `headWidthScale: 1.10`; [ranger_model.py](../tools/ranger_model.py) rozšiřuje X souřadnice hlavního dílu tváře, posouvá samostatné uši o odpovídající vzdálenost a rozšiřuje krk o polovinu korekce. Zdrojové souřadnice očí, úst, vlasů a UV atlasu zůstávají měřené z téže předlohy.
+This character exposed an earlier validator bug: a source underground spawn's total root travel, over 12 m with ranger proportions, was mistaken for exploded geometry. The shared validator now measures each posed body separately and reports travel independently. The source motion was preserved.
 
-Maximální šířka tváře se změnila z **0,311 m na 0,342 m**. [Srovnání stejných kamer](../review/head-width.html) zachycuje čelo, ¾, profil a celé tělo před/po vedle původního strážce. Po změně proběhl `ranger_pipeline.py geometry`, render, `rig`, `motion` a `validate`; finální validace zůstává PASS se 57 584 trojúhelníky, 29 477 GLB vertexy, 27 kostmi, 214 klipy, 214 motion-only soubory a 214 Blender actions. Ve vieweru byly opět prohlédnuty idle, KayKit běh, Quaternius jog/sprint, skok a gesto; konzole byla bez chyb. Pro další postavu je třeba udělat stejné vizuální srovnání hlavy **před** přenosem 214 animací. Jediný číselný poměr nenahradí úsudek o stylizaci.
+## Visual review and limits
 
-Statické kontrolní rendery pokrývají tělo z čela, ¾, boku a zad a obličej ze tří úhlů. Změny účesu, uší a bočních ploch se kontrolovaly na skutečném exportu, ne jen na zdrojovém obrázku. Výrazný druhý ušní oblouk a vodorovný pruh límce jsou opravené, ale tento experiment není filmově čistý obličejový model: jemné stínování a natažení malované barvy u kořene ucha či v účesu jsou při velkém detailu stále patrné. Ucho je jednoduchý uzavřený loft, nikoli anatomická retopologie boltce. Zdrojové světlo je součástí namalované textury. Malá tvář v jednom celotělovém sheetu omezuje rozlišení očí.
+Static review includes body front/three-quarter/side/back and three face views from the actual exported GLB. Remaining painted shading/stretching near hair and ear roots is visible at close range. Ears are simple closed lofts, not anatomical retopology. Source lighting is painted into the atlas, and a whole-body sheet limits facial pixel detail.
 
-Rukavice nemají jednotlivé prsty ani mimiku. Sukně má jednoduché kosti, nikoli cloth kolize; širší kožené boky a paže mohou při extrémních gestech procházet tělem. Numeric PASS neověřuje produkční kvalitu každého snímku všech 214 klipů. Ověření konkrétního boje, sezení nebo práce vyžaduje rekvizity, scénu a kontrolu kontaktu chodidel. Reference a její nové měření dokazují druhou samostatnou kalibraci, nikoli univerzální automatický převod libovolného PNG na hotovou postavu.
+Gloves have no individual fingers, and there is no facial rig. Skirt bones provide no cloth collision; leather panels and arms can intersect in extreme poses. Numeric PASS does not certify every frame of all clips. Combat, sitting, work and foot contact need scene-specific inspection with props. This is an independent calibration, not proof of universal automatic image reconstruction.

@@ -1,0 +1,26 @@
+{
+  "fixture": "Existing knight copied into an isolated character folder; not a generated character",
+  "validation": {
+    "passed": true,
+    "character": "workflow-check",
+    "clips": 214,
+    "motionOnlyFiles": 214,
+    "blenderActions": 214,
+    "embeddedImages": 1,
+    "bones": 27,
+    "vertices": 27704,
+    "triangles": 54288,
+    "idleClips": 32,
+    "runClips": 8,
+    "sampledPoses": 1284,
+    "maxPoseSpan": 3.126693088858036,
+    "maxWeightError": 8.940696716308594e-08,
+    "maxQuaternionError": 4.518679030951489e-08,
+    "maxIKError": 9.885036377251198e-06,
+    "scope": "Numeric geometry/skin/animation and matching motion-only file checks; per-pose size is checked separately from root travel. Not a proof of absence of collisions or sliding."
+  },
+  "staticAndAnimatedDiscovery": "visually verified in Chrome",
+  "apiCallsForImageGeneration": 0,
+  "unitTests": 6,
+  "binaryExportRegression": "passed"
+}

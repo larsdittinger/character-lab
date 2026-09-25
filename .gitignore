@@ -1,6 +1,16 @@
 node_modules/
 .venv/
 .env
+.env.*
+!.env.example
+*.key
+*.pem
+credentials.json
+credentials.*.json
+secrets/
+.secrets/
+.build-cache/
+.build.lock
 __pycache__/
 *.blend1
 *.pyc

@@ -1,68 +1,74 @@
-# Kontroly a známé limity
+# Validation and known limits
 
-Výstupní validace strážce je v `review/validation.json`; reporty vstupů, projekce, geometrie, vah a Blender actions jsou vedle něj. `npm run validate` ověří hotové výstupy. `.venv/bin/python tools/pipeline.py build` nejprve ověří vstupy, vše znovu sestaví a teprve potom validuje výstupy. Průzkumnice a elf mají samostatné reporty a postupy v [RANGER.md](RANGER.md) a [ELF.md](ELF.md).
+The knight's final report is `review/validation.json`; input, projection, construction, skin and Blender-action reports are beside it. `npm run validate` checks the final knight assets. The complete pipeline verifies inputs/outputs, rebuilds changed stages and always runs final validation. `--force` disables stage caching. Ranger and elf have their own reports and commands.
 
-## Číselně ověřeno na strážci
+## Numeric results
 
-- `review/input-validation.json`: **PASS**, 17 druhů profilů, 120 měřených řezů, kalibrace 1907 × 1280. Souřadnice jsou konečné, řezy mají rostoucí Y a kladnou šířku/hloubku, odpovídají rozměrům předlohy; kontrolují se i korespondence tváře a délky kostí.
-- Report ukládá SHA-256 raw předloh a konfigurací. `model.py` ověřuje identitu původního i zadního obrázku vůči `config/projection.json`; staré masky nelze potichu použít po výměně těchto souborů.
-- `review/projection.json`: **PASS**, všech **9** kontrol povolených/zakázaných souřadnic prošlo. Zakázaný boční příspěvek pro nárameníky a předloktí je nulový; čelist a vlasy čerpají z omezené platné oblasti. Oprava projekce nemění geometrii.
-- Ochrana čelní projekce před propojeným studiovým pozadím kontroluje 27 loftovaných dílů. Report uvádí 641 518 opravených vzorků, 27 648 vzorků bez dostupného materiálu v daném řádku nahrazených základní barvou a **0 zbývajících vzorků pozadí** mimo tuto náhradu. Jde o vzorky atlasových dílů, nikoli o počet unikátních pixelů původního obrázku. Chybějící zdroj zůstává přiznanou aproximací.
+| Character | Triangles | GLB vertices | Joints | Clips / motion files / Blender actions | Poses evaluated |
+|---|---:|---:|---:|---:|---:|
+| Knight | 54,288 | 27,704 | 27 | 214 / 214 / 214 | 1,284 |
+| Ranger | 57,584 | 29,477 | 27 | 214 / 214 / 214 | 1,284 |
+| Elf | 61,188 | 31,242 | 27 | 214 / 214 / 214 | 1,284 |
 
-- 54 288 trojúhelníků, 27 704 GLB vertexů, 27 kostí.
-- 29 původních dílů; každý má 0 otevřených a 0 non-manifold hran.
-- `review/validation.json`: **PASS**, 214 unikátně pojmenovaných klipů a 214 actions zaznamenaných v reportu Blender exportu. Počty katalogu, finálního GLB a actions se shodují. Patří sem i krátké statické pose klipy; nejde o 214 lokomočních cyklů.
-- Skutečně otevřeno všech **214 souborů** v `animations/retargeted/`. Každý obsahuje jeden správně pojmenovaný klip, žádný mesh ani texturu a přesně stejnou cílovou hierarchii, animační kanály, interpolaci, časy a hodnoty křivek jako příslušný klip v `knight-animated.glb`. Jde o shodu s přenesenými klipy cílového modelu, nikoli o tvrzení, že retargeting nemění originální zdrojová data.
-- 32 klipů obsahuje Idle v původním názvu a má délku nad 0.1 s, 8 různých běhů. Minimum 5+5 je splněné bez přejmenovaných kopií.
-- Všechny accessors mají konečné číselné hodnoty; časy klipů jsou striktně rostoucí a quaterniony normalizované.
-- Maximální odchylka součtu vah je přibližně 0.00000009. Nejvyšší numerická odchylka IK kotníku od zadaného cíle je pod 0.00001 m. To neznamená stejnou přesnost kontaktu s podlahou.
-- 1284 vzorkovaných póz (6 na každý klip) se skutečně vyhodnotí v Three.js včetně skinningu. Kontrola nenašla NaN ani rozpad do extrémního objemu; největší rozměr jedné vzorkované pózy strážce je 3.127 m.
+Each target retains **32 real idle clips and 8 distinct runs**, exceeding the 5+5 minimum without renamed duplicate motions. Short pose clips are included; the total does not mean 214 locomotion cycles.
 
-## Číselně ověřeno na průzkumnici
+### Knight
 
-`review/ranger/validation.json`: **PASS**, 57 584 trojúhelníků, 29 477 vertexů finálního GLB, 27 kostí, 214 klipů, 214 motion-only souborů a 214 Blender actions. Knihovna opět obsahuje 32 idle a 8 běhů; vyhodnoceno bylo 1284 póz. Samostatné soubory v `animations/ranger/retargeted/` se porovnávají s cílovým GLB průzkumnice.
+- Input PASS: 17 profile types, 120 measured sections, 1907×1280 calibration. Checks include finite coordinates, increasing section Y, positive width/depth, image bounds, face correspondences and nonzero bone lengths.
+- Raw front/rear sources and configs have SHA-256 fingerprints. `model.py` rejects mismatched reference hashes before applying old projection masks.
+- Projection PASS: all nine allowed/forbidden source-coordinate guards pass. Forbidden side weight is zero for pauldrons/bracers; jaw/hair use constrained valid regions.
+- Front background padding covers 27 lofts: 641,518 repaired samples, 27,648 samples without visible same-row material filled with base color, and zero remaining background samples outside that fallback. These are atlas patch samples, not unique reference pixels. Missing material remains an approximation.
+- All 29 original pieces have zero boundary/non-manifold edges.
+- Maximum weight-sum error is approximately `8.94e-8`; ankle IK target error is below `1e-5 m`. This is not the accuracy of contact with a scene floor.
+- Largest sampled individual posed-body span is approximately 3.127 m.
 
-Maximální odchylka součtu vah je přibližně 0.00000003 a odchylka IK kotníku od zadaného cíle pod 0.00001 m. Největší rozměr vzorkovaného modelu v jedné póze je 2.937 m. Společný validátor posuzuje rozsah každé pózy zvlášť; celkovou dráhu rootu zachovává v reportu a nezaměňuje větší posun celého charakteru za rozpad geometrie. Přenos zdrojového pohybu sám neřeší kontakt s podlahou. Reprodukce: `.venv/bin/python tools/ranger_pipeline.py build`; samotná kontrola: `.venv/bin/python tools/ranger_pipeline.py validate`.
+### Ranger
 
-Po uživatelské připomínce se geometrie hlavy průzkumnice rozšířila o 10 %, z 0,311 m na 0,342 m. Statické pohledy před/po a schválený strážce jsou na [stránce proporcí](../review/head-width.html). Následný rig, všechny přenesené klipy a validace byly znovu sestavené; výše uvedené finální počty zůstaly stejné.
+`review/ranger/validation.json` passes. All 214 files in `animations/ranger/retargeted/` match the ranger target. Maximum weight-sum error is about `2.98e-8`, ankle IK error below `1e-5 m`, and maximum posed-body span about 2.937 m.
 
-## Číselně ověřeno na nočním elfovi
+The head was widened 10%, from 0.311 m to 0.342 m, after whole-body review against the knight. Matching before/after views are on the [head comparison page](../review/head-width.html). Rig, clips and validation were rebuilt afterward. The legacy ranger does not have the knight/elf-style standalone input/projection reports; do not claim it does. See [RANGER.md](RANGER.md).
 
-`review/elf/input-validation.json`: **PASS**, 17 typů profilů a 106 měřených řezů, kalibrace 1536 × 1024 a shoda SHA-256 uložené předlohy. `review/elf/projection.json`: **PASS**, 9 konkrétních povolených/zakázaných zdrojových bodů pro ucho, tvář, vlasy, zbroj, plášť a pozadí. Tyto body nekontrolují kvalitu všech přechodů na atlasu.
+### Elf
 
-`review/elf/validation.json`: **PASS**, 61 188 trojúhelníků, 31 242 vertexů ve finálním GLB, 27 kostí, 214 klipů, 214 skutečně otevřených a přesně porovnaných motion-only souborů a 214 Blender actions. Zůstalo 32 idle a 8 běhů; vyhodnoceno bylo 1284 deformovaných póz. Maximální odchylka součtu vah je přibližně `6.71e-8`, odchylka IK kotníku pod `0.00001 m` a největší rozměr jedné pózy přibližně `3.130 m`. Po opravě proporce je šířka hlavního dílu tváře 0,274 m proti 0,189 m před ní. Reprodukce: `.venv/bin/python tools/elf_pipeline.py build`; rendery: `.venv/bin/python tools/elf_pipeline.py render`. Původ, konkrétní opravy a limity popisuje [ELF.md](ELF.md).
+Input PASS: 17 profile types, 106 measured sections, 1536×1024 image and matching source SHA-256. Projection PASS: nine explicit source points around ear, face, hair, armor, cloak and background. These points do not verify every atlas transition.
 
-## Vizuální srovnání
+Final validation passes, including all 214 actual files in `animations/elf/retargeted/`. Maximum weight-sum error is about `6.71e-8`, ankle IK error below `1e-5 m`, largest posed-body span about 3.130 m. The accepted head width is 0.274 m, compared with 0.189 m before correction. See [ELF.md](ELF.md).
 
-`tools/render_faces.py` vytvoří devět pohledů ze skutečných GLB se stejným nastavením kamery a světel: `face-before-*` pro historický obličej, `face-baseline-*` pro stav před opravou přesahů a `face-after-*` pro aktuální výsledek. Každá trojice zahrnuje čelo, ¾ a profil. [Srovnávací stránka](../review/faces.html) a [FACE.md](FACE.md) umožňují posoudit vzhled odděleně od číselných reportů.
+## What is actually checked
 
-Kontrola masek dokazuje dodržení uložených oblastí. Sama nepotvrzuje správnost všech jejich hranic ani kvalitu doplněné zakryté textury. Stejně tak report 1284 póz potvrzuje konečné hodnoty a přijatelný rozsah skinningu, nikoli ruční posouzení každé pózy.
+The validator opens every motion-only GLB. Each must contain one correctly named clip, no mesh or texture, and the exact target node hierarchy, channels, interpolation, time samples and curve values of the corresponding final animated GLB clip. This proves consistency with the retargeted result, not identity with unadapted source data. Catalog, GLB clip and Blender action counts must agree.
 
-### Záznam vizuální kontroly — 25. 9. 2026
+All accessor values must be finite, times strictly increase, quaternions and weights are normalized, and topology reports must show closed manifold pieces. Three.js evaluates six poses for each of 214 clips with actual skinning, checking sampled vertices for finite coordinates and unreasonable posed-body extent. Root trajectory is reported separately: large travel alone is not skin explosion.
 
-Ve skutečném Chrome vieweru byly na obou postavách prohlédnuty `Idle Loop` (Quaternius 1), `Running A` (KayKit), `Jog Fwd Loop`, `Sprint Loop`, `Jump Full Short` (KayKit), `Waving` (KayKit) a zobrazená kostra. U průzkumnice proběhla tato kontrola až po opravě anatomických stran a vah: ruce v idle a běhu se již nepřiřazují protějším kostem. Skok se kontroloval také zastavením a posunem času. Výchozí kamera během vyšší fáze skoku může oříznout vršek hlavy; pro posouzení celé trajektorie je potřeba oddálit pohled.
+## Visual comparisons
 
-Po načtení finálních textur byly v browseru znovu prohlédnuty čelo, ¾ a profil obou postav. U strážce se stejnou kamerou fungují oba uložené srovnávací modely: historické zdvojení očí a pozdější přesah ucha/zbroje jsou odlišné výchozí vady. Aktuální projekce tyto výrazné přesahy odstraňuje. Průzkumnice má samostatně doložené [srovnání ucha a límce](../review/ranger/detail-comparison.html); její poslední úprava mění projekci, shoda geometrických a UV dat je zaznamenaná v [detail-review.json](../review/ranger/detail-review.json). Konzole při závěrečné kontrole nevrátila chyby ani varování.
+`tools/render_faces.py` produces nine actual GLB renders with matching cameras and lights: historical `face-before-*`, projection `face-baseline-*` and current `face-after-*`, each front/three-quarter/profile. See [the comparison page](../review/faces.html) and [FACE.md](FACE.md).
 
-Offline kontrola navíc zahrnula všech devět srovnávacích tváří strážce, jeho tělo ze šesti směrů a sedm finálních renderů průzkumnice (tělo čelo/¾/bok/záda a tři pohledy na tvář). Přijaté opravy a přesné parametry jsou v [FACE.md](FACE.md) a [RANGER.md](RANGER.md). Zbývají malované přechody u vlasů a uší, jednoduchá geometrie boltce a možné kolize oděvu; tento záznam nepotvrzuje bezchybnost všech 214 klipů.
+Mask tests prove adherence to authored source regions, not perfect mask boundaries or recovered hidden anatomy. Likewise, evaluating 1,284 poses proves numeric consistency, not that every frame was visually judged.
 
-Po rozšíření hlav elfa a průzkumnice byly nové statické exporty prohlédnuty z čela, ¾, profilu a zezadu; tváře z čela, ¾ a profilu proti uloženým baseline a původnímu strážci. [Srovnávací stránka](../review/head-width.html) drží stejné kamery v rámci před/po obou nových postav. Ve skutečném browser vieweru byly na obou znovu přehrány idle, `Running A`, `Jog Fwd Loop`, `Sprint Loop`, `Jump Full Short` a `Waving`; u elfa také zobrazená kostra a detail tváře zepředu a z profilu. Přepnutí všech tří postav aktualizovalo počty, referenci a katalog; konzole neměla chyby ani varování. U elfa při běhu zůstává možný průnik pláště s nohama a na vlasové projekci v blízkém profilu zůstávají malované přechody. Tyto limity číselný PASS nepostihne.
+### Recorded reviews — September 25, 2026
 
-## Co číselné kontroly nedokazují
+The original acceptance review inspected idle, KayKit `Running A`, Quaternius `Jog Fwd Loop`/`Sprint Loop`, KayKit `Jump Full Short`/`Waving`, skeletons and extreme scrubbed poses. Ranger motion was reviewed after correcting swapped anatomical sides. Front/three-quarter/profile faces, the knight's two historical comparisons, ranger ear/collar boundaries and both widened heads were inspected. Offline review included nine knight face comparisons, six knight body directions and seven ranger views. The elf review added body front/three-quarter/profile/back and three face angles. Browser consoles had no errors or warnings.
 
-Kvalita všech 214 klipů není ručně zkontrolována snímek po snímku. Extrémní pózy, sedání, lezení a boj potřebují hodnocení pro konkrétní scénu a rekvizity. Přehrání bez chyby není automaticky produkčně hotová animace.
+The workflow/viewer update repeated representative motion, skeleton and face-camera checks on all three characters, model switching and historical comparison loading. A temporary folder containing a known knight fixture was discovered automatically, displayed correctly as a static model, then switched to its own 214-clip animated export. It was removed from the project after testing. The fixture was an integration test, not a newly generated character.
 
-- IK upravuje délky končetin, nemá kontakt s terénem ani automatické zamykání chodidel. Může zbýt skluz či průnik podlahou, zvlášť při odlišných proporcích nebo scéně.
-- Zbroj má široké objemy. V extrémním ohybu se mohou pláty a tělo prolínat; není tu systém kolizí armor dílů.
-- Tabard má 4 odvozené kosti, nikoli cloth simulaci nebo kolize s nohama.
-- Rukavice mají celistvý objem a palec, nemají samostatně rigované prsty. Pohyby držení nástrojů/zbraní se přehrávají bez těchto rekvizit.
-- KayKit spawn/disassembly efekty používající animované měřítko nebo rozpojování kostí nejsou kompletně reprodukovány; přenášíme především humanoidní pózu. Raw originály zůstaly přiložené.
-- `KAY_Skeletons_Spawn_Ground` začíná ve zdroji pod zemí. Zachovaný pohyb rootu může mít během klipu rozsah přes 12 m, aniž se deformovaný model rozpadá. Tyto efekty potřebují scénu a nastavení kamery; ve standardním vieweru může postava opustit viditelný prostor.
-- Cílové soubory používají vybranou in-place knihovnu; všechny dostupné původní root-motion soubory jsou uložené, ale nejsou duplicitně přidány do vieweru.
-- Oprava tváře omezuje dvojité rysy a barevný šev. Ucho, jemné detaily a světlo jsou stále částečně namalované; model není sken ani mimický obličejový rig.
+All three final GLBs and atlases stayed byte-for-byte identical to the preserved pre-optimization baseline. The viewer's interface, neutral background and labels changed; those presentation changes are not evidence of a projection improvement. The reference/modeling algorithms were not altered. Performance and test evidence are recorded in [PERFORMANCE.md](PERFORMANCE.md).
 
-## Ruční kontrola po úpravě
+## Remaining limits
 
-Otevři viewer, vyber postupně všechny tři postavy a nech základní pohyby několikrát proběhnout. U strážce ověř idle, KayKit běh, Quaternius jog/sprint, skok a gesto; zapni kostru a scrubbuj krajní pózy. Zkontroluj ruce při běhu, kolena při skoku, ramena při gestu a pláty při předklonu.
+- Every frame of every clip has not been manually reviewed. Extreme poses, sitting, climbing and combat require a scene and suitable props.
+- IK adapts limb lengths without terrain contact or automatic foot locking. Sliding and floor penetration can remain.
+- Broad armor volumes may intersect each other or the body in extreme bends; there is no armor collision system.
+- Four derived cloth bones are not cloth simulation and do not provide leg collision. The historical elf cloak can intersect moving legs.
+- Gloves are solid palm/thumb shapes without individual finger rigging. Tool/weapon animations play without those props.
+- KayKit scale-to-zero spawn/disassembly effects are not fully reproduced; the transfer preserves primarily humanoid poses. Original files remain available.
+- `KAY_Skeletons_Spawn_Ground` starts underground in the source. Its root can travel more than 12 m without an exploded posed mesh, and it may leave the standard viewer frame. Preserve the motion and configure its scene/camera.
+- Target catalogs use the chosen in-place sources. All supplied raw root-motion variants remain stored but are not duplicated in the viewer library.
+- Source lighting and details remain painted. Face fixes reduce doubled landmarks and seams; this is not a scan, facial performance rig or film close-up asset.
+- A default whole-body camera can crop the top of a high jump; zoom out to inspect the full trajectory.
 
-Zepředu, ¾ a z boku v poli „Srovnání projekce“ přepínej aktuální model, výchozí stav projekce a historický obličej. Kamera musí zůstat stejná. Prohlédni také celé rameno, čelist u límce, vlasy ze strany a předloketí, aby na sousedním dílu nezůstalo cizí ucho, vous či kus zbroje. Přepni čistý tvar, aby textura nezakrývala chybu geometrie. Konzole nesmí mít chyby načítání nebo animation binding. Výsledek této browser kontroly zaznamenej samostatně; úspěšný HTTP požadavek ani numerické PASS ji nenahrazují.
+## Recheck after a change
+
+Run the relevant pipeline, then play the named representative clips several times. Inspect hands in running, knees in jumping, shoulders in waving and armor during bends. Toggle Skeleton, pause and scrub. In Rest pose compare front/three-quarter/profile, rear, ear/shoulder, jaw/collar, hair and sleeve/bracer boundaries; use Clay to expose geometry. Keep comparison cameras identical and check console errors.
+
+Record numerical validation, actual browser inspection and remaining limitations separately. An HTTP 200, numeric PASS and an attractive front screenshot are distinct observations.
